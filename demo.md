@@ -30,21 +30,43 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 |R6| **after** tone emission, **inside time period** 60 seconds, **when** the alarm is disarmed, <br/>**the** system **shall** [ **donothing** ]|  
 |R7| **when** **timeout at** 60 seconds [ **scope** ] ( R6 ), <br/>**the** system **shall** alert the emergency center [ **goto** ] ( R6 )|
 
+<!-- Grammar -->
+
 Grammar
 
-Glossary ::= **Glossary** : ( Section : ( Glossary-Item-Expression : Glossary-Item-Description )* )*
+glossary ::= **Glossary** : ( section : ( glossary-item-expression : glossary-Item-Description )* )*
 
-Section ::= Components | Events | Actions | Equivalent | time
+section ::= components | events | actions | equivalent | time | modes
 
-Requirements ::= **Requirements** : ( Requirement )*
+requirements ::= **Requirements** : ( requirement )*
 
-Requirement ::= Req-ID : ( Precondition [ , ] )* **the** Component **shall** Realization
+requirement ::= req-ID : ( precondition [ , ] )* **the** component **shall** realization* 
 
-Precondition ::= **upon** Action | **when** Event | **if** Event
 
-Realization ::= Action **within** TimeInterval | [ **goto** ] ( Req-ID ) | [ **donothing** ]
 
-n.b., we require at most one occurrence of each precondition of some nature
+precondition ::= **upon** action ( [** ref **] ( req-ID ) ) ? | **when** event | **if** event | **inside** **time period** timing | **while** **in mode** mode | [**scope**] ( req-ID+ )  | 
+
+realization ::= action time-interval ?  | [ **goto** ] ( req-ID ) | [ **donothing** ]
+
+
+time-interval ::= **within** timing	**to** ( timing | infinity )
+
+particular cases for some timing d :
+
+**at least after** d = **within** d **to** infinity
+
+**at most before** d = **within** 0 **to** d
+
+<!-- **exactly at** d = **within** d **to** d -->
+
+**immediately after** d = **within** d **to** d
+
+**immediately** = **within** 0 **to** 0
+
+n.b., we require at most one occurrence of each precondition / realization of some nature
+
+
+
 			 
 
 
