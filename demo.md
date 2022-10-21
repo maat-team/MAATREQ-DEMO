@@ -34,36 +34,39 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 
 Grammar
 
-glossary ::= **Glossary** : ( section : ( glossary-item-expression : glossary-Item-Description )* )*
-
+```EBNF
+glossary ::= "Glossary" : ( section : ( glossary-item-expression : glossary-item-description )* )*
 section ::= components | events | actions | equivalent | time | modes
 
-requirements ::= **Requirements** : ( requirement )*
+requirements ::= "Requirements" : ( requirement )*
 
-requirement ::= req-ID : ( precondition [ , ] )* **the** component **shall** realization* 
+requirement ::= req-ID : ( precondition [ , ] )* "the" component "shall" realization*
+
+precondition ::= "upon" action ( "[" "ref" "]" "(" req-ID ")" ) ? 
+            | "when" event | "if" event 
+            | "while in mode" mode
+            | "inside" "time period" timing
+            | "upon timeout at" timing
+            | "[" scope "]" "(" req-ID+ ")"
+
+realization ::= action time-condition? ("then switch to" mode)?  
+            | "[ goto ]" "(" req-ID ")" 
+            | "[ donothing ]";
+time-condition ::= "within" timing "to" ( timing | infinity )
+```
+N.B. We require at most one occurrence of each precondition / realization of some nature.
+
+Particular cases for some timing d :
+
+at least after d = within d to infinity
+
+at most before d = within 0 to d 
+
+immediately after d = within d to d
+
+immediately = within 0 to 0
 
 
-
-precondition ::= **upon** action ( [** ref **] ( req-ID ) ) ? | **when** event | **if** event | **inside** **time period** timing | **while** **in mode** mode | [**scope**] ( req-ID+ )  | 
-
-realization ::= action time-interval ?  | [ **goto** ] ( req-ID ) | [ **donothing** ]
-
-
-time-interval ::= **within** timing	**to** ( timing | infinity )
-
-particular cases for some timing d :
-
-**at least after** d = **within** d **to** infinity
-
-**at most before** d = **within** 0 **to** d
-
-<!-- **exactly at** d = **within** d **to** d -->
-
-**immediately after** d = **within** d **to** d
-
-**immediately** = **within** 0 **to** 0
-
-n.b., we require at most one occurrence of each precondition / realization of some nature
 
 
 
@@ -84,15 +87,15 @@ n.b., we require at most one occurrence of each precondition / realization of so
 ## Other example <a name="other-example"></a>
 
 
-| Req-ID | Text |
+| req-ID | statement |
 | --- | --- |
-|R1| **every** 5 seconds, *the* NAZA Core **shall** calculate levers setpoints|
+|R1| **inside time period** 5 seconds, *the* NAZA Core **shall** calculate levers setpoints|
 |R2| **when** new levers setpoints have been determined, **upon** levers setpoints calculation, **the** NAZA Core **shall** determine common levers by using consensus|
-|R3| **every** 5 seconds, **when** consensus, **upon** common levers determination, **the** NAZA Core **shall** send batteries setpoints|
-|R4| **every** 5 seconds, **when** consensus, **upon** common levers determination, **the** NAZA Core **shall** send topological orders|
-|R5| **every** 5 seconds, **when** consensus, **upon** common levers determination, **the** NAZA Core **shall** send modulation orders|
-|R6A| **if** no result, **upon** levers setpoints calculation, **the** NAZA Core **shall** execute backup algorithm **within** 10 seconds **to** 60 seconds|
-|R6B| **if** no result, **upon** levers setpoints calculation, **while** **in mode** nominal, **the** NAZA Supervisor **shall** **enter in mode** backup|
+|R3| **when** consensus, **upon** common levers determination, **the** NAZA Core **shall** send batteries setpoints|
+|R4| **when** consensus, **upon** common levers determination, **the** NAZA Core **shall** send topological orders|
+|R5| **when** consensus, **upon** common levers determination, **the** NAZA Core **shall** send modulation orders [**goto**] (R1) |
+|R6A| **if** no result, **upon** levers setpoints calculation, **the** NAZA Core **shall** [**goto**] (R1)|
+|R6B| **if** no result, **upon** levers setpoints calculation, **the** NAZA Supervisor **shall** **enter in mode** backup|
 |R7| **when** entering in mode backup, **the** NAZA Supervisor **shall** execute backup algorithm **within** 10 seconds **to** 60 seconds, **and** **return in mode** nominal|
 |R8| **when** new setpoints, **upon** levers setpoints calculation, **while** **in mode** backup, **the** NAZA Supervisor **shall** **enter in mode** nominal|
 
