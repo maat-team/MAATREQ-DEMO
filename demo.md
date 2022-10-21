@@ -97,9 +97,9 @@ immediately = within 0 to 0
 |NZC-R4| **inside time period** 5s [ scope ] ( NZC-R1 ) **when** consensus **upon** common levers determination, **the** NAZA Core **shall** send topological orders|
 |NZC-R5| **inside time period** 5s [ scope ] ( NZC-R1 ) **when** consensus **upon** common levers determination, **the** NAZA Core **shall** send modulation orders|
 |NZC-R6| **inside time period** 5s [ scope ] ( NZC-R1 ) **when** consensus **upon** common levers determination, **the** NAZA Core **shall** WAIT FOR PERIOD TIMEOUT |
-|NZC-R7| **upon** WAIT FOR PERIOD TIMEOUT **when timout at** 5s [ scope ] ( NZC-R1 ), **the** NAZA Core **shall** donothing   [**goto**] (R1)|
+|NZC-R7| **upon** WAIT FOR PERIOD TIMEOUT **when timout at** 5s [ scope ] ( NZC-R1 ), **the** NAZA Core **shall** donothing   [**goto**] (NZC-R1)|
 |NZC-R8| **inside time period** 5s [ scope ] ( NZC-R1 ) **if** no result **within** 2s **to** 3s **upon** levers setpoints calculation, **the** NAZA Core **shall** [**goto**] (R1)|
-|NZC-R7bis| **inside time period** 5s [ scope ] ( NZC-R1 ) **at deadline** 5s [ scope ] ( NZC-R1 ), **the** NAZA Core **shall** donothing   [**goto**] (R1)|
+|NZC-R7bis| **inside time period** 5s [ scope ] ( NZC-R1 ) **at deadline** 5s [ scope ] ( NZC-R1 ), **the** NAZA Core **shall** donothing   [**goto**] (NZC-R1)|
 |NZS-R1| **if** no result, **the** NAZA Supervisor **shall** **enter time period** 60s|
 |NZS-R2| **inside time period** 60s [scope] **when timeout at** 60s, **the** NAZA Supervisor **shall** execute backup algorithm [**goto**] (NZS-R1)|
 |NZS-R3| **inside time period** 60s [scope] **when** no result, **the** NAZA Supervisor **shall remain in period** 60s  [**goto**] (NZS-R2)|
