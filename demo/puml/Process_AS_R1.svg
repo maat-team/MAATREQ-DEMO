@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="549px" preserveAspectRatio="none" style="width:497px;height:549px;background:#FFFFFF;" version="1.1" viewBox="0 0 497 549" width="497px" zoomAndPan="magnify"><defs/><g><rect fill="#00FFFF" height="60.1875" style="stroke:#181818;stroke-width:0.5;" width="474" x="11" y="11"/><line style="stroke:#181818;stroke-width:0.5;" x1="16" x2="16" y1="11" y2="71.1875"/><line style="stroke:#181818;stroke-width:0.5;" x1="480" x2="480" y1="11" y2="71.1875"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="21" y="33.457"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="34" x="24" y="33.457">define</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="50" x="64" y="33.457">P_AS-R1</text><line style="stroke:#181818;stroke-width:1.0;" x1="11" x2="485" y1="41.0938" y2="41.0938"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="451" x="21" y="58.5508">R1 : when set button is pressed, the system shall activate the alarm within 60 to 60</text><path d="M215,91.1875 L210,108.7344 L215,126.2813 M281,91.1875 L286,108.7344 L281,126.2813 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="220" y="113.6445"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="15" x="223" y="113.6445">inv</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="35" x="238" y="113.6445">( true )</text><polygon fill="#F1F1F1" points="235,146.2813,261,146.2813,273,158.2813,261,170.2813,235,170.2813,223,158.2813,235,146.2813" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="20" x="238" y="162.7822">ALT</text><rect fill="#F1F1F1" height="60.1875" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="139" x="178.5" y="204.1172"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="188.5" y="226.5742"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="32" x="191.5" y="226.5742">guard</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="33" x="226.5" y="226.5742">[ true ]</text><line style="stroke:#181818;stroke-width:1.0;" x1="178.5" x2="317.5" y1="234.2109" y2="234.2109"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="116" x="188.5" y="251.668">set button is pressed</text><path d="M173.5,284.3047 L168.5,314.3984 L173.5,344.4922 M322.5,284.3047 L327.5,314.3984 L322.5,344.4922 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="178.5" y="306.7617"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="28" x="181.5" y="306.7617">reset</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="99" x="209.5" y="306.7617">( [AS-R1_x_resp] )</text><line style="stroke:#181818;stroke-width:1.0;" x1="168.5" x2="327.5" y1="314.3984" y2="314.3984"/><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="15" x="178.5" y="331.8555">inv</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="121" x="193.5" y="331.8555">( AS-R1_x_resp&lt;=60 )</text><polygon fill="#F1F1F1" points="235,364.4922,261,364.4922,273,376.4922,261,388.4922,235,388.4922,223,376.4922,235,364.4922" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="20" x="238" y="380.9932">ALT</text><rect fill="#F1F1F1" height="60.1875" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="192" x="152" y="422.3281"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="162" y="444.7852"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="32" x="165" y="444.7852">guard</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="134" x="200" y="444.7852">[ P_AS-R1_x_resp==60 ]</text><line style="stroke:#181818;stroke-width:1.0;" x1="152" x2="344" y1="452.4219" y2="452.4219"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="96" x="162" y="469.8789">activate the alarm</text><rect fill="#F1F1F1" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="141" x="177.5" y="502.5156"/><line style="stroke:#181818;stroke-width:0.5;" x1="182.5" x2="182.5" y1="502.5156" y2="537.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="313.5" x2="313.5" y1="502.5156" y2="537.6094"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="187.5" y="524.9727"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="19" x="190.5" y="524.9727">call</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="96" x="209.5" y="524.9727">( Post_P_AS-R1 )</text><line style="stroke:#181818;stroke-width:1.0;" x1="248" x2="248" y1="71.1875" y2="91.1875"/><polygon fill="#181818" points="244,81.1875,248,91.1875,252,81.1875,248,85.1875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="248" x2="248" y1="264.3047" y2="284.3047"/><polygon fill="#181818" points="244,274.3047,248,284.3047,252,274.3047,248,278.3047" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="248" x2="248" y1="482.5156" y2="502.5156"/><polygon fill="#181818" points="244,492.5156,248,502.5156,252,492.5156,248,496.5156" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="248" x2="248" y1="388.4922" y2="422.3281"/><polygon fill="#181818" points="244,412.3281,248,422.3281,252,412.3281,248,416.3281" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="252" y="409.9111"> </text><line style="stroke:#181818;stroke-width:1.0;" x1="248" x2="248" y1="344.4922" y2="364.4922"/><polygon fill="#181818" points="244,354.4922,248,364.4922,252,354.4922,248,358.4922" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="248" x2="248" y1="170.2813" y2="204.1172"/><polygon fill="#181818" points="244,194.1172,248,204.1172,252,194.1172,248,198.1172" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="252" y="191.7002"> </text><line style="stroke:#181818;stroke-width:1.0;" x1="248" x2="248" y1="126.2813" y2="146.2813"/><polygon fill="#181818" points="244,136.2813,248,146.2813,252,136.2813,248,140.2813" style="stroke:#181818;stroke-width:1.0;"/><!--MD5=[4204c94480d6cd57c4d351b281f31573]
+@startuml
+
+!include process_algebra_macros.iuml
+
+$defineProcessDesc("P_AS-R1", "R1 : when set button is pressed, the system shall activate the alarm within 60 to 60")
+$invariant("true")
+switch( ALT )
+case ( )
+	$guard_label("true", "set button is pressed")
+	$reset_invariant("[AS-R1_x_resp]", "AS-R1_x_resp<=60")
+	switch( ALT )
+	case ( )
+		$guard_label("P_AS-R1_x_resp==60", "activate the alarm")
+		$callProcess("Post_P_AS-R1")
+		detach
+	endswitch
+endswitch
+detach
+
+@enduml
+
+@startuml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Cyan: <color blue>define</color>  P_AS-R1\n- - - -\nR1 : when set button is pressed, the system shall activate the alarm within 60 to 60 |
+: <color blue>inv</color>( true ) }
+switch( ALT )
+case ( )
+	: <color blue>guard</color> [ true ]\n- - - -\nset button is pressed ;
+	: <color blue>reset</color>( [AS-R1_x_resp] )\n- - - -\n<color blue>inv</color>( AS-R1_x_resp<=60 ) }
+	switch( ALT )
+	case ( )
+		: <color blue>guard</color> [ P_AS-R1_x_resp==60 ]\n- - - -\nactivate the alarm ;
+		: <color blue>call</color>( Post_P_AS-R1 ) |
+		detach
+	endswitch
+endswitch
+detach
+
+@enduml
+
+PlantUML version 1.2022.6(Tue Jun 21 19:34:49 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: fr
+Country: FR
+--></g></svg>

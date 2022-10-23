@@ -1,0 +1,20 @@
+@startuml
+
+!include process_algebra_macros.iuml
+
+$defineProcessDesc("P_AS-R1", "R1 : when set button is pressed, the system shall activate the alarm within 60 to 60")
+$invariant("true")
+switch( ALT )
+case ( )
+	$guard_label("true", "set button is pressed")
+	$reset_invariant("[AS-R1_x_resp]", "AS-R1_x_resp<=60")
+	switch( ALT )
+	case ( )
+		$guard_label("P_AS-R1_x_resp==60", "activate the alarm")
+		$callProcess("Post_P_AS-R1")
+		detach
+	endswitch
+endswitch
+detach
+
+@enduml
