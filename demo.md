@@ -100,19 +100,19 @@ maat_req.exe -transform alarm_system.req
 | req-ID | statement |
 | --- | --- |
 |NZC-R0| **the** NAZA Core **shall** [ **init** ] **and** **start time period** 5s|
-|NZC-R1| **inside time period** 5s [**scope**] ( NZC-R0 ), **the** NAZA Core shall calculate levers setpoints **within** 0s **to** 1s|
-|NZC-R2| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** new levers setpoints have been determined **within** 2s **to** 3s **upon** levers setpoints calculation, **the** NAZA Core **shall** determine common levers using consensus **within** 0s **to** 1s|
-|NZC-R3| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** consensus **upon** common levers determination, **the** NAZA Core **shall** send batteries setpoints|
-|NZC-R4| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** consensus **upon** common levers determination, **the** NAZA Core **shall** send topological orders|
-|NZC-R5| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** consensus **upon** common levers determination, **the** NAZA Core **shall** send modulation orders|
-|NZC-R6| **inside time period** 5s [**scope**] ( NZC-R0 ) **at timeout after** 5s [**scope**] ( NZC-R0 ), **the** NAZA Core **shall** donothing   [**goto**] ( NZC-R0 )|
-|NZC-R7| **inside time period** 5s [**scope**] ( NZC-R0 ) **if** no result **within** 2s **to** 3s **upon** levers setpoints calculation, **the** NAZA Core **shall** [**goto**] ( NZC-R0 )|
+|NZC-R1|  **upon** [ **init** ] **inside time period** 5s [**scope**] ( NZC-R0 ),<br/> **the** NAZA Core shall calculate levers setpoints **within** 0s **to** 1s|
+|NZC-R2| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** new levers setpoints have been determined **within** 2s **to** 3s **upon** levers setpoints calculation,<br/> **the** NAZA Core **shall** determine common levers using consensus **within** 0s **to** 1s|
+|NZC-R3| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** consensus **upon** common levers determination,<br/> **the** NAZA Core **shall** send batteries setpoints|
+|NZC-R4| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** consensus **upon** common levers determination,<br/> **the** NAZA Core **shall** send topological orders|
+|NZC-R5| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** consensus **upon** common levers determination,<br/> **the** NAZA Core **shall** send modulation orders|
+|NZC-R6| **inside time period** 5s [**scope**] ( NZC-R0 ) **at timeout after** 5s [**scope**] ( NZC-R0 ),<br/> **the** NAZA Core **shall** donothing   [**goto**] ( NZC-R0 )|
+|NZC-R7| **inside time period** 5s [**scope**] ( NZC-R0 ) **if** no result **within** 2s **to** 3s **upon** levers setpoints calculation,<br/> **the** NAZA Core **shall** [**goto**] ( NZC-R0 )|
 |NZS-R0|  **the** NAZA Supervisor **shall** [ **init** ]|
-|NZS-R1| **when** new levers setpoints have been determined **upon** [ **init** ], **the** NAZA Supervisor **shall** [**goto**] (NZS-R0)|
-|NZS-R2| **if** no result **upon** [ **init** ], **the** NAZA Supervisor **shall** **start time period** 60s|
-|NZS-R3| **inside time period** 60s [**scope**] (NZS-R2) **at timeout after** 60s [**scope**] (NZS-R2), **the** NAZA Supervisor **shall** switch to backup algorithm **within** 0 to 0 [**goto**] (NZS-R1, NZS-R2)|
-|NZS-R4| **inside time period** 60s [**scope**] (NZS-R2) **when** no result, **the** NAZA Supervisor **shall** **donothing** [**goto**] (NZS-R3, NZS-R4, NZS-R5)|
-|NZS-R5| **inside time period** 60s [**scope**] (NZS-R2) **when** new levers setpoints have been determined, **the** NAZA Supervisor **shall** donothing  [**goto**] (NZS-R1, NZS-R2)|
+|NZS-R1| **when** new levers setpoints have been determined **upon** [ **init** ],<br/> **the** NAZA Supervisor **shall** [**goto**] (NZS-R0)|
+|NZS-R2| **if** no result **upon** [ **init** ],<br/> **the** NAZA Supervisor **shall** **start time period** 60s|
+|NZS-R3| **inside time period** 60s [**scope**] (NZS-R2) **at timeout after** 60s [**scope**] (NZS-R2),<br/> **the** NAZA Supervisor **shall** switch to backup algorithm **within** 0 to 0 [**goto**] (NZS-R1, NZS-R2)|
+|NZS-R4| **inside time period** 60s [**scope**] (NZS-R2) **when** no result,<br/> **the** NAZA Supervisor **shall** **donothing** [**goto**] (NZS-R3, NZS-R4, NZS-R5)|
+|NZS-R5| **inside time period** 60s [**scope**] (NZS-R2) **when** new levers setpoints have been determined,<br/> **the** NAZA Supervisor **shall** donothing  [**goto**] (NZS-R1, NZS-R2)|
 
 [Outline](#outline)
 
