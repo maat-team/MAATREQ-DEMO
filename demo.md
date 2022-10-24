@@ -25,13 +25,13 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 | Req-ID | Text |
 | :---: | :--- |
 |R0| **the** system **shall** **init**|
-|R1| **when** the set button is pressed **upon** **init**, <br/>**the** system **shall** activate the alarm **immediately after** 60 seconds|
-|R2| **after** the alarm activation, **when** motion is detected, <br/>**the** system **shall** emit a tone **immediately**|
-|R3| **after** tone emission, **inside time period** 300 seconds, **when** the alarm is disarmed, <br/>**the** system **shall** turn off the tone immediately [ **goto** ] ( R1 )|
-|R4| **at timeout after** 300 seconds [ **scope** ] ( R3 ), <br/>**the** system **shall** turn off the tone **immediately**|
-|R5| **after** turning off the tone [ **ref** ] ( R4 ), **when** the alarm is disarmed, <br/>**the** system shall [ **goto** ] ( R1 )|
-|R6| **after** tone emission, **inside time period** 60 seconds, **when** the alarm is disarmed, <br/>**the** system **shall** **donothing**|  
-|R7| **at timeout after** 60 seconds [ **scope** ] ( R6 ), <br/>**the** system **shall** alert the emergency center [ **goto** ] ( R6 )|
+|R1| **when** the set button is pressed **upon** **init**, <br/>**the** system **shall** activate the alarm **immediately after** 60s|
+|R2| **after** the alarm activation **when** motion is detected, <br/>**the** system **shall** emit a tone **immediately**|
+|R3| **after** tone emission **inside time period** 300s **when** the alarm is disarmed, <br/>**the** system **shall** turn off the tone immediately [ **goto** ] ( R1 )|
+|R4| **inside time period** 300s [**scope**] ( R3 ) **at timeout after** 300s [ **scope** ] ( R3 ), <br/>**the** system **shall** turn off the tone **immediately**|
+|R5| **after** turning off the tone [ **ref** ] ( R4 ) **when** the alarm is disarmed, <br/>**the** system shall [ **goto** ] ( R1 )|
+|R6| **after** tone emission **inside time period** 60s **when** the alarm is disarmed, <br/>**the** system **shall** **donothing**|  
+|R7| **inside time period** 60s [**scope**] ( R6 ) **at timeout after** 60s [ **scope** ] ( R6 ), <br/>**the** system **shall** alert the emergency center [ **goto** ] ( R6 )|
 
 <!-- Grammar -->
 
