@@ -30,7 +30,7 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 |R3| **after** tone emission, **inside time period** 300 seconds, **when** the alarm is disarmed, <br/>**the** system **shall** turn off the tone immediately [ **goto** ] ( R1 )|
 |R4| **when** **timeout at** 300 seconds [ **scope** ] ( R3 ), <br/>**the** system **shall** turn off the tone **immediately**|
 |R5| **after** turning off the tone [ **ref** ] ( R4 ), **when** the alarm is disarmed, <br/>**the** system shall [ **goto** ] ( R1 )|
-|R6| **after** tone emission, **inside time period** 60 seconds, **when** the alarm is disarmed, <br/>**the** system **shall** [ **donothing** ]|  
+|R6| **after** tone emission, **inside time period** 60 seconds, **when** the alarm is disarmed, <br/>**the** system **shall** **donothing**|  
 |R7| **when** **timeout at** 60 seconds [ **scope** ] ( R6 ), <br/>**the** system **shall** alert the emergency center [ **goto** ] ( R6 )|
 
 <!-- Grammar -->
@@ -102,7 +102,7 @@ N.B. By convention, the elements in square brackets [**goto**], [**resume**], [*
 | req-ID | statement |
 | --- | --- |
 |NZC-R0| **the** NAZA Core **shall** **init** **and** **start time period** 5s|
-|NZC-R1|  **upon** **init** **inside time period** 5s [**scope**] ( NZC-R0 ),<br/> **the** NAZA Core shall calculate levers setpoints **within** 0s **to** 1s|
+|NZC-R1|  **inside time period** 5s [**scope**] ( NZC-R0 ) **upon** **init**,<br/> **the** NAZA Core shall calculate levers setpoints **within** 0s **to** 1s|
 |NZC-R2| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** new levers setpoints have been determined **within** 2s **to** 3s **upon** levers setpoints calculation,<br/> **the** NAZA Core **shall** determine common levers using consensus **within** 0s **to** 1s|
 |NZC-R3| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** consensus **upon** common levers determination,<br/> **the** NAZA Core **shall** send batteries setpoints|
 |NZC-R4| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** consensus **upon** common levers determination,<br/> **the** NAZA Core **shall** send topological orders|
