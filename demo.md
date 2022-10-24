@@ -86,6 +86,8 @@ unitary requirement transformation
 maat_req.exe -transform alarm_system.req
 ```
 
+N.B. By convention, the elements in square brackets [**init**], [**donothing**], [**goto**], [**donothing**], [**scope**], [**ref**] and do not have their own associated transformation elements, but allow to infer initilization, inactivity information (for the former two resp.) and causality, scoping and reference links (for the others resp.).
+
 [Outline](#outline)
 
 ## Analysis <a name="analysis"></a>
