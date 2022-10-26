@@ -18,6 +18,10 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 
 ## MAAT REQ workflow <a name="workflow"></a>
 
+<p align="left">
+          <img width="533" height="300" src="demo/powerpoint/demo_maat_workflow.png">
+</p>
+
 [Outline](#outline)
 
 ## Requirement design <a name="req-design"></a>
