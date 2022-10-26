@@ -42,28 +42,31 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 Grammar
 
 ```EBNF
-glossary ::= "Glossary" : ( section : ( glossary-item-expression : glossary-item-description )* )*
-section ::= components | events | actions | equivalent | time
+glossary     ::= "Glossary" : ( section : ( glossary-item-expression : glossary-item-description )* )* ;
+section      ::= components | events | actions | times | synonyms ;
+requirements ::= "Requirements" : ( requirement )* ;
 
-requirements ::= "Requirements" : ( requirement )*
+requirement  ::= req-ID : precondition*, "the" component "shall" realization* ;
+precondition ::= causality-condition | trigger-condition | inside-period-condition | timeout-condition ;
 
-requirement ::= req-ID : precondition*, "the" component "shall" realization*
+trigger-condition       ::= ( "when" | "if" ) event time-condition? ;
+causality-condition     ::= ( "upon" | "after" ) action ( "[" "ref" "]" "(" req-ID ")" ) ? ;
+inside-period-condition ::= "inside" "time" "period" time "[" "scope" "]" "(" req-ID ")" ;
+timeout-condition       ::= "at" "timeout" "after" time "[" "scope" "]" "(" req-ID ")" ;
+time-condition          ::= "within" time "to" ( time | "infinity" ) ;
 
-precondition ::= "upon" action ( "[" "ref" "]" "(" req-ID ")" ) ? 
-            | "when" event | "if" event 
-            | "inside" "time period" timing
-            | "at timeout after" timing
-            | "[" scope "]" "(" req-ID+ ")"
-
-realization ::= action time-condition? 
-            | "start time period at" timing
-            | "[ goto ]" "(" req-ID+ ")" 
-            | "[ donothing ]";
-time-condition ::= "within" timing "to" ( timing | infinity )
+realization ::= action time-condition? | start-period-action | init-action |goto-action | resume-action 
+            | init-action | donothing-action ;
+           
+start-period-action ::= "start" "time" "period" "at" time ;
+init-action         ::= "init" ( "and" start-period-action ) ? ;
+goto-action         ::= "[" "goto" "]" "(" req-ID ")" ;
+resume-action       ::= "[" "resume" "]" "(" req-ID ")" ;
+donothing-action    ::= "[" "donothing" "]" ;
 ```
 N.B. We require at most one occurrence of each precondition / realization of some nature.
 
-Particular cases for some timing d :
+Particular cases for some time d :
 
 at least after d = within d to infinity
 
@@ -133,7 +136,7 @@ NZS-R2: **if** no result, [ **label** ] (NZS-R2::realization) **the** NAZA Super
 alternatives:
 
 realization ::= action time-condition? 
-            | action "and" "restart time period" timing
+            | action "and" "restart time period" time
 
 **the** NAZA Supervisor **shall** **restart time period** 60s [**goto**] (NZS-R2)
 
