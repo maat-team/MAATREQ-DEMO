@@ -37,6 +37,19 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 |R6| **after** tone emission **inside time period** 60s **when** the alarm is disarmed, <br/>**the** system **shall** **donothing**|  
 |R7| **inside time period** 60s [**scope**] ( R6 ) **at timeout after** 60s [ **scope** ] ( R6 ), <br/>**the** system **shall** alert the emergency center [ **goto** ] ( R6 )|
 
+
+causality condition -- timing condition
+
+<p align="center">
+          <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_within.png">
+</p>
+
+inside period condition -- timeout condition
+
+<p align="center">
+          <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_period.png">
+</p>
+
 <!-- Grammar -->
 
 Grammar
