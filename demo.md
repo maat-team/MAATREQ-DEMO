@@ -98,6 +98,14 @@ immediately = within 0 to 0
 
 ## Transformation into process algebra <a name="transfo"></a>
 
+# Target Clocked Process Algbera
+
+Clocked  Processes are defined by the following syntax :
+
+$$ 
+P \quad::=\quad \\{x:=0\\}\_{ x \in R } \triangleright +\_{i\in I} (\phi_i,a_i).P_i \quad|\quad P\\, |\\!\\{A\\}\\!| \\,P  \quad|\quad free( P ) \quad|\quad K
+$$
+
 unitary requirement transformation
 
 
