@@ -38,13 +38,13 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 |R7| **inside time period** 60s [**scope**] ( R6 ) **at end period after** 60s [ **scope** ] ( R6 ), <br/>**the** system **shall** alert the emergency center [ **goto** ] ( R6 )|
 
 
-causality condition -- time condition
+# causality condition - within time condition
 
 <p align="center">
           <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_within.png">
 </p>
 
-inside period condition -- timeout condition
+# inside time period condition - end time period condition
 
 <p align="center">
           <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_period.png">
