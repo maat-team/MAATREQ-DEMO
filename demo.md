@@ -31,11 +31,13 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 |R0| **the** system **shall** **init**|
 |R1| **when** the set button is pressed **upon** **init**, <br/>**the** system **shall** activate the alarm **immediately after** 60s|
 |R2| **after** the alarm activation **when** motion is detected, <br/>**the** system **shall** emit a tone **immediately**|
-|R3| **after** tone emission **inside time period** 300s **when** the alarm is disarmed, <br/>**the** system **shall** turn off the tone immediately [ **goto** ] ( R1 )|
-|R4| **inside time period** 300s [**scope**] ( R3 ) **at end time period** 300s [ **scope** ] ( R3 ), <br/>**the** system **shall** turn off the tone **immediately**|
-|R5| **after** turning off the tone [ **ref** ] ( R4 ) **when** the alarm is disarmed, <br/>**the** system shall [ **goto** ] ( R1 )|
-|R6| **after** tone emission **inside time period** 60s **when** the alarm is disarmed, <br/>**the** system **shall** **donothing**|  
-|R7| **inside time period** 60s [**scope**] ( R6 ) **at end time period** 60s [ **scope** ] ( R6 ), <br/>**the** system **shall** alert the emergency center [ **goto** ] ( R6 )|
+|R3| **after** tone emission, <br/>**the** system **shall** **start time period** 300s|
+|R4| **after** tone emission **inside time period** 300s [ **scope** ] ( R3 ) **when** the alarm is disarmed, <br/>**the** system **shall** turn off the tone immediately [ **goto** ] ( R1 )|
+|R5| **inside time period** 300s [**scope**] ( R3 ) **at end time period** 300s [ **scope** ] ( R3 ), <br/>**the** system **shall** turn off the tone **immediately**|
+|R6| **after** turning off the tone [ **ref** ] ( R5 ) **when** the alarm is disarmed, <br/>**the** system shall [ **goto** ] ( R1 )|
+|R7| **after** tone emission, <br/>**the** system **shall** **start time period** 60s| 
+|R8| **after** tone emission **inside time period** 60s [ **scope** ] ( R7 ) **when** the alarm is disarmed, <br/>**the** system **shall** **donothing**|  
+|R9| **inside time period** 60s [**scope**] ( R7 ) **at end time period** 60s [ **scope** ] ( R7 ), <br/>**the** system **shall** alert the emergency center [ **goto** ] ( R7 )|
 
 
 # causality condition - within time condition
