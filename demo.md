@@ -44,10 +44,10 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
           <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_within.png">
 </p>
 
-# inside time period condition - end time period condition
+# inside time period condition - end time period condition - goto action
 
 <p align="center">
-          <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_period.png">
+          <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_period_goto.png">
 </p>
 
 <!-- Grammar -->
@@ -137,6 +137,12 @@ N.B. By convention, the elements in square brackets [**goto**], [**resume**], [*
 |NZS-R3| **inside time period** 60s [**scope**] (NZS-R2) **at end time period** 60s [**scope**] (NZS-R2),<br/> **the** NAZA Supervisor **shall** execute backup algorithm [**goto**] (NZS-R0)|
 |NZS-R4| **inside time period** 60s [**scope**] (NZS-R2) **when** no result,<br/> **the** NAZA Supervisor **shall** [**resume**] (NZS-R2)|
 |NZS-R5| **inside time period** 60s [**scope**] (NZS-R2) **when** new levers setpoints have been determined,<br/> **the** NAZA Supervisor **shall** [**goto**] (NZS-R0)|
+
+# inside time period condition - resume action
+
+<p align="center">
+          <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_period_resume.png">
+</p>
 
 [Outline](#outline)
 
