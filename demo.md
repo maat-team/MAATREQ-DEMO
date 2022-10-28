@@ -57,9 +57,10 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 Grammar
 
 ```EBNF
-glossary     ::= "Glossary" : ( section : ( glossary-item-expression : glossary-item-description )* )* ;
-section      ::= components | events | actions | times | synonyms ;
-requirements ::= "Requirements" : ( requirement )* ;
+glossary     ::= "Glossary" : ( section ":" ( glossary-item-definition ":" glossary-item-description )* )* ;
+glossary-item-definition  ::= glossary-item ( "||" glossary-item-synonym )* ;
+section                   ::= "Components" | "Events" | "Actions" ;
+requirements              ::= "Requirements" : ( requirement )* ;
 
 requirement  ::= req-ID : precondition*, "the" component "shall" realization* ;
 
