@@ -39,14 +39,20 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 |R8| **inside time period** 60s [ **scope** ] ( R7 ) **when** the alarm is disarmed, <br/>**the** system **shall** **donothing**|  
 |R9| **inside time period** 60s [**scope**] ( R7 ) **at end time period** 60s [ **scope** ] ( R7 ), <br/>**the** system **shall** alert the emergency center [ **goto** ] ( R7 )|
 
+# causality - triggers
 
-# causality condition - within time condition
+<p align="center">
+          <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_choice.png">
+</p>
+
+
+# causality - within time condition
 
 <p align="center">
           <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_within.png">
 </p>
 
-# inside time period condition - end time period condition - goto action
+# inside time period - end time period - goto action
 
 <p align="center">
           <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_period_goto.png">
