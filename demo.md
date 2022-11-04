@@ -82,7 +82,7 @@ within-time-condition        ::= "within" time "to" ( time | "infinity" ) ;
 realization ::= ( response-action | response-and-time-action )  iteration ? ;
 
 response-action          ::= action within-time-condition ? ;  
-time-period-action       ::= ( "start" | "exit" ) "time" "period" time ;
+time-period-action       ::= "start" "time" "period" time  | "exit" "time" "period" time "[" "scope" "]" "(" req-ID ")" ;
 response-and-time-action ::= ( response-action "and" time-action ) | (time-action "and" response-action ) ; 
 
 iteration ::= ( "[" "goto" "]" | "[" "resume" "]" ) "(" req-ID ")" ;
