@@ -79,13 +79,13 @@ inside-time-period-condition ::= "inside" "time" "period" time "[" "scope" "]" "
 end-time-period-condition    ::= "at" "end" "time" "period" time "[" "scope" "]" "(" req-ID ")" ;
 within-time-condition        ::= "within" time "to" ( time | "infinity" ) ;
 
-realization ::= ( response-action | response-and-time-action )  interation ? ;
+realization ::= ( response-action | response-and-time-action )  iteration ? ;
 
 response-action          ::= action within-time-condition ? ;  
 time-period-action       ::= ( "start" | "exit" ) "time" "period" time ;
 response-and-time-action ::= ( response-action "and" time-action ) | (time-action "and" response-action ) ; 
 
-interation ::= ( "[" "goto" "]" | "[" "resume" "]" ) "(" req-ID ")" ;
+iteration ::= ( "[" "goto" "]" | "[" "resume" "]" ) "(" req-ID ")" ;
 ```
 N.B. We require at most one occurrence of each precondition / realization of some nature.
 
