@@ -79,10 +79,11 @@ inside-time-period-condition ::= "inside" "time" "period" time "[" "scope" "]" "
 end-time-period-condition    ::= "at" "end" "time" "period" time "[" "scope" "]" "(" req-ID ")" ;
 within-time-condition        ::= "within" time "to" ( time | "infinity" ) ;
 
-realization ::= ( response-action | response-and-time-action )  iteration ? ;
+realization ::= ( response-action | time-action | response-and-time-action )  iteration ? ;
 
 response-action          ::= action within-time-condition ? ;  
-time-period-action       ::= "start" "time" "period" time  | "exit" "time" "period" time "[" "scope" "]" "(" req-ID ")" ;
+time-action              ::= "start" "time" "period" time
+                        | "exit" "time" "period" time "[" "scope" "]" "(" req-ID ")" ;
 response-and-time-action ::= ( response-action "and" time-action ) | (time-action "and" response-action ) ; 
 
 iteration ::= ( "[" "goto" "]" | "[" "resume" "]" ) "(" req-ID ")" ;
