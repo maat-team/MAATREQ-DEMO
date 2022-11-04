@@ -68,7 +68,7 @@ glossary-item-definition  ::= glossary-item ( "||" glossary-item-synonym )* ;
 section                   ::= "Components" | "Events" | "Actions" ;
 requirements              ::= "Requirements" : ( requirement )* ;
 
-requirement  ::= req-ID : precondition*, "the" component "shall" realization* ;
+requirement  ::= req-ID : precondition*, "the" component "shall" realization ;
 
 precondition ::= causality-condition | trigger-condition 
             | inside-time-period-condition | end-time-period-condition ;
@@ -79,14 +79,13 @@ inside-time-period-condition ::= "inside" "time" "period" time "[" "scope" "]" "
 end-time-period-condition    ::= "at" "end" "time" "period" time "[" "scope" "]" "(" req-ID ")" ;
 within-time-condition        ::= "within" time "to" ( time | "infinity" ) ;
 
-realization ::= action within-time-condition ? | start-period-action | init-action 
-            |goto-action | resume-action | init-action | donothing-action ;
-           
-start-time-period-action ::= "start" "time" "period" "at" time ;
-init-action              ::= "init" ( "and" start-time-period-action ) ? ;
-goto-action              ::= "[" "goto" "]" "(" req-ID ")" ;
-resume-action            ::= "[" "resume" "]" "(" req-ID ")" ;
-donothing-action         ::= "[" "donothing" "]" ;
+realization ::= ( response-action | response-and-time-action )  interation ? ;
+
+response-action          ::= action within-time-condition ? ;  
+time-period-action       ::= ( "start" | "exit" ) "time" "period" time ;
+response-and-time-action ::= ( response-action "and" time-action ) | (time-action "and" response-action ) ; 
+
+interation ::= ( "[" "goto" "]" | "[" "resume" "]" ) "(" req-ID ")" ;
 ```
 N.B. We require at most one occurrence of each precondition / realization of some nature.
 
