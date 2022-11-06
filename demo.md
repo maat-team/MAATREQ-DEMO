@@ -118,7 +118,7 @@ $$
 | process syntax | description |
 | --- | --- |
 | $$(\phi_i,a_i).P_i$$ | prefix process performs action $a_i$ <br/> guarded by clock constraint $\phi_i$ <br/> and then behaves like process $P_i$|
-| $$\\{x:=0\\}\_{ x \in R } \\, \psi \\, \triangleright +\_{i\in I} (\phi_i,a_i).P_i$$ | sum of processes following reset of clocks from $R$<br/> and executed under a clock invariant $\psi$ <br/> to be satisfied on time passing|
+| $$\\{x:=0\\}\_{ x \in R } \\, \psi \\, \triangleright +\_{i\in I} (\phi_i,a_i).P_i$$ | sum of processes $+\_{i\in I} (\phi_i,a_i).P_i$ </br> performed upon a reset of clocks from $R$<br/> and executed under a clock invariant $\psi$ <br/> to be satisfied on time passing|
 | $$P\\, \\|\\!\\{A\\}\\!\\| \\,P$$ |  parallel composition of processes <br/> that synchronize on actions from $A$|
 | $$free(P)$$| behaves like $P$ without initial clock reset |
 | $$K$$ | $K$ calls a process definition of the form $K = P$<br/> where $K$ is a unique process identifier <br/> a specification consists of a main process <br/> and a collection of process definitions |
