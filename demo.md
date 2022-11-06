@@ -110,16 +110,21 @@ immediately = within 0 to 0
 Clocked  Processes are defined by the following syntax :
 
 $$ 
-P \quad::=\quad \\{x:=0\\}\_{ x \in R } \triangleright +\_{i\in I} (\phi_i,a_i).P_i \quad|\quad P\\, |\\!\\{A\\}\\!| \\,P  \quad|\quad free( P ) \quad|\quad K
+P \quad::=\quad \\{x:=0\\}\_{ x \in R } \\, \psi \\, \triangleright +\_{i\in I} (\phi_i,a_i).P_i \quad|\quad P\\, |\\!\\{A\\}\\!| \\,P  \quad|\quad free( P ) \quad|\quad K
 $$
 
-unitary requirement transformation
+<div align="center">
+          
+| process syntax | description |
+| --- | --- |
+| $$(\phi_i,a_i).P_i$$ | prefix process performs action $a_i$ <br/> guarded by clock constraint $\phi_i$ <br/> and then behaves like process $P_i$|
+| $$\\{x:=0\\}\_{ x \in R } \\, \psi \\, \triangleright +\_{i\in I} (\phi_i,a_i).P_i$$ | sum of processes following reset of clocks from $R$<br/> and executed under a clock invariant $\psi$ <br/> to be satisfied on time passing|
+| $$P\\, \\|\\!\\{A\\}\\!\\| \\,P$$ |  parallel composition of processes <br/> that synchronize on actions from $A$|
+| $$free(P)$$| behaves like $P$ without initial clock reset |
+| $$K$$ | $K$ calls a process definition of the form $K = P$<br/> where $K$ is a unique process identifier <br/> a specification consists of a main process <br/> and a collection of process definitions |
 
-
-<p align="left">
-          <img width="400" height="400" src="demo/puml/Process_AS_R1.svg">
-</p>
-
+</div>
+          
 :robot: **DEMO** 
 ```sh
 maat_req.exe -transform alarm_system.req
@@ -146,7 +151,8 @@ N.B. By convention, the elements in square brackets [**goto**], [**resume**], [*
 |NZC-R3| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** consensus **upon** common levers determination,<br/> **the** NAZA Core **shall** send batteries setpoints|
 |NZC-R4| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** consensus **upon** common levers determination,<br/> **the** NAZA Core **shall** send topological orders|
 |NZC-R5| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** consensus **upon** common levers determination,<br/> **the** NAZA Core **shall** send modulation orders|
-|NZC-R6| **inside time period** 5s [**scope**] ( NZC-R0 ) **at end time period** 5s [**scope**] ( NZC-R0 ),<br/> **the** NAZA Core **shall** [**goto**] ( NZC-R0 )|
+|NZC-R6a| **inside time period** 5s [**scope**] ( NZC-R0 ) **when** consensus **upon** common levers determination,<br/> **the** NAZA Core **shall** wait end of period|
+|NZC-R6b| **inside time period** 5s [**scope**] ( NZC-R0 ) **at end time period** 5s [**scope**] ( NZC-R0 ) **upon** waiting the end of period,<br/> **the** NAZA Core **shall** [**goto**] ( NZC-R0 )|
 |NZC-R7| **inside time period** 5s [**scope**] ( NZC-R0 ) **if** no result **within** 2s **to** 3s **upon** levers setpoints calculation,<br/> **the** NAZA Core **shall** [**goto**] ( NZC-R0 )|
 |NZS-R0|  **the** NAZA Supervisor **shall** **init**|
 |NZS-R1| **when** new levers setpoints have been determined **upon** **init**,<br/> **the** NAZA Supervisor **shall** [**goto**] (NZS-R0)|
