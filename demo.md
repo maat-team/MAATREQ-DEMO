@@ -42,7 +42,7 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 # causality - triggers
 
 <p align="center">
-          <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_choice.png">
+          <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_all_pattern.png">
 </p>
 
 
