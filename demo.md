@@ -26,7 +26,7 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 
 ## Requirement design <a name="req-design"></a>
 
-| Req-ID | Text |
+| Req ID | Statement |
 | :---: | :--- |
 |R0| **the** system **shall** **init**|
 |R1| **when** the set button is pressed **upon** **init**, <br/>**the** system **shall** activate the alarm **immediately after** 60s|
