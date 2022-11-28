@@ -30,7 +30,7 @@ The objective of the demo is to present the capabilities of the MAAT REQ tool: f
 | :---: | :--- |
 |R0| **the** system **shall** **init**|
 |R1| **when** the set button is pressed **upon** **init**, <br/>**the** system **shall** activate the alarm **immediately after** 60s|
-|R2| **upon** the alarm activation **when** motion is detected, <br/>**the** system **shall** emit a tone **immediately**|
+|R2| **when** motion is detected **upon** the alarm activation, <br/>**the** system **shall** emit a tone **immediately**|
 |R3| **upon** tone emission, <br/>**the** system **shall** **start time period** 300s|
 |R4| **inside time period** 300s [ **scope** ] ( R3 ) **when** the alarm is disarmed, <br/>**the** system **shall** turn off the tone immediately [ **goto** ] ( R1 )|
 |R5| **inside time period** 300s [**scope**] ( R3 ) **at end time period** 300s [ **scope** ] ( R3 ), <br/>**the** system **shall** turn off the tone **immediately**|
