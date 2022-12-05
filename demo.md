@@ -101,7 +101,7 @@ response-and-time-action ::= ( response-action "and" time-action ) | (time-actio
 
 iteration ::= ( "[" "goto" "]" | "[" "resume" "]" ) "(" req-ID ")" ;
 ```
-N.B. We require at most one occurrence of each precondition / realization of some nature.
+N.B. We require at most one occurrence of each precondition of some nature.
 
 Particular cases for within time conditions where d is some time :
 
