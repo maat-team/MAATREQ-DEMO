@@ -187,8 +187,32 @@ $$
           <img width="1110" height="625" src="demo/puml/dependency_diagram.png">
 </p>
 
+### aggregated process model diagrams
 
 
+<p align="center">
+          <img width="1110" height="625" src="demo/puml/process_model1.png">
+</p>
+
+<p align="center">
+          <img width="1110" height="625" src="demo/puml/process_model2.png">
+</p>
+
+<p align="center">
+          <img width="1110" height="625" src="demo/puml/process_model3.png">
+</p>
+
+<p align="center">
+          <img width="1110" height="625" src="demo/puml/process_model4.png">
+</p>
+
+<p align="center">
+          <img width="1110" height="625" src="demo/puml/process_model5.png">
+</p>
+
+<p align="center">
+          <img width="1110" height="625" src="demo/puml/process_model6.png">
+</p>
 
 [Outline](#outline)
 
