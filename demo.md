@@ -25,9 +25,9 @@ Analysis based on clocked process algebra models
 # Outline <a name="outline"></a>
 
 1. [MAAT REQ approach](#workflow)
-2. [Requirement design](#req-design)
-3. [Transformation into Process Algbera](#transfo)
-4. [Analysis](#analysis)
+2. [Rephrase Timed Requirements](#req-design)
+3. [Transform into Clocked Process Algebra](#transfo)
+4. [Analyse Clocked Process Algebra and Requirements Quality Review](#analysis)
 <!--
 5. [Other example](#other-example)
 -->
@@ -54,7 +54,7 @@ The requirements engineer can either approve or revise the requirements (5) and 
 
 [Outline](#outline)
 
-## Requirement design <a name="req-design"></a>
+## Rephrase Timed Requirements <a name="req-design"></a>
 
 | Req ID | Statement |
 | :---: | :--- |
@@ -138,7 +138,7 @@ immediately = within 0 to 0
 
 [Outline](#outline)
 
-## Transformation into process algebra <a name="transfo"></a>
+## Transform into Clocked Process Algebra <a name="transfo"></a>
 
 # Target Clocked Process Algbera
 
@@ -167,7 +167,7 @@ $$
 
 [Outline](#outline)
 
-## Analysis <a name="analysis"></a>
+## Analyse Clocked Process Algebra and Requirements Quality Review <a name="analysis"></a>
 
 [Outline](#outline)
 
