@@ -220,6 +220,11 @@ $$
 
 ## Analyse Clocked Process Algebra and Requirements Quality Review <a name="analysis"></a>
 
+:robot: **DEMO** 
+```sh
+> maatRun C:/demo/ex_alarm_system_v01.req explore 25
+```
+
 ### semantic graphs
 
 <p align="center">
