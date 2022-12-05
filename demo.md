@@ -187,7 +187,7 @@ $$
           <img width="1110" height="625" src="demo/puml/dependency_diagram.png">
 </p>
 
-### aggregated process model diagrams
+### process model diagrams
 
 
 <p align="center">
