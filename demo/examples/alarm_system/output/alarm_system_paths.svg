@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1365px" preserveAspectRatio="none" style="width:805px;height:1365px;background:#FFFFFF;" version="1.1" viewBox="0 0 805 1365" width="805px" zoomAndPan="magnify"><defs/><g><rect fill="none" height="22.6406" style="stroke:none;stroke-width:1.0;" width="772.5" x="15" y="12.4551"/><line style="stroke:none;stroke-width:1.5;" x1="206" x2="401" y1="40.0957" y2="40.0957"/><ellipse cx="206" cy="303.9707" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="39" x="186.5" y="348.9707"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="16" x="199.5" y="371.4277">init</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="159" x="126.5" y="419.0645"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="136" x="139.5" y="441.5215">the set button is pressed</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="119" x="146.5" y="489.1582"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="96" x="159.5" y="511.6152">activate the alarm</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="124" x="144" y="559.252"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="101" x="157" y="581.709">motion is detected</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="84" x="164" y="629.3457"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="61" x="177" y="651.8027">emit a tone</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="370" x="21" y="699.4395"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="347" x="34" y="721.8965">[start time period within 0 to 300, start time period within 0 to 60]</text><polygon fill="#FFA500" points="132.5,769.5332,279.5,769.5332,289.5,787.0801,279.5,804.627,132.5,804.627" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="121" x="145.5" y="791.9902">the alarm is disarmed</text><polygon fill="#FFD700" points="132.5,839.627,289.5,839.627,279.5,857.1738,289.5,874.7207,132.5,874.7207" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="121" x="145.5" y="862.084">the alarm is disarmed</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="107" x="152.5" y="909.7207"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="84" x="165.5" y="932.1777">turn off the tone</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="159" x="126.5" y="979.8145"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="136" x="139.5" y="1002.2715">the set button is pressed</text><rect fill="#9ACD32" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="87" x="162.5" y="1049.9082"/><text fill="#000000" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="67" x="172.5" y="1072.3652">redundancy</text><line style="stroke:#000000;stroke-width:1.5;" x1="15" x2="15" y1="12.4551" y2="1353.877"/><ellipse cx="597" cy="55.0957" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="39" x="577.5" y="85.0957"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="16" x="590.5" y="107.5527">init</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="159" x="517.5" y="140.1895"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="136" x="530.5" y="162.6465">the set button is pressed</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="119" x="537.5" y="195.2832"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="96" x="550.5" y="217.7402">activate the alarm</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="124" x="535" y="250.377"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="101" x="548" y="272.834">motion is detected</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="84" x="555" y="320.4707"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="61" x="568" y="342.9277">emit a tone</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="370" x="412" y="390.5645"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="347" x="425" y="413.0215">[start time period within 0 to 300, start time period within 0 to 60]</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="101" x="546.5" y="460.6582"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="78" x="559.5" y="483.1152">deadline at 60</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="168" x="513" y="530.752"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="145" x="526" y="553.209">alert the emergency center</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="187" x="503.5" y="600.8457"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="164" x="516.5" y="623.3027">start time period within 0 to 60</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="101" x="546.5" y="670.9395"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="78" x="559.5" y="693.3965">deadline at 60</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="168" x="513" y="741.0332"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="145" x="526" y="763.4902">alert the emergency center</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="187" x="503.5" y="811.127"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="164" x="516.5" y="833.584">start time period within 0 to 60</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="101" x="546.5" y="881.2207"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="78" x="559.5" y="903.6777">deadline at 60</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="168" x="513" y="951.3145"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="145" x="526" y="973.7715">alert the emergency center</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="187" x="503.5" y="1021.4082"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="164" x="516.5" y="1043.8652">start time period within 0 to 60</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="101" x="546.5" y="1091.502"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="78" x="559.5" y="1113.959">deadline at 60</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="168" x="513" y="1146.5957"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="145" x="526" y="1169.0527">alert the emergency center</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="187" x="503.5" y="1201.6895"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="164" x="516.5" y="1224.1465">start time period within 0 to 60</text><rect fill="#FFFF00" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="108" x="543" y="1256.7832"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="85" x="556" y="1279.2402">deadline at 300</text><ellipse cx="597" cy="1322.877" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1.0;"/><ellipse cx="597" cy="1322.877" fill="#222222" rx="6" ry="6" style="stroke:#111111;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.5;" x1="406" x2="406" y1="12.4551" y2="1353.877"/><line style="stroke:#000000;stroke-width:1.5;" x1="786" x2="786" y1="12.4551" y2="1353.877"/><line style="stroke:#181818;stroke-width:1.0;" x1="206" x2="206" y1="313.9707" y2="348.9707"/><polygon fill="#181818" points="202,338.9707,206,348.9707,210,338.9707,206,342.9707" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="206" x2="206" y1="384.0645" y2="419.0645"/><polygon fill="#181818" points="202,409.0645,206,419.0645,210,409.0645,206,413.0645" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="206" x2="206" y1="454.1582" y2="489.1582"/><polygon fill="#181818" points="202,479.1582,206,489.1582,210,479.1582,206,483.1582" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="206" x2="206" y1="524.252" y2="559.252"/><polygon fill="#181818" points="202,549.252,206,559.252,210,549.252,206,553.252" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="206" x2="206" y1="594.3457" y2="629.3457"/><polygon fill="#181818" points="202,619.3457,206,629.3457,210,619.3457,206,623.3457" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="206" x2="206" y1="664.4395" y2="699.4395"/><polygon fill="#181818" points="202,689.4395,206,699.4395,210,689.4395,206,693.4395" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="206" x2="206" y1="734.5332" y2="769.5332"/><polygon fill="#181818" points="202,759.5332,206,769.5332,210,759.5332,206,763.5332" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="206" x2="206" y1="804.627" y2="839.627"/><polygon fill="#181818" points="202,829.627,206,839.627,210,829.627,206,833.627" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="206" x2="206" y1="874.7207" y2="909.7207"/><polygon fill="#181818" points="202,899.7207,206,909.7207,210,899.7207,206,903.7207" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="206" x2="206" y1="944.8145" y2="979.8145"/><polygon fill="#181818" points="202,969.8145,206,979.8145,210,969.8145,206,973.8145" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="206" x2="206" y1="1014.9082" y2="1049.9082"/><polygon fill="#181818" points="202,1039.9082,206,1049.9082,210,1039.9082,206,1043.9082" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="65.0957" y2="85.0957"/><polygon fill="#181818" points="593,75.0957,597,85.0957,601,75.0957,597,79.0957" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="120.1895" y2="140.1895"/><polygon fill="#181818" points="593,130.1895,597,140.1895,601,130.1895,597,134.1895" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="175.2832" y2="195.2832"/><polygon fill="#181818" points="593,185.2832,597,195.2832,601,185.2832,597,189.2832" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="230.377" y2="250.377"/><polygon fill="#181818" points="593,240.377,597,250.377,601,240.377,597,244.377" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="285.4707" y2="320.4707"/><polygon fill="#181818" points="593,310.4707,597,320.4707,601,310.4707,597,314.4707" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="355.5645" y2="390.5645"/><polygon fill="#181818" points="593,380.5645,597,390.5645,601,380.5645,597,384.5645" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="425.6582" y2="460.6582"/><polygon fill="#181818" points="593,450.6582,597,460.6582,601,450.6582,597,454.6582" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="495.752" y2="530.752"/><polygon fill="#181818" points="593,520.752,597,530.752,601,520.752,597,524.752" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="565.8457" y2="600.8457"/><polygon fill="#181818" points="593,590.8457,597,600.8457,601,590.8457,597,594.8457" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="635.9395" y2="670.9395"/><polygon fill="#181818" points="593,660.9395,597,670.9395,601,660.9395,597,664.9395" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="706.0332" y2="741.0332"/><polygon fill="#181818" points="593,731.0332,597,741.0332,601,731.0332,597,735.0332" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="776.127" y2="811.127"/><polygon fill="#181818" points="593,801.127,597,811.127,601,801.127,597,805.127" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="846.2207" y2="881.2207"/><polygon fill="#181818" points="593,871.2207,597,881.2207,601,871.2207,597,875.2207" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="916.3145" y2="951.3145"/><polygon fill="#181818" points="593,941.3145,597,951.3145,601,941.3145,597,945.3145" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="986.4082" y2="1021.4082"/><polygon fill="#181818" points="593,1011.4082,597,1021.4082,601,1011.4082,597,1015.4082" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="1056.502" y2="1091.502"/><polygon fill="#181818" points="593,1081.502,597,1091.502,601,1081.502,597,1085.502" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="1126.5957" y2="1146.5957"/><polygon fill="#181818" points="593,1136.5957,597,1146.5957,601,1136.5957,597,1140.5957" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="1181.6895" y2="1201.6895"/><polygon fill="#181818" points="593,1191.6895,597,1201.6895,601,1191.6895,597,1195.6895" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="1236.7832" y2="1256.7832"/><polygon fill="#181818" points="593,1246.7832,597,1256.7832,601,1246.7832,597,1250.7832" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="597" x2="597" y1="1291.877" y2="1311.877"/><polygon fill="#181818" points="593,1301.877,597,1311.877,601,1301.877,597,1305.877" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="86" x="167.5" y="31.1406">Behavior 1</text><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="86" x="553" y="31.1406">Behavior 2</text><!--MD5=[a9d46040525d00c690ed9e7745a1c594]
+@startuml
+
+!include process_algebra_macros.iuml
+
+
+
+split
+
+-[hidden]->
+|Behavior 1|
+start
+$label_statement("init")
+$label_statement("the set button is pressed")
+$label_statement("activate the alarm")
+$label_statement("motion is detected")
+$label_statement("emit a tone")
+$label_statement("[start time period within 0 to 300, start time period within 0 to 60]")
+$send_action("the alarm is disarmed")
+$receive_trigger("the alarm is disarmed")
+$label_statement("turn off the tone")
+$label_statement("the set button is pressed")
+$tag_redundancy()
+detach
+split again
+-[hidden]->
+|Behavior 2|
+start
+$label_statement("init")
+$label_statement("the set button is pressed")
+$label_statement("activate the alarm")
+$label_statement("motion is detected")
+$label_statement("emit a tone")
+$label_statement("[start time period within 0 to 300, start time period within 0 to 60]")
+$label_statement("deadline at 60")
+$label_statement("alert the emergency center")
+$label_statement("start time period within 0 to 60")
+$label_statement("deadline at 60")
+$label_statement("alert the emergency center")
+$label_statement("start time period within 0 to 60")
+$label_statement("deadline at 60")
+$label_statement("alert the emergency center")
+$label_statement("start time period within 0 to 60")
+$label_statement("deadline at 60")
+$label_statement("alert the emergency center")
+$label_statement("start time period within 0 to 60")
+$label_statement("deadline at 300")
+stop
+end split
+
+@enduml
+
+@startuml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+split
+
+-[hidden]->
+|Behavior 1|
+start
+#Yellow: init;
+#Yellow: the set button is pressed;
+#Yellow: activate the alarm;
+#Yellow: motion is detected;
+#Yellow: emit a tone;
+#Yellow: [start time period within 0 to 300, start time period within 0 to 60];
+#Orange: the alarm is disarmed >
+#Gold: the alarm is disarmed <
+#Yellow: turn off the tone;
+#Yellow: the set button is pressed;
+#YellowGreen:**redundancy**;
+detach
+split again
+-[hidden]->
+|Behavior 2|
+start
+#Yellow: init;
+#Yellow: the set button is pressed;
+#Yellow: activate the alarm;
+#Yellow: motion is detected;
+#Yellow: emit a tone;
+#Yellow: [start time period within 0 to 300, start time period within 0 to 60];
+#Yellow: deadline at 60;
+#Yellow: alert the emergency center;
+#Yellow: start time period within 0 to 60;
+#Yellow: deadline at 60;
+#Yellow: alert the emergency center;
+#Yellow: start time period within 0 to 60;
+#Yellow: deadline at 60;
+#Yellow: alert the emergency center;
+#Yellow: start time period within 0 to 60;
+#Yellow: deadline at 60;
+#Yellow: alert the emergency center;
+#Yellow: start time period within 0 to 60;
+#Yellow: deadline at 300;
+stop
+end split
+
+@enduml
+
+PlantUML version 1.2022.13(Sat Nov 19 14:22:17 CET 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: Cp1252
+Language: fr
+Country: FR
+--></g></svg>

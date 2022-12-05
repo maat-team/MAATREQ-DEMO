@@ -1,0 +1,238 @@
+ExcutionContext< id : 0 , H : 0 , step : 1 > {
+	trace   :  invariant{  => [True] } action {  }
+	childs count : 1
+	ExcutionContext< id : 2 , H : 1 , step : 0 > {
+		trace   :  <tag: TIME_ELAPSE> invariant{ [] => [true] } action { [True] / META:TIME_ELAPSE }
+		childs count : 1
+		ExcutionContext< id : 3 , H : 2 , step : 2 > {
+			trace   :  <tag: COVERAGE> invariant{ [] => [true] } action { [true] / init }
+			childs count : 1
+			ExcutionContext< id : 5 , H : 3 , step : 0 > {
+				trace   :  <tag: TIME_ELAPSE> invariant{ [] => [true] } action { [True] / META:TIME_ELAPSE }
+				childs count : 1
+				ExcutionContext< id : 6 , H : 4 , step : 3 > {
+					trace   :  <tag: COVERAGE> invariant{ [] => [true] } action { [true] / the set button is pressed }
+					childs count : 1
+					ExcutionContext< id : 8 , H : 5 , step : 0 > {
+						trace   :  <tag: TIME_ELAPSE> invariant{ [clock] => [clock<=60] } action { [True] / META:TIME_ELAPSE }
+						childs count : 1
+						ExcutionContext< id : 9 , H : 6 , step : 4 > {
+							trace   :  <tag: COVERAGE> invariant{ [clock] => [clock<=60] } action { [clock==60] / activate the alarm }
+							childs count : 1
+							ExcutionContext< id : 11 , H : 7 , step : 0 > {
+								trace   :  <tag: TIME_ELAPSE> invariant{ [] => [true] } action { [True] / META:TIME_ELAPSE }
+								childs count : 1
+								ExcutionContext< id : 12 , H : 8 , step : 5 > {
+									trace   :  <tag: COVERAGE> invariant{ [] => [true] } action { [true] / motion is detected }
+									childs count : 1
+									ExcutionContext< id : 14 , H : 9 , step : 0 > {
+										trace   :  <tag: TIME_ELAPSE> invariant{ [clock] => [clock<=0] } action { [True] / META:TIME_ELAPSE }
+										childs count : 1
+										ExcutionContext< id : 15 , H : 10 , step : 6 > {
+											trace   :  <tag: COVERAGE> invariant{ [clock] => [clock<=0] } action { [clock==0] / emit a tone }
+											childs count : 1
+											ExcutionContext< id : 17 , H : 11 , step : 0 > {
+												trace   :  <tag: TIME_ELAPSE> invariant{ [R3_x_resp, R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60] } action { [True] / META:[start time period within 0 to 300, start time period within 0 to 60] }
+												childs count : 2
+												ExcutionContext< id : 18 , H : 12 , step : 7 > {
+													trace   :  <tag: COVERAGE> invariant{ [R3_x_resp, R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60] } action { [true, true] / TAU:the alarm is disarmed }
+													childs count : 1
+													ExcutionContext< id : 22 , H : 13 , step : 0 > {
+														trace   :  <tag: TIME_ELAPSE> invariant{ [clock] => [R3_x_resp<=300, clock<=0, True] } action { [True] / META:TIME_ELAPSE }
+														childs count : 1
+														ExcutionContext< id : 23 , H : 14 , step : 9 > {
+															trace   :  <tag: COVERAGE> invariant{ [clock] => [R3_x_resp<=300, clock<=0, True] } action { [clock==0] / turn off the tone }
+															childs count : 1
+															ExcutionContext< id : 28 , H : 15 , step : 0 > {
+																trace   :  <tag: UNFOLD_CALL_PROCESS> invariant{  =>  } action { [True] / META:UNFOLD_CALL_PROCESS:K = Proc_R1 }
+																childs count : 1
+																ExcutionContext< id : 30 , H : 16 , step : 0 > {
+																	trace   :  <tag: TIME_ELAPSE> invariant{ [] => [true, True] } action { [True] / META:TIME_ELAPSE }
+																	childs count : 1
+																	ExcutionContext< id : 31 , H : 17 , step : 11 > {
+																		trace   :  invariant{ [] => [true, True] } action { [true] / the set button is pressed }
+																		childs count : 1
+																		ExcutionContext< id : 38 , H : 18 , step : 0 > {
+																			trace   :  <tag: TIME_ELAPSE> invariant{ [clock] => [clock<=60, True] } action { [True] / META:TIME_ELAPSE }
+																			childs count : 1
+																			ExcutionContext< id : 39 , H : 19 , step : 0 > {
+																				trace   :  <tag: REDUNDANCE> invariant{  =>  } action { [True] / META:REDUNDANCE:EC< id : 8 , H : 5 > }
+																			}< id : 39 >
+
+
+																		}< id : 38 >
+
+
+																	}< id : 31 >
+
+
+																}< id : 30 >
+
+
+															}< id : 28 >
+
+
+														}< id : 23 >
+
+
+													}< id : 22 >
+
+
+												}< id : 18 >
+
+
+												ExcutionContext< id : 19 , H : 12 , step : 8 > {
+													trace   :  <tag: COVERAGE> invariant{ [R3_x_resp, R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60] } action { [R7_x_resp==60] / deadline at 60 }
+													childs count : 1
+													ExcutionContext< id : 25 , H : 13 , step : 0 > {
+														trace   :  <tag: TIME_ELAPSE> invariant{ [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0] } action { [True] / META:TIME_ELAPSE }
+														childs count : 1
+														ExcutionContext< id : 26 , H : 14 , step : 10 > {
+															trace   :  <tag: COVERAGE> invariant{ [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0] } action { [clock==0] / alert the emergency center }
+															childs count : 1
+															ExcutionContext< id : 33 , H : 15 , step : 0 > {
+																trace   :  <tag: TIME_ELAPSE> invariant{ [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60] } action { [True] / META:start time period within 0 to 60 }
+																childs count : 1
+																ExcutionContext< id : 35 , H : 16 , step : 13 > {
+																	trace   :  invariant{ [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60] } action { [R7_x_resp==60] / deadline at 60 }
+																	childs count : 1
+																	ExcutionContext< id : 44 , H : 17 , step : 0 > {
+																		trace   :  <tag: TIME_ELAPSE> invariant{ [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0] } action { [True] / META:TIME_ELAPSE }
+																		childs count : 1
+																		ExcutionContext< id : 45 , H : 18 , step : 15 > {
+																			trace   :  invariant{ [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0] } action { [clock==0] / alert the emergency center }
+																			childs count : 1
+																			ExcutionContext< id : 51 , H : 19 , step : 0 > {
+																				trace   :  <tag: UNFOLD_CALL_PROCESS> invariant{  =>  } action { [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R9 }
+																				childs count : 1
+																				ExcutionContext< id : 53 , H : 20 , step : 0 > {
+																					trace   :  <tag: TIME_ELAPSE> invariant{ [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60] } action { [True] / META:start time period within 0 to 60 }
+																					childs count : 1
+																					ExcutionContext< id : 55 , H : 21 , step : 18 > {
+																						trace   :  invariant{ [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60] } action { [R7_x_resp==60] / deadline at 60 }
+																						childs count : 1
+																						ExcutionContext< id : 64 , H : 22 , step : 0 > {
+																							trace   :  <tag: TIME_ELAPSE> invariant{ [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0] } action { [True] / META:TIME_ELAPSE }
+																							childs count : 1
+																							ExcutionContext< id : 65 , H : 23 , step : 21 > {
+																								trace   :  invariant{ [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0] } action { [clock==0] / alert the emergency center }
+																								childs count : 1
+																								ExcutionContext< id : 74 , H : 24 , step : 0 > {
+																									trace   :  <tag: UNFOLD_CALL_PROCESS> invariant{  =>  } action { [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R9 }
+																									childs count : 1
+																									ExcutionContext< id : 76 , H : 25 , step : 0 > {
+																										trace   :  <tag: TIME_ELAPSE> invariant{ [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60] } action { [True] / META:start time period within 0 to 60 }
+																										childs count : 1
+																										ExcutionContext< id : 78 , H : 26 , step : 25 > {
+																											trace   :  invariant{ [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60] } action { [R7_x_resp==60] / deadline at 60 }
+																											childs count : 1
+																											ExcutionContext< id : 90 , H : 27 , step : 0 > {
+																												trace   :  <tag: TIME_ELAPSE> invariant{ [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0] } action { [True] / META:TIME_ELAPSE }
+																												childs count : 1
+																												ExcutionContext< id : 91 , H : 28 , step : 29 > {
+																													trace   :  invariant{ [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0] } action { [clock==0] / alert the emergency center }
+																													childs count : 1
+																													ExcutionContext< id : 105 , H : 29 , step : 0 > {
+																														trace   :  <tag: UNFOLD_CALL_PROCESS> invariant{  =>  } action { [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R9 }
+																														childs count : 1
+																														ExcutionContext< id : 107 , H : 30 , step : 0 > {
+																															trace   :  <tag: TIME_ELAPSE> invariant{ [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60] } action { [True] / META:start time period within 0 to 60 }
+																															childs count : 1
+																															ExcutionContext< id : 110 , H : 31 , step : 0 > {
+																																trace   :  <tag: COVERAGE> invariant{ [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60] } action { [R3_x_resp==300] / deadline at 300 }
+																															}< id : 110 >
+
+
+																														}< id : 107 >
+
+
+																													}< id : 105 >
+
+
+																												}< id : 91 >
+
+
+																											}< id : 90 >
+
+
+																										}< id : 78 >
+
+
+																									}< id : 76 >
+
+
+																								}< id : 74 >
+
+
+																							}< id : 65 >
+
+
+																						}< id : 64 >
+
+
+																					}< id : 55 >
+
+
+																				}< id : 53 >
+
+
+																			}< id : 51 >
+
+
+																		}< id : 45 >
+
+
+																	}< id : 44 >
+
+
+																}< id : 35 >
+
+
+															}< id : 33 >
+
+
+														}< id : 26 >
+
+
+													}< id : 25 >
+
+
+												}< id : 19 >
+
+
+											}< id : 17 >
+
+
+										}< id : 15 >
+
+
+									}< id : 14 >
+
+
+								}< id : 12 >
+
+
+							}< id : 11 >
+
+
+						}< id : 9 >
+
+
+					}< id : 8 >
+
+
+				}< id : 6 >
+
+
+			}< id : 5 >
+
+
+		}< id : 3 >
+
+
+	}< id : 2 >
+
+
+}< id : 0 >
+
+

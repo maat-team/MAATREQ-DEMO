@@ -1,0 +1,52 @@
+@startuml
+
+!include process_algebra_macros.iuml
+
+'skinparam linetype polyline
+skinparam linetype ortho
+
+
+
+$runProcessDesc("main", "1 : call( Proc_R0 )")
+
+$runProcessDesc("Proc_R0", "1 : alt invariant( [] ~> true )\l2 : 	[ true ] / init\l3 : 	call( PostProc_R0 )")
+
+$runProcessDesc("Proc_R1", "1 : alt invariant( [] ~> true )\l2 : 	[ true ] / the set button is pressed\l3 : 	alt invariant( [clock] ~> clock<=60 )\l4 : 		[ clock==60 ] / activate the alarm\l5 : 		call( PostProc_R1 )")
+
+$runProcessDesc("Proc_R2", "1 : alt invariant( [] ~> true )\l2 : 	[ true ] / motion is detected\l3 : 	alt invariant( [clock] ~> clock<=0 )\l4 : 		[ clock==0 ] / emit a tone\l5 : 		call( PostProc_R2 )")
+'fork
+split
+
+	$runProcessDesc("Proc_R3", "1 : alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )\l2 : 	[ true ] / enter in <TimedState: start time period , timing: within 0 to 300/>\l3 : 	call( PostProc_R3 )\l4 : ++\l5 : 	[ R3_x_resp==300 ] / deadline at 300\l6 : 	alt invariant( [clock] ~> [clock<=0, R3_x_resp<=300] )\l7 : 		[ clock==0 ] / turn off the tone\l8 : 		call( PostProc_R5 )")
+	switch( ALT )
+	case ( )
+
+		$runProcessInfoDesc("Proc_R4", " info: ** [scope]( R3 ) [goto]( R1 )**", "1 : alt invariant( [] ~> R3_x_resp<=300 )\l2 : 	[ true ] / the alarm is disarmed\l3 : 	alt invariant( [clock] ~> [clock<=0, R3_x_resp<=300] )\l4 : 		[ clock==0 ] / turn off the tone\l5 : 		call( PostProc_R4 )")
+		$callProcess("Proc_R1")
+		detach
+	case ( **deadline** )
+
+		$runProcessInfoDesc("Proc_R5", " info: ** [scope]( R3, R3 )**", "1 : alt invariant( [] ~> R3_x_resp<=300 )\l2 : 	[ R3_x_resp==300 ] / deadline at 300\l3 : 	alt invariant( [clock] ~> [clock<=0, R3_x_resp<=300] )\l4 : 		[ clock==0 ] / turn off the tone\l5 : 		call( PostProc_R5 )")
+		$nilProcess
+		detach
+	endswitch
+'fork again
+split again
+
+	$runProcessDesc("Proc_R7", "1 : alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )\l2 : 	[ true ] / enter in <TimedState: start time period , timing: within 0 to 60/>\l3 : 	call( PostProc_R7 )\l4 : ++\l5 : 	[ R7_x_resp==60 ] / deadline at 60\l6 : 	alt invariant( [clock] ~> [clock<=0, R7_x_resp<=60] )\l7 : 		[ clock==0 ] / alert the emergency center\l8 : 		call( PostProc_R9 )")
+	switch( ALT )
+	case ( )
+
+		$runProcessInfoDesc("Proc_R8", " info: ** [scope]( R7 )**", "1 : alt invariant( [] ~> R7_x_resp<=60 )\l2 : 	[ true ] / the alarm is disarmed\l3 : 	call( PostProc_R8 )")
+		$nilProcess
+		detach
+	case ( **deadline** )
+
+		$runProcessInfoDesc("Proc_R9", " info: ** [scope]( R7, R7 ) [goto]( R7 )**", "1 : alt invariant( [] ~> R7_x_resp<=60 )\l2 : 	[ R7_x_resp==60 ] / deadline at 60\l3 : 	alt invariant( [clock] ~> [clock<=0, R7_x_resp<=60] )\l4 : 		[ clock==0 ] / alert the emergency center\l5 : 		call( PostProc_R9 )")
+		$callProcess("Proc_R7")
+		detach
+	endswitch
+'endfork
+end split
+
+@enduml

@@ -1,0 +1,261 @@
+@startuml
+hide empty description
+state Processes #Cyan {
+
+	state "Process : **main**" as main #Beige
+	main: 1 | alt invariant( [] ~> true )
+	main: 2 | 	[ true ] / init
+	main: 3 | 	alt invariant( [] ~> true )
+	main: 4 | 		[ true ] / the set button is pressed
+	main: 5 | 		alt invariant( [clock] ~> clock<=60 )
+	main: 6 | 			[ clock==60 ] / activate the alarm
+	main: 7 | 			alt invariant( [] ~> true )
+	main: 8 | 				[ true ] / motion is detected
+	main: 9 | 				alt invariant( [clock] ~> clock<=0 )
+	main: 10 | 					[ clock==0 ] / emit a tone
+	main: 11 | 					par sync [the alarm is disarmed]
+	main: 12 | 						alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+	main: 13 | 							[ true ] / the alarm is disarmed
+	main: 14 | 							alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+	main: 15 | 								[ clock==0 ] / turn off the tone
+	main: 16 | 								call( Proc_R1 )
+	main: 17 | 						++
+	main: 18 | 							[ R3_x_resp==300 ] / deadline at 300
+	main: 19 | 							alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+	main: 20 | 								[ clock==0 ] / turn off the tone
+	main: 21 | 								alt invariant( [] ~> R3_x_resp<=300 )
+	main: 22 | 									[ true ] / the alarm is disarmed
+	main: 23 | 									call( Proc_R1 )
+	main: 24 | 					&&
+	main: 25 | 						alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+	main: 26 | 							[ true ] / the alarm is disarmed
+	main: 27 | 							NIL
+	main: 28 | 						++
+	main: 29 | 							[ R7_x_resp==60 ] / deadline at 60
+	main: 30 | 							alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+	main: 31 | 								[ clock==0 ] / alert the emergency center
+	main: 32 | 								alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+	main: 33 | 									[ true ] / the alarm is disarmed
+	main: 34 | 									NIL
+	main: 35 | 								++
+	main: 36 | 									[ R7_x_resp==60 ] / deadline at 60
+	main: 37 | 									alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+	main: 38 | 										[ clock==0 ] / alert the emergency center
+	main: 39 | 										call( PostProc_R9 )
+
+	main -down[hidden]-> Proc_R1
+
+	state "Process : **Proc_R1**" as Proc_R1 #Beige
+	Proc_R1: 1 | alt invariant( [] ~> true )
+	Proc_R1: 2 | 	[ true ] / the set button is pressed
+	Proc_R1: 3 | 	alt invariant( [clock] ~> clock<=60 )
+	Proc_R1: 4 | 		[ clock==60 ] / activate the alarm
+	Proc_R1: 5 | 		alt invariant( [] ~> true )
+	Proc_R1: 6 | 			[ true ] / motion is detected
+	Proc_R1: 7 | 			alt invariant( [clock] ~> clock<=0 )
+	Proc_R1: 8 | 				[ clock==0 ] / emit a tone
+	Proc_R1: 9 | 				par sync [the alarm is disarmed]
+	Proc_R1: 10 | 					alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+	Proc_R1: 11 | 						[ true ] / the alarm is disarmed
+	Proc_R1: 12 | 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+	Proc_R1: 13 | 							[ clock==0 ] / turn off the tone
+	Proc_R1: 14 | 							call( Proc_R1 )
+	Proc_R1: 15 | 					++
+	Proc_R1: 16 | 						[ R3_x_resp==300 ] / deadline at 300
+	Proc_R1: 17 | 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+	Proc_R1: 18 | 							[ clock==0 ] / turn off the tone
+	Proc_R1: 19 | 							alt invariant( [] ~> R3_x_resp<=300 )
+	Proc_R1: 20 | 								[ true ] / the alarm is disarmed
+	Proc_R1: 21 | 								call( Proc_R1 )
+	Proc_R1: 22 | 				&&
+	Proc_R1: 23 | 					alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+	Proc_R1: 24 | 						[ true ] / the alarm is disarmed
+	Proc_R1: 25 | 						NIL
+	Proc_R1: 26 | 					++
+	Proc_R1: 27 | 						[ R7_x_resp==60 ] / deadline at 60
+	Proc_R1: 28 | 						alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+	Proc_R1: 29 | 							[ clock==0 ] / alert the emergency center
+	Proc_R1: 30 | 							alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+	Proc_R1: 31 | 								[ true ] / the alarm is disarmed
+	Proc_R1: 32 | 								NIL
+	Proc_R1: 33 | 							++
+	Proc_R1: 34 | 								[ R7_x_resp==60 ] / deadline at 60
+	Proc_R1: 35 | 								alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+	Proc_R1: 36 | 									[ clock==0 ] / alert the emergency center
+	Proc_R1: 37 | 									call( PostProc_R9 )
+
+	Proc_R1 -down[hidden]-> PostProc_R9
+
+	state "Process : **PostProc_R9**" as PostProc_R9 #Beige
+	PostProc_R9: 1 | alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+	PostProc_R9: 2 | 	[ true ] / the alarm is disarmed
+	PostProc_R9: 3 | 	NIL
+	PostProc_R9: 4 | ++
+	PostProc_R9: 5 | 	[ R7_x_resp==60 ] / deadline at 60
+	PostProc_R9: 6 | 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+	PostProc_R9: 7 | 		[ clock==0 ] / alert the emergency center
+	PostProc_R9: 8 | 		call( PostProc_R9 )
+
+	
+	[*] -down-> main : **main**
+}
+
+state "EC< id : 0 , H : 0 , step : 1 >" as EC_0 #LightBlue
+EC_0 : DBM: R7_x_resp=R3_x_resp, R7_x_resp=clock, R3_x_resp=clock,
+EC_0  --> EC_2 : inv [] => [true]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 2 , H : 1 , step : 0 >" as EC_2 #Orange
+EC_2 : DBM: R7_x_resp=R3_x_resp, R7_x_resp=clock, R3_x_resp=clock,
+EC_2  --> EC_3 : inv [] => [true]\lact:COVERAGE [true] / init
+
+state "EC< id : 3 , H : 2 , step : 2 >" as EC_3 #Yellow
+EC_3 : DBM: R7_x_resp=R3_x_resp, R7_x_resp=clock, R3_x_resp=clock,
+EC_3  --> EC_5 : inv [] => [true]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 5 , H : 3 , step : 0 >" as EC_5 #Orange
+EC_5 : DBM: R7_x_resp=R3_x_resp, R7_x_resp=clock, R3_x_resp=clock,
+EC_5  --> EC_6 : inv [] => [true]\lact:COVERAGE [true] / the set button is pressed
+
+state "EC< id : 6 , H : 4 , step : 3 >" as EC_6 #Yellow
+EC_6 : DBM: R7_x_resp=R3_x_resp, R7_x_resp=clock, R3_x_resp=clock,
+EC_6  --> EC_8 : inv [clock] => [clock<=60]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 8 , H : 5 , step : 0 >" as EC_8 #Orange
+EC_8 : DBM: clock<=60, R7_x_resp=R3_x_resp, clock-R7_x_resp<=0,\l   clock-R3_x_resp<=0,
+EC_8  --> EC_9 : inv [clock] => [clock<=60]\lact:COVERAGE [clock==60] / activate the alarm
+
+state "EC< id : 9 , H : 6 , step : 4 >" as EC_9 #Yellow
+EC_9 : DBM: R7_x_resp>=60, R3_x_resp>=60, clock=60, R7_x_resp=R3_x_resp,\l   clock-R7_x_resp<=0, clock-R3_x_resp<=0,
+EC_9  --> EC_11 : inv [] => [true]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 11 , H : 7 , step : 0 >" as EC_11 #Orange
+EC_11 : DBM: R7_x_resp>=60, R3_x_resp>=60, clock>=60, R7_x_resp=R3_x_resp,\l   clock-R7_x_resp<=0, clock-R3_x_resp<=0,
+EC_11  --> EC_12 : inv [] => [true]\lact:COVERAGE [true] / motion is detected
+
+state "EC< id : 12 , H : 8 , step : 5 >" as EC_12 #Yellow
+EC_12 : DBM: R7_x_resp>=60, R3_x_resp>=60, clock>=60, R7_x_resp=R3_x_resp,\l   clock-R7_x_resp<=0, clock-R3_x_resp<=0,
+EC_12  --> EC_14 : inv [clock] => [clock<=0]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 14 , H : 9 , step : 0 >" as EC_14 #Orange
+EC_14 : DBM: R7_x_resp>=60, R3_x_resp>=60, clock<=0, R7_x_resp=R3_x_resp,\l   clock-R7_x_resp<=-60, clock-R3_x_resp<=-60,
+EC_14  --> EC_15 : inv [clock] => [clock<=0]\lact:COVERAGE [clock==0] / emit a tone
+
+state "EC< id : 15 , H : 10 , step : 6 >" as EC_15 #Yellow
+EC_15 : DBM: R7_x_resp>=60, R3_x_resp>=60, clock<=0, R7_x_resp=R3_x_resp,\l   clock-R7_x_resp<=-60, clock-R3_x_resp<=-60,
+EC_15  --> EC_17 : inv [R3_x_resp, R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [True] / META:[start time period within 0 to 300, start time period within 0 to 60]
+
+state "EC< id : 17 , H : 11 , step : 0 >" as EC_17 #Orange
+EC_17 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
+EC_17  --> EC_18 : inv [R3_x_resp, R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact:COVERAGE [true, true] / TAU:the alarm is disarmed
+
+state "EC< id : 18 , H : 12 , step : 7 >" as EC_18 #Yellow
+EC_18 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
+EC_18  --> EC_22 : inv [clock] => [R3_x_resp<=300, clock<=0, True]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 22 , H : 13 , step : 0 >" as EC_22 #Orange
+EC_22 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
+EC_22  --> EC_23 : inv [clock] => [R3_x_resp<=300, clock<=0, True]\lact:COVERAGE [clock==0] / turn off the tone
+
+state "EC< id : 23 , H : 14 , step : 9 >" as EC_23 #Yellow
+EC_23 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
+EC_23  --> EC_28 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = Proc_R1
+
+state "EC< id : 28 , H : 15 , step : 0 >" as EC_28 #Pink
+EC_28 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
+EC_28  --> EC_30 : inv [] => [true, True]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 30 , H : 16 , step : 0 >" as EC_30 #Orange
+EC_30 : DBM: R7_x_resp=R3_x_resp, R7_x_resp-clock<=60, clock-R7_x_resp<=0,\l   R3_x_resp-clock<=60, clock-R3_x_resp<=0,
+EC_30  --> EC_31 : inv [] => [true, True]\lact [true] / the set button is pressed
+
+state "EC< id : 31 , H : 17 , step : 11 >" as EC_31 #LightBlue
+EC_31 : DBM: R7_x_resp=R3_x_resp, R7_x_resp-clock<=60, clock-R7_x_resp<=0,\l   R3_x_resp-clock<=60, clock-R3_x_resp<=0,
+EC_31  --> EC_38 : inv [clock] => [clock<=60, True]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 38 , H : 18 , step : 0 >" as EC_38 #Orange
+EC_38 : DBM: clock<=60, R7_x_resp=R3_x_resp, clock-R7_x_resp<=0,\l   clock-R3_x_resp<=0,
+EC_38  --> EC_39 : \lact [True] / META:REDUNDANCE:EC< id : 8 , H : 5 >
+
+state "EC< id : 39 , H : 19 , step : 0 >" as EC_39 #Green
+EC_39 : DBM: clock<=60, R7_x_resp=R3_x_resp, clock-R7_x_resp<=0,\l   clock-R3_x_resp<=0,
+EC_17  --> EC_19 : inv [R3_x_resp, R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact:COVERAGE [R7_x_resp==60] / deadline at 60
+
+state "EC< id : 19 , H : 12 , step : 8 >" as EC_19 #Yellow
+EC_19 : DBM: R7_x_resp=60, R3_x_resp=60, clock=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
+EC_19  --> EC_25 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 25 , H : 13 , step : 0 >" as EC_25 #Orange
+EC_25 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
+EC_25  --> EC_26 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact:COVERAGE [clock==0] / alert the emergency center
+
+state "EC< id : 26 , H : 14 , step : 10 >" as EC_26 #Yellow
+EC_26 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
+EC_26  --> EC_33 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [True] / META:start time period within 0 to 60
+
+state "EC< id : 33 , H : 15 , step : 0 >" as EC_33 #Orange
+EC_33 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=60,\l   R7_x_resp-R3_x_resp<=-60, R3_x_resp-R7_x_resp<=60,\l   R7_x_resp=clock, R3_x_resp-clock<=60, clock-R3_x_resp<=-60,
+EC_33  --> EC_35 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [R7_x_resp==60] / deadline at 60
+
+state "EC< id : 35 , H : 16 , step : 13 >" as EC_35 #LightBlue
+EC_35 : DBM: R7_x_resp=60, R3_x_resp=120, clock=60, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp=clock, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
+EC_35  --> EC_44 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 44 , H : 17 , step : 0 >" as EC_44 #Orange
+EC_44 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
+EC_44  --> EC_45 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [clock==0] / alert the emergency center
+
+state "EC< id : 45 , H : 18 , step : 15 >" as EC_45 #LightBlue
+EC_45 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
+EC_45  --> EC_51 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R9
+
+state "EC< id : 51 , H : 19 , step : 0 >" as EC_51 #Pink
+EC_51 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
+EC_51  --> EC_53 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [True] / META:start time period within 0 to 60
+
+state "EC< id : 53 , H : 20 , step : 0 >" as EC_53 #Orange
+EC_53 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=60,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp=clock, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
+EC_53  --> EC_55 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [R7_x_resp==60] / deadline at 60
+
+state "EC< id : 55 , H : 21 , step : 18 >" as EC_55 #LightBlue
+EC_55 : DBM: R7_x_resp=60, R3_x_resp=180, clock=60, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp=clock, R3_x_resp-clock<=120,\l   clock-R3_x_resp<=-120,
+EC_55  --> EC_64 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 64 , H : 22 , step : 0 >" as EC_64 #Orange
+EC_64 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
+EC_64  --> EC_65 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [clock==0] / alert the emergency center
+
+state "EC< id : 65 , H : 23 , step : 21 >" as EC_65 #LightBlue
+EC_65 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
+EC_65  --> EC_74 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R9
+
+state "EC< id : 74 , H : 24 , step : 0 >" as EC_74 #Pink
+EC_74 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
+EC_74  --> EC_76 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [True] / META:start time period within 0 to 60
+
+state "EC< id : 76 , H : 25 , step : 0 >" as EC_76 #Orange
+EC_76 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
+EC_76  --> EC_78 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [R7_x_resp==60] / deadline at 60
+
+state "EC< id : 78 , H : 26 , step : 25 >" as EC_78 #LightBlue
+EC_78 : DBM: R7_x_resp=60, R3_x_resp=240, clock=60, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp=clock, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-180,
+EC_78  --> EC_90 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 90 , H : 27 , step : 0 >" as EC_90 #Orange
+EC_90 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
+EC_90  --> EC_91 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [clock==0] / alert the emergency center
+
+state "EC< id : 91 , H : 28 , step : 29 >" as EC_91 #LightBlue
+EC_91 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
+EC_91  --> EC_105 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R9
+
+state "EC< id : 105 , H : 29 , step : 0 >" as EC_105 #Pink
+EC_105 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
+EC_105  --> EC_107 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [True] / META:start time period within 0 to 60
+
+state "EC< id : 107 , H : 30 , step : 0 >" as EC_107 #Orange
+EC_107 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
+EC_107  --> EC_110 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact:COVERAGE [R3_x_resp==300] / deadline at 300
+
+state "EC< id : 110 , H : 31 , step : 0 >" as EC_110 #Yellow
+EC_110 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
+@enduml

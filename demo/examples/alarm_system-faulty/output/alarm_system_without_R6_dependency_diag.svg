@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="495px" preserveAspectRatio="none" style="width:504px;height:495px;background:#FFFFFF;" version="1.1" viewBox="0 0 504 495" width="504px" zoomAndPan="magnify"><defs/><g><rect fill="#FFD700" height="60.1875" style="stroke:#181818;stroke-width:0.5;" width="93" x="205.5" y="11"/><line style="stroke:#181818;stroke-width:0.5;" x1="210.5" x2="210.5" y1="11" y2="71.1875"/><line style="stroke:#181818;stroke-width:0.5;" x1="293.5" x2="293.5" y1="11" y2="71.1875"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="215.5" y="33.457"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="218.5" y="33.457">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="28" x="242.5" y="33.457">main</text><line style="stroke:#181818;stroke-width:1.0;" x1="205.5" x2="298.5" y1="41.0938" y2="41.0938"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="70" x="215.5" y="58.5508">call Proc_R0</text><rect fill="#FFD700" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="98" x="203" y="91.1875"/><line style="stroke:#181818;stroke-width:0.5;" x1="208" x2="208" y1="91.1875" y2="126.2813"/><line style="stroke:#181818;stroke-width:0.5;" x1="296" x2="296" y1="91.1875" y2="126.2813"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="213" y="113.6445"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="216" y="113.6445">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="240" y="113.6445">Proc_R0</text><rect fill="#FFD700" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="98" x="203" y="146.2813"/><line style="stroke:#181818;stroke-width:0.5;" x1="208" x2="208" y1="146.2813" y2="181.375"/><line style="stroke:#181818;stroke-width:0.5;" x1="296" x2="296" y1="146.2813" y2="181.375"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="213" y="168.7383"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="216" y="168.7383">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="240" y="168.7383">Proc_R1</text><rect fill="#FFD700" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="98" x="203" y="201.375"/><line style="stroke:#181818;stroke-width:0.5;" x1="208" x2="208" y1="201.375" y2="236.4688"/><line style="stroke:#181818;stroke-width:0.5;" x1="296" x2="296" y1="201.375" y2="236.4688"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="213" y="223.832"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="216" y="223.832">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="240" y="223.832">Proc_R2</text><line style="stroke:#181818;stroke-width:1.5;" x1="125.5" x2="380.5" y1="256.4688" y2="256.4688"/><rect fill="#FFD700" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="98" x="76.5" y="276.4688"/><line style="stroke:#181818;stroke-width:0.5;" x1="81.5" x2="81.5" y1="276.4688" y2="311.5625"/><line style="stroke:#181818;stroke-width:0.5;" x1="169.5" x2="169.5" y1="276.4688" y2="311.5625"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="86.5" y="298.9258"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="89.5" y="298.9258">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="113.5" y="298.9258">Proc_R3</text><polygon fill="#F1F1F1" points="112.5,331.5625,138.5,331.5625,150.5,343.5625,138.5,355.5625,112.5,355.5625,100.5,343.5625,112.5,331.5625" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="20" x="115.5" y="348.0635">ALT</text><rect fill="#FFD700" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="98" x="15.5" y="393.2344"/><line style="stroke:#181818;stroke-width:0.5;" x1="20.5" x2="20.5" y1="393.2344" y2="428.3281"/><line style="stroke:#181818;stroke-width:0.5;" x1="108.5" x2="108.5" y1="393.2344" y2="428.3281"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="25.5" y="415.6914"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="28.5" y="415.6914">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="52.5" y="415.6914">Proc_R4</text><rect fill="#F1F1F1" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="107" x="11" y="448.3281"/><line style="stroke:#181818;stroke-width:0.5;" x1="16" x2="16" y1="448.3281" y2="483.4219"/><line style="stroke:#181818;stroke-width:0.5;" x1="113" x2="113" y1="448.3281" y2="483.4219"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="21" y="470.7852"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="19" x="24" y="470.7852">call</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="62" x="43" y="470.7852">( Proc_R1 )</text><rect fill="#FFD700" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="98" x="138" y="393.2344"/><line style="stroke:#181818;stroke-width:0.5;" x1="143" x2="143" y1="393.2344" y2="428.3281"/><line style="stroke:#181818;stroke-width:0.5;" x1="231" x2="231" y1="393.2344" y2="428.3281"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="148" y="415.6914"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="151" y="415.6914">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="175" y="415.6914">Proc_R5</text><rect fill="#F1F1F1" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="45" x="164.5" y="448.3281"/><line style="stroke:#181818;stroke-width:0.5;" x1="169.5" x2="169.5" y1="448.3281" y2="483.4219"/><line style="stroke:#181818;stroke-width:0.5;" x1="204.5" x2="204.5" y1="448.3281" y2="483.4219"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="174.5" y="470.7852"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="19" x="177.5" y="470.7852">NIL</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="196.5" y="470.7852"> </text><rect fill="#FFD700" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="98" x="331.5" y="276.4688"/><line style="stroke:#181818;stroke-width:0.5;" x1="336.5" x2="336.5" y1="276.4688" y2="311.5625"/><line style="stroke:#181818;stroke-width:0.5;" x1="424.5" x2="424.5" y1="276.4688" y2="311.5625"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="341.5" y="298.9258"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="344.5" y="298.9258">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="368.5" y="298.9258">Proc_R7</text><polygon fill="#F1F1F1" points="367.5,331.5625,393.5,331.5625,405.5,343.5625,393.5,355.5625,367.5,355.5625,355.5,343.5625,367.5,331.5625" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="20" x="370.5" y="348.0635">ALT</text><rect fill="#FFD700" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="98" x="268" y="393.2344"/><line style="stroke:#181818;stroke-width:0.5;" x1="273" x2="273" y1="393.2344" y2="428.3281"/><line style="stroke:#181818;stroke-width:0.5;" x1="361" x2="361" y1="393.2344" y2="428.3281"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="278" y="415.6914"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="281" y="415.6914">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="305" y="415.6914">Proc_R8</text><rect fill="#F1F1F1" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="45" x="294.5" y="448.3281"/><line style="stroke:#181818;stroke-width:0.5;" x1="299.5" x2="299.5" y1="448.3281" y2="483.4219"/><line style="stroke:#181818;stroke-width:0.5;" x1="334.5" x2="334.5" y1="448.3281" y2="483.4219"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="304.5" y="470.7852"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="19" x="307.5" y="470.7852">NIL</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="326.5" y="470.7852"> </text><rect fill="#FFD700" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="98" x="390.5" y="393.2344"/><line style="stroke:#181818;stroke-width:0.5;" x1="395.5" x2="395.5" y1="393.2344" y2="428.3281"/><line style="stroke:#181818;stroke-width:0.5;" x1="483.5" x2="483.5" y1="393.2344" y2="428.3281"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="400.5" y="415.6914"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="403.5" y="415.6914">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="427.5" y="415.6914">Proc_R9</text><rect fill="#F1F1F1" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="107" x="386" y="448.3281"/><line style="stroke:#181818;stroke-width:0.5;" x1="391" x2="391" y1="448.3281" y2="483.4219"/><line style="stroke:#181818;stroke-width:0.5;" x1="488" x2="488" y1="448.3281" y2="483.4219"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="396" y="470.7852"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="19" x="399" y="470.7852">call</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="62" x="418" y="470.7852">( Proc_R7 )</text><line style="stroke:#181818;stroke-width:1.0;" x1="252" x2="252" y1="71.1875" y2="91.1875"/><polygon fill="#181818" points="248,81.1875,252,91.1875,256,81.1875,252,85.1875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="252" x2="252" y1="126.2813" y2="146.2813"/><polygon fill="#181818" points="248,136.2813,252,146.2813,256,136.2813,252,140.2813" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="252" x2="252" y1="181.375" y2="201.375"/><polygon fill="#181818" points="248,191.375,252,201.375,256,191.375,252,195.375" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="64.5" x2="64.5" y1="428.3281" y2="448.3281"/><polygon fill="#181818" points="60.5,438.3281,64.5,448.3281,68.5,438.3281,64.5,442.3281" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="187" x2="187" y1="428.3281" y2="448.3281"/><polygon fill="#181818" points="183,438.3281,187,448.3281,191,438.3281,187,442.3281" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="100.5" x2="64.5" y1="343.5625" y2="343.5625"/><line style="stroke:#181818;stroke-width:1.0;" x1="64.5" x2="64.5" y1="343.5625" y2="393.2344"/><polygon fill="#181818" points="60.5,383.2344,64.5,393.2344,68.5,383.2344,64.5,387.2344" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="64.5" y="372.8994"> </text><line style="stroke:#181818;stroke-width:1.0;" x1="150.5" x2="187" y1="343.5625" y2="343.5625"/><line style="stroke:#181818;stroke-width:1.0;" x1="187" x2="187" y1="343.5625" y2="393.2344"/><polygon fill="#181818" points="183,383.2344,187,393.2344,191,383.2344,187,387.2344" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="187" y="372.8994"> </text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="47" x="190" y="372.8994">deadline</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="237" y="372.8994"> </text><line style="stroke:#181818;stroke-width:1.0;" x1="125.5" x2="125.5" y1="311.5625" y2="331.5625"/><polygon fill="#181818" points="121.5,321.5625,125.5,331.5625,129.5,321.5625,125.5,325.5625" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="317" x2="317" y1="428.3281" y2="448.3281"/><polygon fill="#181818" points="313,438.3281,317,448.3281,321,438.3281,317,442.3281" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="439.5" x2="439.5" y1="428.3281" y2="448.3281"/><polygon fill="#181818" points="435.5,438.3281,439.5,448.3281,443.5,438.3281,439.5,442.3281" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="355.5" x2="317" y1="343.5625" y2="343.5625"/><line style="stroke:#181818;stroke-width:1.0;" x1="317" x2="317" y1="343.5625" y2="393.2344"/><polygon fill="#181818" points="313,383.2344,317,393.2344,321,383.2344,317,387.2344" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="317" y="372.8994"> </text><line style="stroke:#181818;stroke-width:1.0;" x1="405.5" x2="439.5" y1="343.5625" y2="343.5625"/><line style="stroke:#181818;stroke-width:1.0;" x1="439.5" x2="439.5" y1="343.5625" y2="393.2344"/><polygon fill="#181818" points="435.5,383.2344,439.5,393.2344,443.5,383.2344,439.5,387.2344" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="439.5" y="372.8994"> </text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="47" x="442.5" y="372.8994">deadline</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="489.5" y="372.8994"> </text><line style="stroke:#181818;stroke-width:1.0;" x1="380.5" x2="380.5" y1="311.5625" y2="331.5625"/><polygon fill="#181818" points="376.5,321.5625,380.5,331.5625,384.5,321.5625,380.5,325.5625" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="125.5" x2="125.5" y1="257.9688" y2="276.4688"/><polygon fill="#181818" points="121.5,266.4688,125.5,276.4688,129.5,266.4688,125.5,270.4688" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="380.5" x2="380.5" y1="257.9688" y2="276.4688"/><polygon fill="#181818" points="376.5,266.4688,380.5,276.4688,384.5,266.4688,380.5,270.4688" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="252" x2="252" y1="236.4688" y2="256.4688"/><polygon fill="#181818" points="248,246.4688,252,256.4688,256,246.4688,252,250.4688" style="stroke:#181818;stroke-width:1.0;"/><!--MD5=[b5d41abe2576fe8257b0d7f6a65c6d7f]
+@startuml
+
+!include process_algebra_macros.iuml
+
+'skinparam linetype polyline
+skinparam linetype ortho
+
+
+
+$runProcessDesc("main", "call Proc_R0")
+
+$runProcess("Proc_R0")
+
+$runProcess("Proc_R1")
+
+$runProcess("Proc_R2")
+'fork
+split
+
+	$runProcess("Proc_R3")
+	switch( ALT )
+	case ( )
+
+		$runProcess("Proc_R4")
+		$callProcess("Proc_R1")
+		detach
+	case ( **deadline** )
+
+		$runProcess("Proc_R5")
+		$nilProcess
+		detach
+	endswitch
+'fork again
+split again
+
+	$runProcess("Proc_R7")
+	switch( ALT )
+	case ( )
+
+		$runProcess("Proc_R8")
+		$nilProcess
+		detach
+	case ( **deadline** )
+
+		$runProcess("Proc_R9")
+		$callProcess("Proc_R7")
+		detach
+	endswitch
+'endfork
+end split
+
+@enduml
+
+@startuml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+skinparam linetype ortho
+
+
+
+#Gold: <color blue>run</color>  main\n- - - -\ncall Proc_R0 |
+
+#Gold: <color blue>run</color>  Proc_R0 |
+
+#Gold: <color blue>run</color>  Proc_R1 |
+
+#Gold: <color blue>run</color>  Proc_R2 |
+split
+
+	#Gold: <color blue>run</color>  Proc_R3 |
+	switch( ALT )
+	case ( )
+
+		#Gold: <color blue>run</color>  Proc_R4 |
+		: <color blue>call</color>( Proc_R1 ) |
+		detach
+	case ( **deadline** )
+
+		#Gold: <color blue>run</color>  Proc_R5 |
+		: <color blue>NIL</color> |
+		detach
+	endswitch
+split again
+
+	#Gold: <color blue>run</color>  Proc_R7 |
+	switch( ALT )
+	case ( )
+
+		#Gold: <color blue>run</color>  Proc_R8 |
+		: <color blue>NIL</color> |
+		detach
+	case ( **deadline** )
+
+		#Gold: <color blue>run</color>  Proc_R9 |
+		: <color blue>call</color>( Proc_R7 ) |
+		detach
+	endswitch
+end split
+
+@enduml
+
+PlantUML version 1.2022.13(Sat Nov 19 14:22:17 CET 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: Cp1252
+Language: fr
+Country: FR
+--></g></svg>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="882px" preserveAspectRatio="none" style="width:2005px;height:882px;background:#FFFFFF;" version="1.1" viewBox="0 0 2005 882" width="2005px" zoomAndPan="magnify"><defs/><g><rect fill="#FFD700" height="60.1875" style="stroke:#181818;stroke-width:0.5;" width="93" x="955.5" y="11"/><line style="stroke:#181818;stroke-width:0.5;" x1="960.5" x2="960.5" y1="11" y2="71.1875"/><line style="stroke:#181818;stroke-width:0.5;" x1="1043.5" x2="1043.5" y1="11" y2="71.1875"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="965.5" y="33.457"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="968.5" y="33.457">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="28" x="992.5" y="33.457">main</text><line style="stroke:#181818;stroke-width:1.0;" x1="955.5" x2="1048.5" y1="41.0938" y2="41.0938"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="70" x="965.5" y="58.5508">call Proc_R0</text><rect fill="#FFD700" height="60.1875" style="stroke:#181818;stroke-width:0.5;" width="157" x="923.5" y="91.1875"/><line style="stroke:#181818;stroke-width:0.5;" x1="928.5" x2="928.5" y1="91.1875" y2="151.375"/><line style="stroke:#181818;stroke-width:0.5;" x1="1075.5" x2="1075.5" y1="91.1875" y2="151.375"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="933.5" y="113.6445"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="936.5" y="113.6445">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="960.5" y="113.6445">Proc_R0</text><line style="stroke:#181818;stroke-width:1.0;" x1="923.5" x2="1080.5" y1="121.2813" y2="121.2813"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="134" x="933.5" y="138.7383">R0 : the system shall init</text><rect fill="#FFD700" height="90.375" style="stroke:#181818;stroke-width:0.5;" width="294" x="855" y="171.375"/><line style="stroke:#181818;stroke-width:0.5;" x1="860" x2="860" y1="171.375" y2="261.75"/><line style="stroke:#181818;stroke-width:0.5;" x1="1144" x2="1144" y1="171.375" y2="261.75"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="865" y="193.832"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="868" y="193.832">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="892" y="193.832">Proc_R1</text><line style="stroke:#181818;stroke-width:1.0;" x1="855" x2="1149" y1="201.4688" y2="201.4688"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="194" x="865" y="218.9258">R1 : when the set button is pressed</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="50" x="868" y="234.0195">upon init,</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="271" x="865" y="249.1133">the system shall activate the alarm within 60 to 60</text><rect fill="#FFD700" height="90.375" style="stroke:#181818;stroke-width:0.5;" width="245" x="879.5" y="281.75"/><line style="stroke:#181818;stroke-width:0.5;" x1="884.5" x2="884.5" y1="281.75" y2="372.125"/><line style="stroke:#181818;stroke-width:0.5;" x1="1119.5" x2="1119.5" y1="281.75" y2="372.125"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="889.5" y="304.207"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="892.5" y="304.207">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="916.5" y="304.207">Proc_R2</text><line style="stroke:#181818;stroke-width:1.0;" x1="879.5" x2="1124.5" y1="311.8438" y2="311.8438"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="159" x="889.5" y="329.3008">R2 : when motion is detected</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="130" x="892.5" y="344.3945">upon activate the alarm,</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="222" x="889.5" y="359.4883">the system shall emit a tone within 0 to 0</text><line style="stroke:#181818;stroke-width:1.5;" x1="503" x2="1508" y1="392.125" y2="392.125"/><rect fill="#FFD700" height="75.2813" style="stroke:#181818;stroke-width:0.5;" width="463" x="271.5" y="412.125"/><line style="stroke:#181818;stroke-width:0.5;" x1="276.5" x2="276.5" y1="412.125" y2="487.4063"/><line style="stroke:#181818;stroke-width:0.5;" x1="729.5" x2="729.5" y1="412.125" y2="487.4063"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="281.5" y="434.582"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="284.5" y="434.582">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="308.5" y="434.582">Proc_R3</text><line style="stroke:#181818;stroke-width:1.0;" x1="271.5" x2="734.5" y1="442.2188" y2="442.2188"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="120" x="281.5" y="459.6758">R3 : upon emit a tone,</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="440" x="281.5" y="474.7695">the system shall enter in &lt;TimedState: start time period , timing: within 0 to 300/&gt;</text><polygon fill="#F1F1F1" points="490,522.4063,516,522.4063,528,534.4063,516,546.4063,490,546.4063,478,534.4063,490,522.4063" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="20" x="493" y="538.9072">ALT</text><rect fill="#FFD700" height="90.375" style="stroke:#181818;stroke-width:0.5;" width="482" x="11" y="584.0781"/><line style="stroke:#181818;stroke-width:0.5;" x1="16" x2="16" y1="584.0781" y2="674.4531"/><line style="stroke:#181818;stroke-width:0.5;" x1="488" x2="488" y1="584.0781" y2="674.4531"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="21" y="606.5352"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="24" y="606.5352">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="48" y="606.5352">Proc_R4</text><line style="stroke:#181818;stroke-width:1.0;" x1="11" x2="493" y1="614.1719" y2="614.1719"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="462" x="21" y="631.6289">R4 : while in &lt;TimedState: inside time period , timing: within 0 to 300 [ scope ]( R3 )/&gt;</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="157" x="24" y="646.7227">when the alarm is disarmed,</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="314" x="21" y="661.8164">the system shall turn off the tone within 0 to 0 [ goto ]( R1 )</text><rect fill="#F1F1F1" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="107" x="198.5" y="709.4531"/><line style="stroke:#181818;stroke-width:0.5;" x1="203.5" x2="203.5" y1="709.4531" y2="744.5469"/><line style="stroke:#181818;stroke-width:0.5;" x1="300.5" x2="300.5" y1="709.4531" y2="744.5469"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="208.5" y="731.9102"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="19" x="211.5" y="731.9102">call</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="62" x="230.5" y="731.9102">( Proc_R1 )</text><rect fill="#FFD700" height="90.375" style="stroke:#181818;stroke-width:0.5;" width="482" x="513" y="584.0781"/><line style="stroke:#181818;stroke-width:0.5;" x1="518" x2="518" y1="584.0781" y2="674.4531"/><line style="stroke:#181818;stroke-width:0.5;" x1="990" x2="990" y1="584.0781" y2="674.4531"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="523" y="606.5352"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="526" y="606.5352">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="550" y="606.5352">Proc_R5</text><line style="stroke:#181818;stroke-width:1.0;" x1="513" x2="995" y1="614.1719" y2="614.1719"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="462" x="523" y="631.6289">R5 : while in &lt;TimedState: inside time period , timing: within 0 to 300 [ scope ]( R3 )/&gt;</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="167" x="526" y="646.7227">deadline at 300 [ scope ]( R3 ),</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="245" x="523" y="661.8164">the system shall turn off the tone within 0 to 0</text><rect fill="#FFD700" height="105.4688" style="stroke:#181818;stroke-width:0.5;" width="482" x="513" y="709.4531"/><line style="stroke:#181818;stroke-width:0.5;" x1="518" x2="518" y1="709.4531" y2="814.9219"/><line style="stroke:#181818;stroke-width:0.5;" x1="990" x2="990" y1="709.4531" y2="814.9219"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="523" y="731.9102"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="526" y="731.9102">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="550" y="731.9102">Proc_R6</text><line style="stroke:#181818;stroke-width:1.0;" x1="513" x2="995" y1="739.5469" y2="739.5469"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="462" x="523" y="757.0039">R6 : while in &lt;TimedState: inside time period , timing: within 0 to 300 [ scope ]( R3 )/&gt;</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="154" x="526" y="772.0977">when the alarm is disarmed</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="177" x="526" y="787.1914">upon turn off the tone [ ref ]( R5 ),</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="217" x="523" y="802.2852">the system shall donothing [ goto ]( R1 )</text><rect fill="#F1F1F1" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="107" x="700.5" y="834.9219"/><line style="stroke:#181818;stroke-width:0.5;" x1="705.5" x2="705.5" y1="834.9219" y2="870.0156"/><line style="stroke:#181818;stroke-width:0.5;" x1="802.5" x2="802.5" y1="834.9219" y2="870.0156"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="710.5" y="857.3789"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="19" x="713.5" y="857.3789">call</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="62" x="732.5" y="857.3789">( Proc_R1 )</text><rect fill="#FFD700" height="75.2813" style="stroke:#181818;stroke-width:0.5;" width="456" x="1280" y="482.3594"/><line style="stroke:#181818;stroke-width:0.5;" x1="1285" x2="1285" y1="482.3594" y2="557.6406"/><line style="stroke:#181818;stroke-width:0.5;" x1="1731" x2="1731" y1="482.3594" y2="557.6406"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="1290" y="504.8164"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="1293" y="504.8164">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="1317" y="504.8164">Proc_R7</text><line style="stroke:#181818;stroke-width:1.0;" x1="1280" x2="1736" y1="512.4531" y2="512.4531"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="120" x="1290" y="529.9102">R7 : upon emit a tone,</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="433" x="1290" y="545.0039">the system shall enter in &lt;TimedState: start time period , timing: within 0 to 60/&gt;</text><polygon fill="#F1F1F1" points="1495,592.6406,1521,592.6406,1533,604.6406,1521,616.6406,1495,616.6406,1483,604.6406,1495,592.6406" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="20" x="1498" y="609.1416">ALT</text><rect fill="#FFD700" height="90.375" style="stroke:#181818;stroke-width:0.5;" width="475" x="1023" y="654.3125"/><line style="stroke:#181818;stroke-width:0.5;" x1="1028" x2="1028" y1="654.3125" y2="744.6875"/><line style="stroke:#181818;stroke-width:0.5;" x1="1493" x2="1493" y1="654.3125" y2="744.6875"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="1033" y="676.7695"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="1036" y="676.7695">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="1060" y="676.7695">Proc_R8</text><line style="stroke:#181818;stroke-width:1.0;" x1="1023" x2="1498" y1="684.4063" y2="684.4063"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="455" x="1033" y="701.8633">R8 : while in &lt;TimedState: inside time period , timing: within 0 to 60 [ scope ]( R7 )/&gt;</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="157" x="1036" y="716.957">when the alarm is disarmed,</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="148" x="1033" y="732.0508">the system shall donothing</text><rect fill="#F1F1F1" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="45" x="1238" y="779.6875"/><line style="stroke:#181818;stroke-width:0.5;" x1="1243" x2="1243" y1="779.6875" y2="814.7813"/><line style="stroke:#181818;stroke-width:0.5;" x1="1278" x2="1278" y1="779.6875" y2="814.7813"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="1248" y="802.1445"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="19" x="1251" y="802.1445">NIL</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="1270" y="802.1445"> </text><rect fill="#FFD700" height="90.375" style="stroke:#181818;stroke-width:0.5;" width="475" x="1518" y="654.3125"/><line style="stroke:#181818;stroke-width:0.5;" x1="1523" x2="1523" y1="654.3125" y2="744.6875"/><line style="stroke:#181818;stroke-width:0.5;" x1="1988" x2="1988" y1="654.3125" y2="744.6875"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="1528" y="676.7695"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="18" x="1531" y="676.7695">run</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="1555" y="676.7695">Proc_R9</text><line style="stroke:#181818;stroke-width:1.0;" x1="1518" x2="1993" y1="684.4063" y2="684.4063"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="455" x="1528" y="701.8633">R9 : while in &lt;TimedState: inside time period , timing: within 0 to 60 [ scope ]( R7 )/&gt;</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="160" x="1531" y="716.957">deadline at 60 [ scope ]( R7 ),</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="375" x="1528" y="732.0508">the system shall alert the emergency center within 0 to 0 [ goto ]( R7 )</text><rect fill="#F1F1F1" height="35.0938" style="stroke:#181818;stroke-width:0.5;" width="107" x="1702" y="779.6875"/><line style="stroke:#181818;stroke-width:0.5;" x1="1707" x2="1707" y1="779.6875" y2="814.7813"/><line style="stroke:#181818;stroke-width:0.5;" x1="1804" x2="1804" y1="779.6875" y2="814.7813"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3" x="1712" y="802.1445"> </text><text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="19" x="1715" y="802.1445">call</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="62" x="1734" y="802.1445">( Proc_R7 )</text><line style="stroke:#181818;stroke-width:1.0;" x1="1002" x2="1002" y1="71.1875" y2="91.1875"/><polygon fill="#181818" points="998,81.1875,1002,91.1875,1006,81.1875,1002,85.1875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1002" x2="1002" y1="151.375" y2="171.375"/><polygon fill="#181818" points="998,161.375,1002,171.375,1006,161.375,1002,165.375" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1002" x2="1002" y1="261.75" y2="281.75"/><polygon fill="#181818" points="998,271.75,1002,281.75,1006,271.75,1002,275.75" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="252" x2="252" y1="674.4531" y2="709.4531"/><polygon fill="#181818" points="248,699.4531,252,709.4531,256,699.4531,252,703.4531" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="754" x2="754" y1="674.4531" y2="709.4531"/><polygon fill="#181818" points="750,699.4531,754,709.4531,758,699.4531,754,703.4531" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="754" x2="754" y1="814.9219" y2="834.9219"/><polygon fill="#181818" points="750,824.9219,754,834.9219,758,824.9219,754,828.9219" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="478" x2="252" y1="534.4063" y2="534.4063"/><line style="stroke:#181818;stroke-width:1.0;" x1="252" x2="252" y1="534.4063" y2="584.0781"/><polygon fill="#181818" points="248,574.0781,252,584.0781,256,574.0781,252,578.0781" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="252" y="563.7432"> </text><line style="stroke:#181818;stroke-width:1.0;" x1="528" x2="754" y1="534.4063" y2="534.4063"/><line style="stroke:#181818;stroke-width:1.0;" x1="754" x2="754" y1="534.4063" y2="584.0781"/><polygon fill="#181818" points="750,574.0781,754,584.0781,758,574.0781,754,578.0781" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="754" y="563.7432"> </text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="47" x="757" y="563.7432">deadline</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="804" y="563.7432"> </text><line style="stroke:#181818;stroke-width:1.0;" x1="503" x2="503" y1="487.4063" y2="522.4063"/><polygon fill="#181818" points="499,512.4063,503,522.4063,507,512.4063,503,516.4063" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1260.5" x2="1260.5" y1="744.6875" y2="779.6875"/><polygon fill="#181818" points="1256.5,769.6875,1260.5,779.6875,1264.5,769.6875,1260.5,773.6875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1755.5" x2="1755.5" y1="744.6875" y2="779.6875"/><polygon fill="#181818" points="1751.5,769.6875,1755.5,779.6875,1759.5,769.6875,1755.5,773.6875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1483" x2="1260.5" y1="604.6406" y2="604.6406"/><line style="stroke:#181818;stroke-width:1.0;" x1="1260.5" x2="1260.5" y1="604.6406" y2="654.3125"/><polygon fill="#181818" points="1256.5,644.3125,1260.5,654.3125,1264.5,644.3125,1260.5,648.3125" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="1260.5" y="633.9775"> </text><line style="stroke:#181818;stroke-width:1.0;" x1="1533" x2="1755.5" y1="604.6406" y2="604.6406"/><line style="stroke:#181818;stroke-width:1.0;" x1="1755.5" x2="1755.5" y1="604.6406" y2="654.3125"/><polygon fill="#181818" points="1751.5,644.3125,1755.5,654.3125,1759.5,644.3125,1755.5,648.3125" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="1755.5" y="633.9775"> </text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="47" x="1758.5" y="633.9775">deadline</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3" x="1805.5" y="633.9775"> </text><line style="stroke:#181818;stroke-width:1.0;" x1="1508" x2="1508" y1="557.6406" y2="592.6406"/><polygon fill="#181818" points="1504,582.6406,1508,592.6406,1512,582.6406,1508,586.6406" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="503" x2="503" y1="393.625" y2="412.125"/><polygon fill="#181818" points="499,402.125,503,412.125,507,402.125,503,406.125" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1508" x2="1508" y1="393.625" y2="482.3594"/><polygon fill="#181818" points="1504,472.3594,1508,482.3594,1512,472.3594,1508,476.3594" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1002" x2="1002" y1="372.125" y2="392.125"/><polygon fill="#181818" points="998,382.125,1002,392.125,1006,382.125,1002,386.125" style="stroke:#181818;stroke-width:1.0;"/><!--MD5=[faf340d527f385a2f2e1d813dfede2ea]
+@startuml
+
+!include process_algebra_macros.iuml
+
+'skinparam linetype polyline
+skinparam linetype ortho
+
+
+
+$runProcessDesc("main", "call Proc_R0")
+
+$runProcessDesc("Proc_R0", "R0 : the system shall init")
+
+$runProcessDesc("Proc_R1", "R1 : when the set button is pressed\l upon init,\lthe system shall activate the alarm within 60 to 60")
+
+$runProcessDesc("Proc_R2", "R2 : when motion is detected\l upon activate the alarm,\lthe system shall emit a tone within 0 to 0")
+'fork
+split
+
+	$runProcessDesc("Proc_R3", "R3 : upon emit a tone,\lthe system shall enter in <TimedState: start time period , timing: within 0 to 300/>")
+	switch( ALT )
+	case ( )
+
+		$runProcessDesc("Proc_R4", "R4 : while in <TimedState: inside time period , timing: within 0 to 300 [ scope ]( R3 )/>\l when the alarm is disarmed,\lthe system shall turn off the tone within 0 to 0 [ goto ]( R1 )")
+		$callProcess("Proc_R1")
+		detach
+	case ( **deadline** )
+
+		$runProcessDesc("Proc_R5", "R5 : while in <TimedState: inside time period , timing: within 0 to 300 [ scope ]( R3 )/>\l deadline at 300 [ scope ]( R3 ),\lthe system shall turn off the tone within 0 to 0")
+
+		$runProcessDesc("Proc_R6", "R6 : while in <TimedState: inside time period , timing: within 0 to 300 [ scope ]( R3 )/>\l when the alarm is disarmed\l upon turn off the tone [ ref ]( R5 ),\lthe system shall donothing [ goto ]( R1 )")
+		$callProcess("Proc_R1")
+		detach
+	endswitch
+'fork again
+split again
+
+	$runProcessDesc("Proc_R7", "R7 : upon emit a tone,\lthe system shall enter in <TimedState: start time period , timing: within 0 to 60/>")
+	switch( ALT )
+	case ( )
+
+		$runProcessDesc("Proc_R8", "R8 : while in <TimedState: inside time period , timing: within 0 to 60 [ scope ]( R7 )/>\l when the alarm is disarmed,\lthe system shall donothing")
+		$nilProcess
+		detach
+	case ( **deadline** )
+
+		$runProcessDesc("Proc_R9", "R9 : while in <TimedState: inside time period , timing: within 0 to 60 [ scope ]( R7 )/>\l deadline at 60 [ scope ]( R7 ),\lthe system shall alert the emergency center within 0 to 0 [ goto ]( R7 )")
+		$callProcess("Proc_R7")
+		detach
+	endswitch
+'endfork
+end split
+
+@enduml
+
+@startuml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+skinparam linetype ortho
+
+
+
+#Gold: <color blue>run</color>  main\n- - - -\ncall Proc_R0 |
+
+#Gold: <color blue>run</color>  Proc_R0\n- - - -\nR0 : the system shall init |
+
+#Gold: <color blue>run</color>  Proc_R1\n- - - -\nR1 : when the set button is pressed\l upon init,\lthe system shall activate the alarm within 60 to 60 |
+
+#Gold: <color blue>run</color>  Proc_R2\n- - - -\nR2 : when motion is detected\l upon activate the alarm,\lthe system shall emit a tone within 0 to 0 |
+split
+
+	#Gold: <color blue>run</color>  Proc_R3\n- - - -\nR3 : upon emit a tone,\lthe system shall enter in <TimedState: start time period , timing: within 0 to 300/> |
+	switch( ALT )
+	case ( )
+
+		#Gold: <color blue>run</color>  Proc_R4\n- - - -\nR4 : while in <TimedState: inside time period , timing: within 0 to 300 [ scope ]( R3 )/>\l when the alarm is disarmed,\lthe system shall turn off the tone within 0 to 0 [ goto ]( R1 ) |
+		: <color blue>call</color>( Proc_R1 ) |
+		detach
+	case ( **deadline** )
+
+		#Gold: <color blue>run</color>  Proc_R5\n- - - -\nR5 : while in <TimedState: inside time period , timing: within 0 to 300 [ scope ]( R3 )/>\l deadline at 300 [ scope ]( R3 ),\lthe system shall turn off the tone within 0 to 0 |
+
+		#Gold: <color blue>run</color>  Proc_R6\n- - - -\nR6 : while in <TimedState: inside time period , timing: within 0 to 300 [ scope ]( R3 )/>\l when the alarm is disarmed\l upon turn off the tone [ ref ]( R5 ),\lthe system shall donothing [ goto ]( R1 ) |
+		: <color blue>call</color>( Proc_R1 ) |
+		detach
+	endswitch
+split again
+
+	#Gold: <color blue>run</color>  Proc_R7\n- - - -\nR7 : upon emit a tone,\lthe system shall enter in <TimedState: start time period , timing: within 0 to 60/> |
+	switch( ALT )
+	case ( )
+
+		#Gold: <color blue>run</color>  Proc_R8\n- - - -\nR8 : while in <TimedState: inside time period , timing: within 0 to 60 [ scope ]( R7 )/>\l when the alarm is disarmed,\lthe system shall donothing |
+		: <color blue>NIL</color> |
+		detach
+	case ( **deadline** )
+
+		#Gold: <color blue>run</color>  Proc_R9\n- - - -\nR9 : while in <TimedState: inside time period , timing: within 0 to 60 [ scope ]( R7 )/>\l deadline at 60 [ scope ]( R7 ),\lthe system shall alert the emergency center within 0 to 0 [ goto ]( R7 ) |
+		: <color blue>call</color>( Proc_R7 ) |
+		detach
+	endswitch
+end split
+
+@enduml
+
+PlantUML version 1.2022.13(Sat Nov 19 14:22:17 CET 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: Cp1252
+Language: fr
+Country: FR
+--></g></svg>

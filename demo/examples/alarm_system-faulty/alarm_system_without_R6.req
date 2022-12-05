@@ -1,0 +1,67 @@
+Glossary:
+
+Component:
+	the system : the alarm system, the main component under definition
+	
+Event:
+	the set button is pressed : event set button to activate the alarm system
+	motion is detected : event motion is detected in the area
+	the alarm is disarmed : event alarm disarm
+	
+Action:
+	init : initialization of the alarm system
+	activate the alarm || the alarm activation : the alarm can detect motion
+	emit a tone || tone emission : the alarm sounds
+	turn off the tone || turning off the tone : stops the alarm tone
+	alert the emergency center : the system alerts emergency center
+	donothing : inactive action
+	
+data: // timing
+	60 seconds  : timing
+	300 seconds  : timing 
+
+	
+
+
+Requirement:
+
+R0: 
+the system shall init.
+	
+R1: 
+when the set button is pressed upon init,
+	the system shall activate the alarm within [60,60].
+ 
+R2: 
+when motion is detected
+upon the alarm activation,
+	the system shall emit a tone within [0, 0].
+
+R3: 
+upon tone emission,
+	the system shall start time period 300 seconds.
+ 
+R4: 
+inside time period 300 seconds [scope] (R3)
+when the alarm is disarmed,
+	the system shall turn off the tone within [0, 0] [goto] (R1).
+ 
+R5: 
+inside time period 300 seconds [scope] (R3)
+at end time period 300 seconds [scope] (R3),
+	the system shall turn off the tone within [0, 0].
+
+
+R7: 
+upon tone emission,
+	the system shall start time period 60 seconds.
+
+R8:
+inside time period 60 seconds [scope] (R7)
+when the alarm is disarmed,
+	the system shall donothing.
+
+R9:
+inside time period 60 seconds [scope] (R7)
+at end time period 60 seconds [scope] (R7),
+	the system shall alert the emergency center within [0, 0] [goto] (R7).

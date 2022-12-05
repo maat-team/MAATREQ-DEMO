@@ -4,7 +4,11 @@
 ' =======================================
 
 !$procDef_color  = "#Cyan"
+!$procRun_color  = "#Gold"
 !$procId_color   = "#Beige"
+
+!$invariant_color = ""
+!$label_invariant_color = "#Cyan"
 
 !$guard_color    = "#Orange"
 !$label_color    = "#Yellow"
@@ -13,6 +17,9 @@
 !$state_color    = "#Cyan"
 !$send_color     = "#Orange"
 !$receive_color  = "#Gold"
+
+!$deadlock_color   = "#Red"
+!$redundancy_color = "#YellowGreen"
 
 '!$leq = <math>geq</math>
 
@@ -76,6 +83,10 @@
 !return $text($arg)
 !endfunction
 
+!function $processInfo($arg)
+!return $text($arg)
+!endfunction
+
 !function $processDesc($arg)
 !return $text($arg)
 !endfunction
@@ -102,6 +113,7 @@
 ' KEYWORDS
 ' =======================================
 !$DEFINE = $keyword("define")
+!$RUN = $keyword("run")
 
 !$GUARD  = $keyword("guard")
 !$NIL    = $keyword("NIL")
@@ -127,6 +139,26 @@
 
 !function $defineProcessDesc($name, $desc)
 !return $procDef_color + ": " + $DEFINE + "  " + $processName($name) + $NEWLINE + $processDesc($desc) + " |"
+!endfunction
+
+' =======================================
+' STATEMENTS : RUN PROCESS
+' =======================================
+
+!function $runProcess($name)
+!return $procRun_color + ": " + $RUN + "  " + $processName($name) + " |"
+!endfunction
+
+!function $runProcessDesc($name, $desc)
+!return $procRun_color + ": " + $RUN + "  " + $processName($name) + $NEWLINE + $processDesc($desc) + " |"
+!endfunction
+
+!function $runProcessInfo($name, $info)
+!return $procRun_color + ": " + $RUN + "  " + $processName($name) + $NEWLINE + $processInfo($info) + " |"
+!endfunction
+
+!function $runProcessInfoDesc($name, $info, $desc)
+!return $procRun_color + ": " + $RUN + "  " + $processName($name) + $NEWLINE + $processInfo($info) + $NEWLINE + $processDesc($desc) + " |"
 !endfunction
 
 ' =======================================
@@ -159,35 +191,63 @@
 ' STATEMENTS : INVARIANT
 ' =======================================
 
-!function $reset_invariant($clocks, $arg)
-!return ": " + $RESET + "( " + $clocks  + " )" + $NEWLINE + $INV + "( " + $arg  + " ) }"
+!function $reset_invariant($clocks, $condition)
+!return $invariant_color + ": " + $RESET + "( " + $clocks  + " )" + $NEWLINE + $INV + "( " + $condition  + " ) }"
 !endfunction
 
-!function $invariant($arg)
-!return ": " + $INV + "( " + $arg  + " ) }"
+!function $reset_label_invariant($clocks, $condition, $arg_label)
+!return  $label_invariant_color + ": " + $RESET + "( " + $clocks  + " )" + $NEWLINE + $INV + "( " + $condition  + " )" + $NEWLINE + $label($arg_label) + " }"
 !endfunction
+
+
+!function $invariant($condition)
+!return  $invariant_color + ": " + $INV + "( " + $condition + " ) }"
+!endfunction
+
+!function $label_invariant($condition, $arg_label)
+!return $label_invariant_color + ": " + $INV + "( " + $condition + $NEWLINE + $label($arg_label) + " ) }"
+!endfunction
+
+
 
 ' =======================================
 ' STATEMENTS : ACTION -> INSTRUCTIONS
 ' =======================================
 
 !function $label_statement($arg)
-!return $label_color + ": " + "( " + $arg  + " ) ;"
+!return $label_color + ": " + $arg  + ";"
 !endfunction
+
+
+!function $label_statement_redundancy($arg)
+!return $redundancy_color + ": " + $arg   + $NEWLINE + "**redundancy**;"
+!endfunction
+
+!function $tag_redundancy()
+!return $redundancy_color + ":**redundancy**;"
+!endfunction
+
+
+!function $label_statement_deadlock($arg)
+!return $deadlock_color + ": " + $arg   + $NEWLINE + "**deadlock**;"
+!endfunction
+
+!function $tag_deadlock()
+!return $deadlock_color + ":**deadlock**;"
+!endfunction
+
 
 !function $guard_trigger($arg)
 !return $guard_color  + ": " + $guard_condition($arg) + " ;"
 !endfunction
 
 !function $guard_label($arg_guard, $arg_label)
-!return ": " + $GUARD + " " + $guard_condition($arg_guard) + $NEWLINE + $label($arg_label) + " ;"
+!return $label_color + ": " + $GUARD + " " + $guard_condition($arg_guard) + $NEWLINE + $label($arg_label) + " ;"
 !endfunction
 
 !function $guard_scope_label($arg_guard, $arg_scope, $arg_label)
 !return ": " + $GUARD + " " + $guard_condition($arg_guard) + $NEWLINE + $guard_scope($arg_scope) + $NEWLINE + $label($arg_label) + " ;"
 !endfunction
-
-
 
 
 !function $event_trigger($arg)

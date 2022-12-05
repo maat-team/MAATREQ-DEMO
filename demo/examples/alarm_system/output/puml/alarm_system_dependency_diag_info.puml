@@ -1,0 +1,54 @@
+@startuml
+
+!include process_algebra_macros.iuml
+
+'skinparam linetype polyline
+skinparam linetype ortho
+
+
+
+$runProcessDesc("main", "call Proc_R0")
+
+$runProcess("Proc_R0")
+
+$runProcess("Proc_R1")
+
+$runProcess("Proc_R2")
+'fork
+split
+
+	$runProcess("Proc_R3")
+	switch( ALT )
+	case ( )
+
+		$runProcessInfo("Proc_R4", " info: ** [scope]( R3 ) [goto]( R1 )**")
+		$callProcess("Proc_R1")
+		detach
+	case ( **deadline** )
+
+		$runProcessInfo("Proc_R5", " info: ** [scope]( R3, R3 )**")
+
+		$runProcessInfo("Proc_R6", " info: ** [ref]( R5 ) [scope]( R3 ) [goto]( R1 )**")
+		$callProcess("Proc_R1")
+		detach
+	endswitch
+'fork again
+split again
+
+	$runProcess("Proc_R7")
+	switch( ALT )
+	case ( )
+
+		$runProcessInfo("Proc_R8", " info: ** [scope]( R7 )**")
+		$nilProcess
+		detach
+	case ( **deadline** )
+
+		$runProcessInfo("Proc_R9", " info: ** [scope]( R7, R7 ) [goto]( R7 )**")
+		$callProcess("Proc_R7")
+		detach
+	endswitch
+'endfork
+end split
+
+@enduml

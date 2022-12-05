@@ -1,0 +1,1305 @@
+@startuml
+hide empty description
+state Processes #Cyan {
+
+	state "Process : **main**" as main #Beige
+	main: 1 | alt invariant( [] ~> true )
+	main: 2 | 	[ true ] / init
+	main: 3 | 	alt invariant( [] ~> true )
+	main: 4 | 		[ true ] / the set button is pressed
+	main: 5 | 		alt invariant( [clock] ~> clock<=60 )
+	main: 6 | 			[ clock==60 ] / activate the alarm
+	main: 7 | 			alt invariant( [] ~> true )
+	main: 8 | 				[ true ] / motion is detected
+	main: 9 | 				alt invariant( [clock] ~> clock<=0 )
+	main: 10 | 					[ clock==0 ] / emit a tone
+	main: 11 | 					par sync [the alarm is disarmed]
+	main: 12 | 						alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+	main: 13 | 							[ true ] / the alarm is disarmed
+	main: 14 | 							alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+	main: 15 | 								[ clock==0 ] / turn off the tone
+	main: 16 | 								call( Proc_R1 )
+	main: 17 | 						++
+	main: 18 | 							[ R3_x_resp==300 ] / deadline at 300
+	main: 19 | 							alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+	main: 20 | 								[ clock==0 ] / turn off the tone
+	main: 21 | 								alt invariant( [] ~> R3_x_resp<=300 )
+	main: 22 | 									[ true ] / the alarm is disarmed
+	main: 23 | 									call( Proc_R1 )
+	main: 24 | 					&&
+	main: 25 | 						alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+	main: 26 | 							[ true ] / the alarm is disarmed
+	main: 27 | 							NIL
+	main: 28 | 						++
+	main: 29 | 							[ R7_x_resp==60 ] / deadline at 60
+	main: 30 | 							alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+	main: 31 | 								[ clock==0 ] / alert the emergency center
+	main: 32 | 								alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+	main: 33 | 									[ true ] / the alarm is disarmed
+	main: 34 | 									NIL
+	main: 35 | 								++
+	main: 36 | 									[ R7_x_resp==60 ] / deadline at 60
+	main: 37 | 									alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+	main: 38 | 										[ clock==0 ] / alert the emergency center
+	main: 39 | 										call( PostProc_R9 )
+
+	main -down[hidden]-> Proc_R1
+
+	state "Process : **Proc_R1**" as Proc_R1 #Beige
+	Proc_R1: 1 | alt invariant( [] ~> true )
+	Proc_R1: 2 | 	[ true ] / the set button is pressed
+	Proc_R1: 3 | 	alt invariant( [clock] ~> clock<=60 )
+	Proc_R1: 4 | 		[ clock==60 ] / activate the alarm
+	Proc_R1: 5 | 		alt invariant( [] ~> true )
+	Proc_R1: 6 | 			[ true ] / motion is detected
+	Proc_R1: 7 | 			alt invariant( [clock] ~> clock<=0 )
+	Proc_R1: 8 | 				[ clock==0 ] / emit a tone
+	Proc_R1: 9 | 				par sync [the alarm is disarmed]
+	Proc_R1: 10 | 					alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+	Proc_R1: 11 | 						[ true ] / the alarm is disarmed
+	Proc_R1: 12 | 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+	Proc_R1: 13 | 							[ clock==0 ] / turn off the tone
+	Proc_R1: 14 | 							call( Proc_R1 )
+	Proc_R1: 15 | 					++
+	Proc_R1: 16 | 						[ R3_x_resp==300 ] / deadline at 300
+	Proc_R1: 17 | 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+	Proc_R1: 18 | 							[ clock==0 ] / turn off the tone
+	Proc_R1: 19 | 							alt invariant( [] ~> R3_x_resp<=300 )
+	Proc_R1: 20 | 								[ true ] / the alarm is disarmed
+	Proc_R1: 21 | 								call( Proc_R1 )
+	Proc_R1: 22 | 				&&
+	Proc_R1: 23 | 					alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+	Proc_R1: 24 | 						[ true ] / the alarm is disarmed
+	Proc_R1: 25 | 						NIL
+	Proc_R1: 26 | 					++
+	Proc_R1: 27 | 						[ R7_x_resp==60 ] / deadline at 60
+	Proc_R1: 28 | 						alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+	Proc_R1: 29 | 							[ clock==0 ] / alert the emergency center
+	Proc_R1: 30 | 							alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+	Proc_R1: 31 | 								[ true ] / the alarm is disarmed
+	Proc_R1: 32 | 								NIL
+	Proc_R1: 33 | 							++
+	Proc_R1: 34 | 								[ R7_x_resp==60 ] / deadline at 60
+	Proc_R1: 35 | 								alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+	Proc_R1: 36 | 									[ clock==0 ] / alert the emergency center
+	Proc_R1: 37 | 									call( PostProc_R9 )
+
+	Proc_R1 -down[hidden]-> PostProc_R9
+
+	state "Process : **PostProc_R9**" as PostProc_R9 #Beige
+	PostProc_R9: 1 | alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+	PostProc_R9: 2 | 	[ true ] / the alarm is disarmed
+	PostProc_R9: 3 | 	NIL
+	PostProc_R9: 4 | ++
+	PostProc_R9: 5 | 	[ R7_x_resp==60 ] / deadline at 60
+	PostProc_R9: 6 | 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+	PostProc_R9: 7 | 		[ clock==0 ] / alert the emergency center
+	PostProc_R9: 8 | 		call( PostProc_R9 )
+
+	
+	[*] -down-> main : **main**
+}
+
+state "EC< id : 0 , H : 0 , step : 1 >" as EC_0 #LightBlue
+EC_0: 1: alt invariant( [] ~> true )
+EC_0: 2: 	[ true ] / init
+EC_0: 3: 	alt invariant( [] ~> true )
+EC_0: 4: 		[ true ] / the set button is pressed
+EC_0: 5: 		alt invariant( [clock] ~> clock<=60 )
+EC_0: 6: 			[ clock==60 ] / activate the alarm
+EC_0: 7: 			alt invariant( [] ~> true )
+EC_0: 8: 				[ true ] / motion is detected
+EC_0: 9: 				alt invariant( [clock] ~> clock<=0 )
+EC_0: 10: 					[ clock==0 ] / emit a tone
+EC_0: 11: 					par sync [the alarm is disarmed]
+EC_0: 12: 						alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_0: 13: 							[ true ] / the alarm is disarmed
+EC_0: 14: 							alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_0: 15: 								[ clock==0 ] / turn off the tone
+EC_0: 16: 								call( Proc_R1 )
+EC_0: 17: 						++
+EC_0: 18: 							[ R3_x_resp==300 ] / deadline at 300
+EC_0: 19: 							alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_0: 20: 								[ clock==0 ] / turn off the tone
+EC_0: 21: 								alt invariant( [] ~> R3_x_resp<=300 )
+EC_0: 22: 									[ true ] / the alarm is disarmed
+EC_0: 23: 									call( Proc_R1 )
+EC_0: 24: 					&&
+EC_0: 25: 						alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_0: 26: 							[ true ] / the alarm is disarmed
+EC_0: 27: 							NIL
+EC_0: 28: 						++
+EC_0: 29: 							[ R7_x_resp==60 ] / deadline at 60
+EC_0: 30: 							alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_0: 31: 								[ clock==0 ] / alert the emergency center
+EC_0: 32: 								alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_0: 33: 									[ true ] / the alarm is disarmed
+EC_0: 34: 									NIL
+EC_0: 35: 								++
+EC_0: 36: 									[ R7_x_resp==60 ] / deadline at 60
+EC_0: 37: 									alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_0: 38: 										[ clock==0 ] / alert the emergency center
+EC_0: 39: 										call( PostProc_R9 )
+
+EC_0 : DBM: R7_x_resp=R3_x_resp, R7_x_resp=clock, R3_x_resp=clock,
+EC_0  --> EC_2 : inv [] => [true]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 2 , H : 1 , step : 0 >" as EC_2 #Orange
+EC_2: 1: alt invariant( [] ~> true )
+EC_2: 2: 	[ true ] / init
+EC_2: 3: 	alt invariant( [] ~> true )
+EC_2: 4: 		[ true ] / the set button is pressed
+EC_2: 5: 		alt invariant( [clock] ~> clock<=60 )
+EC_2: 6: 			[ clock==60 ] / activate the alarm
+EC_2: 7: 			alt invariant( [] ~> true )
+EC_2: 8: 				[ true ] / motion is detected
+EC_2: 9: 				alt invariant( [clock] ~> clock<=0 )
+EC_2: 10: 					[ clock==0 ] / emit a tone
+EC_2: 11: 					par sync [the alarm is disarmed]
+EC_2: 12: 						alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_2: 13: 							[ true ] / the alarm is disarmed
+EC_2: 14: 							alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_2: 15: 								[ clock==0 ] / turn off the tone
+EC_2: 16: 								call( Proc_R1 )
+EC_2: 17: 						++
+EC_2: 18: 							[ R3_x_resp==300 ] / deadline at 300
+EC_2: 19: 							alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_2: 20: 								[ clock==0 ] / turn off the tone
+EC_2: 21: 								alt invariant( [] ~> R3_x_resp<=300 )
+EC_2: 22: 									[ true ] / the alarm is disarmed
+EC_2: 23: 									call( Proc_R1 )
+EC_2: 24: 					&&
+EC_2: 25: 						alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_2: 26: 							[ true ] / the alarm is disarmed
+EC_2: 27: 							NIL
+EC_2: 28: 						++
+EC_2: 29: 							[ R7_x_resp==60 ] / deadline at 60
+EC_2: 30: 							alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_2: 31: 								[ clock==0 ] / alert the emergency center
+EC_2: 32: 								alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_2: 33: 									[ true ] / the alarm is disarmed
+EC_2: 34: 									NIL
+EC_2: 35: 								++
+EC_2: 36: 									[ R7_x_resp==60 ] / deadline at 60
+EC_2: 37: 									alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_2: 38: 										[ clock==0 ] / alert the emergency center
+EC_2: 39: 										call( PostProc_R9 )
+
+EC_2 : DBM: R7_x_resp=R3_x_resp, R7_x_resp=clock, R3_x_resp=clock,
+EC_2  --> EC_3 : inv [] => [true]\lact:COVERAGE [true] / init
+
+state "EC< id : 3 , H : 2 , step : 2 >" as EC_3 #Yellow
+EC_3: 1: alt invariant( [] ~> true )
+EC_3: 2: 	[ true ] / the set button is pressed
+EC_3: 3: 	alt invariant( [clock] ~> clock<=60 )
+EC_3: 4: 		[ clock==60 ] / activate the alarm
+EC_3: 5: 		alt invariant( [] ~> true )
+EC_3: 6: 			[ true ] / motion is detected
+EC_3: 7: 			alt invariant( [clock] ~> clock<=0 )
+EC_3: 8: 				[ clock==0 ] / emit a tone
+EC_3: 9: 				par sync [the alarm is disarmed]
+EC_3: 10: 					alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_3: 11: 						[ true ] / the alarm is disarmed
+EC_3: 12: 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_3: 13: 							[ clock==0 ] / turn off the tone
+EC_3: 14: 							call( Proc_R1 )
+EC_3: 15: 					++
+EC_3: 16: 						[ R3_x_resp==300 ] / deadline at 300
+EC_3: 17: 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_3: 18: 							[ clock==0 ] / turn off the tone
+EC_3: 19: 							alt invariant( [] ~> R3_x_resp<=300 )
+EC_3: 20: 								[ true ] / the alarm is disarmed
+EC_3: 21: 								call( Proc_R1 )
+EC_3: 22: 				&&
+EC_3: 23: 					alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_3: 24: 						[ true ] / the alarm is disarmed
+EC_3: 25: 						NIL
+EC_3: 26: 					++
+EC_3: 27: 						[ R7_x_resp==60 ] / deadline at 60
+EC_3: 28: 						alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_3: 29: 							[ clock==0 ] / alert the emergency center
+EC_3: 30: 							alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_3: 31: 								[ true ] / the alarm is disarmed
+EC_3: 32: 								NIL
+EC_3: 33: 							++
+EC_3: 34: 								[ R7_x_resp==60 ] / deadline at 60
+EC_3: 35: 								alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_3: 36: 									[ clock==0 ] / alert the emergency center
+EC_3: 37: 									call( PostProc_R9 )
+
+EC_3 : DBM: R7_x_resp=R3_x_resp, R7_x_resp=clock, R3_x_resp=clock,
+EC_3  --> EC_5 : inv [] => [true]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 5 , H : 3 , step : 0 >" as EC_5 #Orange
+EC_5: 1: alt invariant( [] ~> true )
+EC_5: 2: 	[ true ] / the set button is pressed
+EC_5: 3: 	alt invariant( [clock] ~> clock<=60 )
+EC_5: 4: 		[ clock==60 ] / activate the alarm
+EC_5: 5: 		alt invariant( [] ~> true )
+EC_5: 6: 			[ true ] / motion is detected
+EC_5: 7: 			alt invariant( [clock] ~> clock<=0 )
+EC_5: 8: 				[ clock==0 ] / emit a tone
+EC_5: 9: 				par sync [the alarm is disarmed]
+EC_5: 10: 					alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_5: 11: 						[ true ] / the alarm is disarmed
+EC_5: 12: 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_5: 13: 							[ clock==0 ] / turn off the tone
+EC_5: 14: 							call( Proc_R1 )
+EC_5: 15: 					++
+EC_5: 16: 						[ R3_x_resp==300 ] / deadline at 300
+EC_5: 17: 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_5: 18: 							[ clock==0 ] / turn off the tone
+EC_5: 19: 							alt invariant( [] ~> R3_x_resp<=300 )
+EC_5: 20: 								[ true ] / the alarm is disarmed
+EC_5: 21: 								call( Proc_R1 )
+EC_5: 22: 				&&
+EC_5: 23: 					alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_5: 24: 						[ true ] / the alarm is disarmed
+EC_5: 25: 						NIL
+EC_5: 26: 					++
+EC_5: 27: 						[ R7_x_resp==60 ] / deadline at 60
+EC_5: 28: 						alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_5: 29: 							[ clock==0 ] / alert the emergency center
+EC_5: 30: 							alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_5: 31: 								[ true ] / the alarm is disarmed
+EC_5: 32: 								NIL
+EC_5: 33: 							++
+EC_5: 34: 								[ R7_x_resp==60 ] / deadline at 60
+EC_5: 35: 								alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_5: 36: 									[ clock==0 ] / alert the emergency center
+EC_5: 37: 									call( PostProc_R9 )
+
+EC_5 : DBM: R7_x_resp=R3_x_resp, R7_x_resp=clock, R3_x_resp=clock,
+EC_5  --> EC_6 : inv [] => [true]\lact:COVERAGE [true] / the set button is pressed
+
+state "EC< id : 6 , H : 4 , step : 3 >" as EC_6 #Yellow
+EC_6: 1: alt invariant( [clock] ~> clock<=60 )
+EC_6: 2: 	[ clock==60 ] / activate the alarm
+EC_6: 3: 	alt invariant( [] ~> true )
+EC_6: 4: 		[ true ] / motion is detected
+EC_6: 5: 		alt invariant( [clock] ~> clock<=0 )
+EC_6: 6: 			[ clock==0 ] / emit a tone
+EC_6: 7: 			par sync [the alarm is disarmed]
+EC_6: 8: 				alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_6: 9: 					[ true ] / the alarm is disarmed
+EC_6: 10: 					alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_6: 11: 						[ clock==0 ] / turn off the tone
+EC_6: 12: 						call( Proc_R1 )
+EC_6: 13: 				++
+EC_6: 14: 					[ R3_x_resp==300 ] / deadline at 300
+EC_6: 15: 					alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_6: 16: 						[ clock==0 ] / turn off the tone
+EC_6: 17: 						alt invariant( [] ~> R3_x_resp<=300 )
+EC_6: 18: 							[ true ] / the alarm is disarmed
+EC_6: 19: 							call( Proc_R1 )
+EC_6: 20: 			&&
+EC_6: 21: 				alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_6: 22: 					[ true ] / the alarm is disarmed
+EC_6: 23: 					NIL
+EC_6: 24: 				++
+EC_6: 25: 					[ R7_x_resp==60 ] / deadline at 60
+EC_6: 26: 					alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_6: 27: 						[ clock==0 ] / alert the emergency center
+EC_6: 28: 						alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_6: 29: 							[ true ] / the alarm is disarmed
+EC_6: 30: 							NIL
+EC_6: 31: 						++
+EC_6: 32: 							[ R7_x_resp==60 ] / deadline at 60
+EC_6: 33: 							alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_6: 34: 								[ clock==0 ] / alert the emergency center
+EC_6: 35: 								call( PostProc_R9 )
+
+EC_6 : DBM: R7_x_resp=R3_x_resp, R7_x_resp=clock, R3_x_resp=clock,
+EC_6  --> EC_8 : inv [clock] => [clock<=60]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 8 , H : 5 , step : 0 >" as EC_8 #Orange
+EC_8: 1: alt invariant( [clock] ~> clock<=60 )
+EC_8: 2: 	[ clock==60 ] / activate the alarm
+EC_8: 3: 	alt invariant( [] ~> true )
+EC_8: 4: 		[ true ] / motion is detected
+EC_8: 5: 		alt invariant( [clock] ~> clock<=0 )
+EC_8: 6: 			[ clock==0 ] / emit a tone
+EC_8: 7: 			par sync [the alarm is disarmed]
+EC_8: 8: 				alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_8: 9: 					[ true ] / the alarm is disarmed
+EC_8: 10: 					alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_8: 11: 						[ clock==0 ] / turn off the tone
+EC_8: 12: 						call( Proc_R1 )
+EC_8: 13: 				++
+EC_8: 14: 					[ R3_x_resp==300 ] / deadline at 300
+EC_8: 15: 					alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_8: 16: 						[ clock==0 ] / turn off the tone
+EC_8: 17: 						alt invariant( [] ~> R3_x_resp<=300 )
+EC_8: 18: 							[ true ] / the alarm is disarmed
+EC_8: 19: 							call( Proc_R1 )
+EC_8: 20: 			&&
+EC_8: 21: 				alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_8: 22: 					[ true ] / the alarm is disarmed
+EC_8: 23: 					NIL
+EC_8: 24: 				++
+EC_8: 25: 					[ R7_x_resp==60 ] / deadline at 60
+EC_8: 26: 					alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_8: 27: 						[ clock==0 ] / alert the emergency center
+EC_8: 28: 						alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_8: 29: 							[ true ] / the alarm is disarmed
+EC_8: 30: 							NIL
+EC_8: 31: 						++
+EC_8: 32: 							[ R7_x_resp==60 ] / deadline at 60
+EC_8: 33: 							alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_8: 34: 								[ clock==0 ] / alert the emergency center
+EC_8: 35: 								call( PostProc_R9 )
+
+EC_8 : DBM: clock<=60, R7_x_resp=R3_x_resp, clock-R7_x_resp<=0,\l   clock-R3_x_resp<=0,
+EC_8  --> EC_9 : inv [clock] => [clock<=60]\lact:COVERAGE [clock==60] / activate the alarm
+
+state "EC< id : 9 , H : 6 , step : 4 >" as EC_9 #Yellow
+EC_9: 1: alt invariant( [] ~> true )
+EC_9: 2: 	[ true ] / motion is detected
+EC_9: 3: 	alt invariant( [clock] ~> clock<=0 )
+EC_9: 4: 		[ clock==0 ] / emit a tone
+EC_9: 5: 		par sync [the alarm is disarmed]
+EC_9: 6: 			alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_9: 7: 				[ true ] / the alarm is disarmed
+EC_9: 8: 				alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_9: 9: 					[ clock==0 ] / turn off the tone
+EC_9: 10: 					call( Proc_R1 )
+EC_9: 11: 			++
+EC_9: 12: 				[ R3_x_resp==300 ] / deadline at 300
+EC_9: 13: 				alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_9: 14: 					[ clock==0 ] / turn off the tone
+EC_9: 15: 					alt invariant( [] ~> R3_x_resp<=300 )
+EC_9: 16: 						[ true ] / the alarm is disarmed
+EC_9: 17: 						call( Proc_R1 )
+EC_9: 18: 		&&
+EC_9: 19: 			alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_9: 20: 				[ true ] / the alarm is disarmed
+EC_9: 21: 				NIL
+EC_9: 22: 			++
+EC_9: 23: 				[ R7_x_resp==60 ] / deadline at 60
+EC_9: 24: 				alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_9: 25: 					[ clock==0 ] / alert the emergency center
+EC_9: 26: 					alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_9: 27: 						[ true ] / the alarm is disarmed
+EC_9: 28: 						NIL
+EC_9: 29: 					++
+EC_9: 30: 						[ R7_x_resp==60 ] / deadline at 60
+EC_9: 31: 						alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_9: 32: 							[ clock==0 ] / alert the emergency center
+EC_9: 33: 							call( PostProc_R9 )
+
+EC_9 : DBM: R7_x_resp>=60, R3_x_resp>=60, clock=60, R7_x_resp=R3_x_resp,\l   clock-R7_x_resp<=0, clock-R3_x_resp<=0,
+EC_9  --> EC_11 : inv [] => [true]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 11 , H : 7 , step : 0 >" as EC_11 #Orange
+EC_11: 1: alt invariant( [] ~> true )
+EC_11: 2: 	[ true ] / motion is detected
+EC_11: 3: 	alt invariant( [clock] ~> clock<=0 )
+EC_11: 4: 		[ clock==0 ] / emit a tone
+EC_11: 5: 		par sync [the alarm is disarmed]
+EC_11: 6: 			alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_11: 7: 				[ true ] / the alarm is disarmed
+EC_11: 8: 				alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_11: 9: 					[ clock==0 ] / turn off the tone
+EC_11: 10: 					call( Proc_R1 )
+EC_11: 11: 			++
+EC_11: 12: 				[ R3_x_resp==300 ] / deadline at 300
+EC_11: 13: 				alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_11: 14: 					[ clock==0 ] / turn off the tone
+EC_11: 15: 					alt invariant( [] ~> R3_x_resp<=300 )
+EC_11: 16: 						[ true ] / the alarm is disarmed
+EC_11: 17: 						call( Proc_R1 )
+EC_11: 18: 		&&
+EC_11: 19: 			alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_11: 20: 				[ true ] / the alarm is disarmed
+EC_11: 21: 				NIL
+EC_11: 22: 			++
+EC_11: 23: 				[ R7_x_resp==60 ] / deadline at 60
+EC_11: 24: 				alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_11: 25: 					[ clock==0 ] / alert the emergency center
+EC_11: 26: 					alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_11: 27: 						[ true ] / the alarm is disarmed
+EC_11: 28: 						NIL
+EC_11: 29: 					++
+EC_11: 30: 						[ R7_x_resp==60 ] / deadline at 60
+EC_11: 31: 						alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_11: 32: 							[ clock==0 ] / alert the emergency center
+EC_11: 33: 							call( PostProc_R9 )
+
+EC_11 : DBM: R7_x_resp>=60, R3_x_resp>=60, clock>=60, R7_x_resp=R3_x_resp,\l   clock-R7_x_resp<=0, clock-R3_x_resp<=0,
+EC_11  --> EC_12 : inv [] => [true]\lact:COVERAGE [true] / motion is detected
+
+state "EC< id : 12 , H : 8 , step : 5 >" as EC_12 #Yellow
+EC_12: 1: alt invariant( [clock] ~> clock<=0 )
+EC_12: 2: 	[ clock==0 ] / emit a tone
+EC_12: 3: 	par sync [the alarm is disarmed]
+EC_12: 4: 		alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_12: 5: 			[ true ] / the alarm is disarmed
+EC_12: 6: 			alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_12: 7: 				[ clock==0 ] / turn off the tone
+EC_12: 8: 				call( Proc_R1 )
+EC_12: 9: 		++
+EC_12: 10: 			[ R3_x_resp==300 ] / deadline at 300
+EC_12: 11: 			alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_12: 12: 				[ clock==0 ] / turn off the tone
+EC_12: 13: 				alt invariant( [] ~> R3_x_resp<=300 )
+EC_12: 14: 					[ true ] / the alarm is disarmed
+EC_12: 15: 					call( Proc_R1 )
+EC_12: 16: 	&&
+EC_12: 17: 		alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_12: 18: 			[ true ] / the alarm is disarmed
+EC_12: 19: 			NIL
+EC_12: 20: 		++
+EC_12: 21: 			[ R7_x_resp==60 ] / deadline at 60
+EC_12: 22: 			alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_12: 23: 				[ clock==0 ] / alert the emergency center
+EC_12: 24: 				alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_12: 25: 					[ true ] / the alarm is disarmed
+EC_12: 26: 					NIL
+EC_12: 27: 				++
+EC_12: 28: 					[ R7_x_resp==60 ] / deadline at 60
+EC_12: 29: 					alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_12: 30: 						[ clock==0 ] / alert the emergency center
+EC_12: 31: 						call( PostProc_R9 )
+
+EC_12 : DBM: R7_x_resp>=60, R3_x_resp>=60, clock>=60, R7_x_resp=R3_x_resp,\l   clock-R7_x_resp<=0, clock-R3_x_resp<=0,
+EC_12  --> EC_14 : inv [clock] => [clock<=0]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 14 , H : 9 , step : 0 >" as EC_14 #Orange
+EC_14: 1: alt invariant( [clock] ~> clock<=0 )
+EC_14: 2: 	[ clock==0 ] / emit a tone
+EC_14: 3: 	par sync [the alarm is disarmed]
+EC_14: 4: 		alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_14: 5: 			[ true ] / the alarm is disarmed
+EC_14: 6: 			alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_14: 7: 				[ clock==0 ] / turn off the tone
+EC_14: 8: 				call( Proc_R1 )
+EC_14: 9: 		++
+EC_14: 10: 			[ R3_x_resp==300 ] / deadline at 300
+EC_14: 11: 			alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_14: 12: 				[ clock==0 ] / turn off the tone
+EC_14: 13: 				alt invariant( [] ~> R3_x_resp<=300 )
+EC_14: 14: 					[ true ] / the alarm is disarmed
+EC_14: 15: 					call( Proc_R1 )
+EC_14: 16: 	&&
+EC_14: 17: 		alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_14: 18: 			[ true ] / the alarm is disarmed
+EC_14: 19: 			NIL
+EC_14: 20: 		++
+EC_14: 21: 			[ R7_x_resp==60 ] / deadline at 60
+EC_14: 22: 			alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_14: 23: 				[ clock==0 ] / alert the emergency center
+EC_14: 24: 				alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_14: 25: 					[ true ] / the alarm is disarmed
+EC_14: 26: 					NIL
+EC_14: 27: 				++
+EC_14: 28: 					[ R7_x_resp==60 ] / deadline at 60
+EC_14: 29: 					alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_14: 30: 						[ clock==0 ] / alert the emergency center
+EC_14: 31: 						call( PostProc_R9 )
+
+EC_14 : DBM: R7_x_resp>=60, R3_x_resp>=60, clock<=0, R7_x_resp=R3_x_resp,\l   clock-R7_x_resp<=-60, clock-R3_x_resp<=-60,
+EC_14  --> EC_15 : inv [clock] => [clock<=0]\lact:COVERAGE [clock==0] / emit a tone
+
+state "EC< id : 15 , H : 10 , step : 6 >" as EC_15 #Yellow
+EC_15: 1: par sync [the alarm is disarmed]
+EC_15: 2: 	alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_15: 3: 		[ true ] / the alarm is disarmed
+EC_15: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_15: 5: 			[ clock==0 ] / turn off the tone
+EC_15: 6: 			call( Proc_R1 )
+EC_15: 7: 	++
+EC_15: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_15: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_15: 10: 			[ clock==0 ] / turn off the tone
+EC_15: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_15: 12: 				[ true ] / the alarm is disarmed
+EC_15: 13: 				call( Proc_R1 )
+EC_15: 14: &&
+EC_15: 15: 	alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_15: 16: 		[ true ] / the alarm is disarmed
+EC_15: 17: 		NIL
+EC_15: 18: 	++
+EC_15: 19: 		[ R7_x_resp==60 ] / deadline at 60
+EC_15: 20: 		alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_15: 21: 			[ clock==0 ] / alert the emergency center
+EC_15: 22: 			alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_15: 23: 				[ true ] / the alarm is disarmed
+EC_15: 24: 				NIL
+EC_15: 25: 			++
+EC_15: 26: 				[ R7_x_resp==60 ] / deadline at 60
+EC_15: 27: 				alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_15: 28: 					[ clock==0 ] / alert the emergency center
+EC_15: 29: 					call( PostProc_R9 )
+
+EC_15 : DBM: R7_x_resp>=60, R3_x_resp>=60, clock<=0, R7_x_resp=R3_x_resp,\l   clock-R7_x_resp<=-60, clock-R3_x_resp<=-60,
+EC_15  --> EC_17 : inv [R3_x_resp, R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [True] / META:[start time period within 0 to 300, start time period within 0 to 60]
+
+state "EC< id : 17 , H : 11 , step : 0 >" as EC_17 #Orange
+EC_17: 1: par sync [the alarm is disarmed]
+EC_17: 2: 	alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_17: 3: 		[ true ] / the alarm is disarmed
+EC_17: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_17: 5: 			[ clock==0 ] / turn off the tone
+EC_17: 6: 			call( Proc_R1 )
+EC_17: 7: 	++
+EC_17: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_17: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_17: 10: 			[ clock==0 ] / turn off the tone
+EC_17: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_17: 12: 				[ true ] / the alarm is disarmed
+EC_17: 13: 				call( Proc_R1 )
+EC_17: 14: &&
+EC_17: 15: 	alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_17: 16: 		[ true ] / the alarm is disarmed
+EC_17: 17: 		NIL
+EC_17: 18: 	++
+EC_17: 19: 		[ R7_x_resp==60 ] / deadline at 60
+EC_17: 20: 		alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_17: 21: 			[ clock==0 ] / alert the emergency center
+EC_17: 22: 			alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_17: 23: 				[ true ] / the alarm is disarmed
+EC_17: 24: 				NIL
+EC_17: 25: 			++
+EC_17: 26: 				[ R7_x_resp==60 ] / deadline at 60
+EC_17: 27: 				alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_17: 28: 					[ clock==0 ] / alert the emergency center
+EC_17: 29: 					call( PostProc_R9 )
+
+EC_17 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
+EC_17  --> EC_18 : inv [R3_x_resp, R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact:COVERAGE [true, true] / TAU:the alarm is disarmed
+
+state "EC< id : 18 , H : 12 , step : 7 >" as EC_18 #Yellow
+EC_18: 1: par sync [the alarm is disarmed]
+EC_18: 2: 	alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_18: 3: 		[ clock==0 ] / turn off the tone
+EC_18: 4: 		call( Proc_R1 )
+EC_18: 5: &&
+EC_18: 6: 	NIL
+
+EC_18 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
+EC_18  --> EC_22 : inv [clock] => [R3_x_resp<=300, clock<=0, True]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 22 , H : 13 , step : 0 >" as EC_22 #Orange
+EC_22: 1: par sync [the alarm is disarmed]
+EC_22: 2: 	alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_22: 3: 		[ clock==0 ] / turn off the tone
+EC_22: 4: 		call( Proc_R1 )
+EC_22: 5: &&
+EC_22: 6: 	NIL
+
+EC_22 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
+EC_22  --> EC_23 : inv [clock] => [R3_x_resp<=300, clock<=0, True]\lact:COVERAGE [clock==0] / turn off the tone
+
+state "EC< id : 23 , H : 14 , step : 9 >" as EC_23 #Yellow
+EC_23: 1: par
+EC_23: 2: 	call( Proc_R1 )
+EC_23: 3: ||
+EC_23: 4: 	NIL
+
+EC_23 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
+EC_23  --> EC_28 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = Proc_R1
+
+state "EC< id : 28 , H : 15 , step : 0 >" as EC_28 #Pink
+EC_28: 1: par
+EC_28: 2: 	alt invariant( [] ~> true )
+EC_28: 3: 		[ true ] / the set button is pressed
+EC_28: 4: 		alt invariant( [clock] ~> clock<=60 )
+EC_28: 5: 			[ clock==60 ] / activate the alarm
+EC_28: 6: 			alt invariant( [] ~> true )
+EC_28: 7: 				[ true ] / motion is detected
+EC_28: 8: 				alt invariant( [clock] ~> clock<=0 )
+EC_28: 9: 					[ clock==0 ] / emit a tone
+EC_28: 10: 					par sync [the alarm is disarmed]
+EC_28: 11: 						alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_28: 12: 							[ true ] / the alarm is disarmed
+EC_28: 13: 							alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_28: 14: 								[ clock==0 ] / turn off the tone
+EC_28: 15: 								call( Proc_R1 )
+EC_28: 16: 						++
+EC_28: 17: 							[ R3_x_resp==300 ] / deadline at 300
+EC_28: 18: 							alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_28: 19: 								[ clock==0 ] / turn off the tone
+EC_28: 20: 								alt invariant( [] ~> R3_x_resp<=300 )
+EC_28: 21: 									[ true ] / the alarm is disarmed
+EC_28: 22: 									call( Proc_R1 )
+EC_28: 23: 					&&
+EC_28: 24: 						alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_28: 25: 							[ true ] / the alarm is disarmed
+EC_28: 26: 							NIL
+EC_28: 27: 						++
+EC_28: 28: 							[ R7_x_resp==60 ] / deadline at 60
+EC_28: 29: 							alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_28: 30: 								[ clock==0 ] / alert the emergency center
+EC_28: 31: 								alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_28: 32: 									[ true ] / the alarm is disarmed
+EC_28: 33: 									NIL
+EC_28: 34: 								++
+EC_28: 35: 									[ R7_x_resp==60 ] / deadline at 60
+EC_28: 36: 									alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_28: 37: 										[ clock==0 ] / alert the emergency center
+EC_28: 38: 										call( PostProc_R9 )
+EC_28: 39: ||
+EC_28: 40: 	NIL
+
+EC_28 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
+EC_28  --> EC_30 : inv [] => [true, True]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 30 , H : 16 , step : 0 >" as EC_30 #Orange
+EC_30: 1: par
+EC_30: 2: 	alt invariant( [] ~> true )
+EC_30: 3: 		[ true ] / the set button is pressed
+EC_30: 4: 		alt invariant( [clock] ~> clock<=60 )
+EC_30: 5: 			[ clock==60 ] / activate the alarm
+EC_30: 6: 			alt invariant( [] ~> true )
+EC_30: 7: 				[ true ] / motion is detected
+EC_30: 8: 				alt invariant( [clock] ~> clock<=0 )
+EC_30: 9: 					[ clock==0 ] / emit a tone
+EC_30: 10: 					par sync [the alarm is disarmed]
+EC_30: 11: 						alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_30: 12: 							[ true ] / the alarm is disarmed
+EC_30: 13: 							alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_30: 14: 								[ clock==0 ] / turn off the tone
+EC_30: 15: 								call( Proc_R1 )
+EC_30: 16: 						++
+EC_30: 17: 							[ R3_x_resp==300 ] / deadline at 300
+EC_30: 18: 							alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_30: 19: 								[ clock==0 ] / turn off the tone
+EC_30: 20: 								alt invariant( [] ~> R3_x_resp<=300 )
+EC_30: 21: 									[ true ] / the alarm is disarmed
+EC_30: 22: 									call( Proc_R1 )
+EC_30: 23: 					&&
+EC_30: 24: 						alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_30: 25: 							[ true ] / the alarm is disarmed
+EC_30: 26: 							NIL
+EC_30: 27: 						++
+EC_30: 28: 							[ R7_x_resp==60 ] / deadline at 60
+EC_30: 29: 							alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_30: 30: 								[ clock==0 ] / alert the emergency center
+EC_30: 31: 								alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_30: 32: 									[ true ] / the alarm is disarmed
+EC_30: 33: 									NIL
+EC_30: 34: 								++
+EC_30: 35: 									[ R7_x_resp==60 ] / deadline at 60
+EC_30: 36: 									alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_30: 37: 										[ clock==0 ] / alert the emergency center
+EC_30: 38: 										call( PostProc_R9 )
+EC_30: 39: ||
+EC_30: 40: 	NIL
+
+EC_30 : DBM: R7_x_resp=R3_x_resp, R7_x_resp-clock<=60, clock-R7_x_resp<=0,\l   R3_x_resp-clock<=60, clock-R3_x_resp<=0,
+EC_30  --> EC_31 : inv [] => [true, True]\lact [true] / the set button is pressed
+
+state "EC< id : 31 , H : 17 , step : 11 >" as EC_31 #LightBlue
+EC_31: 1: par
+EC_31: 2: 	alt invariant( [clock] ~> clock<=60 )
+EC_31: 3: 		[ clock==60 ] / activate the alarm
+EC_31: 4: 		alt invariant( [] ~> true )
+EC_31: 5: 			[ true ] / motion is detected
+EC_31: 6: 			alt invariant( [clock] ~> clock<=0 )
+EC_31: 7: 				[ clock==0 ] / emit a tone
+EC_31: 8: 				par sync [the alarm is disarmed]
+EC_31: 9: 					alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_31: 10: 						[ true ] / the alarm is disarmed
+EC_31: 11: 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_31: 12: 							[ clock==0 ] / turn off the tone
+EC_31: 13: 							call( Proc_R1 )
+EC_31: 14: 					++
+EC_31: 15: 						[ R3_x_resp==300 ] / deadline at 300
+EC_31: 16: 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_31: 17: 							[ clock==0 ] / turn off the tone
+EC_31: 18: 							alt invariant( [] ~> R3_x_resp<=300 )
+EC_31: 19: 								[ true ] / the alarm is disarmed
+EC_31: 20: 								call( Proc_R1 )
+EC_31: 21: 				&&
+EC_31: 22: 					alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_31: 23: 						[ true ] / the alarm is disarmed
+EC_31: 24: 						NIL
+EC_31: 25: 					++
+EC_31: 26: 						[ R7_x_resp==60 ] / deadline at 60
+EC_31: 27: 						alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_31: 28: 							[ clock==0 ] / alert the emergency center
+EC_31: 29: 							alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_31: 30: 								[ true ] / the alarm is disarmed
+EC_31: 31: 								NIL
+EC_31: 32: 							++
+EC_31: 33: 								[ R7_x_resp==60 ] / deadline at 60
+EC_31: 34: 								alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_31: 35: 									[ clock==0 ] / alert the emergency center
+EC_31: 36: 									call( PostProc_R9 )
+EC_31: 37: ||
+EC_31: 38: 	NIL
+
+EC_31 : DBM: R7_x_resp=R3_x_resp, R7_x_resp-clock<=60, clock-R7_x_resp<=0,\l   R3_x_resp-clock<=60, clock-R3_x_resp<=0,
+EC_31  --> EC_38 : inv [clock] => [clock<=60, True]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 38 , H : 18 , step : 0 >" as EC_38 #Orange
+EC_38: 1: par
+EC_38: 2: 	alt invariant( [clock] ~> clock<=60 )
+EC_38: 3: 		[ clock==60 ] / activate the alarm
+EC_38: 4: 		alt invariant( [] ~> true )
+EC_38: 5: 			[ true ] / motion is detected
+EC_38: 6: 			alt invariant( [clock] ~> clock<=0 )
+EC_38: 7: 				[ clock==0 ] / emit a tone
+EC_38: 8: 				par sync [the alarm is disarmed]
+EC_38: 9: 					alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_38: 10: 						[ true ] / the alarm is disarmed
+EC_38: 11: 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_38: 12: 							[ clock==0 ] / turn off the tone
+EC_38: 13: 							call( Proc_R1 )
+EC_38: 14: 					++
+EC_38: 15: 						[ R3_x_resp==300 ] / deadline at 300
+EC_38: 16: 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_38: 17: 							[ clock==0 ] / turn off the tone
+EC_38: 18: 							alt invariant( [] ~> R3_x_resp<=300 )
+EC_38: 19: 								[ true ] / the alarm is disarmed
+EC_38: 20: 								call( Proc_R1 )
+EC_38: 21: 				&&
+EC_38: 22: 					alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_38: 23: 						[ true ] / the alarm is disarmed
+EC_38: 24: 						NIL
+EC_38: 25: 					++
+EC_38: 26: 						[ R7_x_resp==60 ] / deadline at 60
+EC_38: 27: 						alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_38: 28: 							[ clock==0 ] / alert the emergency center
+EC_38: 29: 							alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_38: 30: 								[ true ] / the alarm is disarmed
+EC_38: 31: 								NIL
+EC_38: 32: 							++
+EC_38: 33: 								[ R7_x_resp==60 ] / deadline at 60
+EC_38: 34: 								alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_38: 35: 									[ clock==0 ] / alert the emergency center
+EC_38: 36: 									call( PostProc_R9 )
+EC_38: 37: ||
+EC_38: 38: 	NIL
+
+EC_38 : DBM: clock<=60, R7_x_resp=R3_x_resp, clock-R7_x_resp<=0,\l   clock-R3_x_resp<=0,
+EC_38  --> EC_39 : \lact [True] / META:REDUNDANCE:EC< id : 8 , H : 5 >
+
+state "EC< id : 39 , H : 19 , step : 0 >" as EC_39 #Green
+EC_39: 1: par
+EC_39: 2: 	alt invariant( [clock] ~> clock<=60 )
+EC_39: 3: 		[ clock==60 ] / activate the alarm
+EC_39: 4: 		alt invariant( [] ~> true )
+EC_39: 5: 			[ true ] / motion is detected
+EC_39: 6: 			alt invariant( [clock] ~> clock<=0 )
+EC_39: 7: 				[ clock==0 ] / emit a tone
+EC_39: 8: 				par sync [the alarm is disarmed]
+EC_39: 9: 					alt invariant( [R3_x_resp] ~> R3_x_resp<=300 / start time period within 0 to 300 )
+EC_39: 10: 						[ true ] / the alarm is disarmed
+EC_39: 11: 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_39: 12: 							[ clock==0 ] / turn off the tone
+EC_39: 13: 							call( Proc_R1 )
+EC_39: 14: 					++
+EC_39: 15: 						[ R3_x_resp==300 ] / deadline at 300
+EC_39: 16: 						alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_39: 17: 							[ clock==0 ] / turn off the tone
+EC_39: 18: 							alt invariant( [] ~> R3_x_resp<=300 )
+EC_39: 19: 								[ true ] / the alarm is disarmed
+EC_39: 20: 								call( Proc_R1 )
+EC_39: 21: 				&&
+EC_39: 22: 					alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_39: 23: 						[ true ] / the alarm is disarmed
+EC_39: 24: 						NIL
+EC_39: 25: 					++
+EC_39: 26: 						[ R7_x_resp==60 ] / deadline at 60
+EC_39: 27: 						alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_39: 28: 							[ clock==0 ] / alert the emergency center
+EC_39: 29: 							alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_39: 30: 								[ true ] / the alarm is disarmed
+EC_39: 31: 								NIL
+EC_39: 32: 							++
+EC_39: 33: 								[ R7_x_resp==60 ] / deadline at 60
+EC_39: 34: 								alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_39: 35: 									[ clock==0 ] / alert the emergency center
+EC_39: 36: 									call( PostProc_R9 )
+EC_39: 37: ||
+EC_39: 38: 	NIL
+
+EC_39 : DBM: clock<=60, R7_x_resp=R3_x_resp, clock-R7_x_resp<=0,\l   clock-R3_x_resp<=0,
+EC_17  --> EC_19 : inv [R3_x_resp, R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact:COVERAGE [R7_x_resp==60] / deadline at 60
+
+state "EC< id : 19 , H : 12 , step : 8 >" as EC_19 #Yellow
+EC_19: 1: par sync [the alarm is disarmed]
+EC_19: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_19: 3: 		[ true ] / the alarm is disarmed
+EC_19: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_19: 5: 			[ clock==0 ] / turn off the tone
+EC_19: 6: 			call( Proc_R1 )
+EC_19: 7: 	++
+EC_19: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_19: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_19: 10: 			[ clock==0 ] / turn off the tone
+EC_19: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_19: 12: 				[ true ] / the alarm is disarmed
+EC_19: 13: 				call( Proc_R1 )
+EC_19: 14: &&
+EC_19: 15: 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_19: 16: 		[ clock==0 ] / alert the emergency center
+EC_19: 17: 		alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_19: 18: 			[ true ] / the alarm is disarmed
+EC_19: 19: 			NIL
+EC_19: 20: 		++
+EC_19: 21: 			[ R7_x_resp==60 ] / deadline at 60
+EC_19: 22: 			alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_19: 23: 				[ clock==0 ] / alert the emergency center
+EC_19: 24: 				call( PostProc_R9 )
+
+EC_19 : DBM: R7_x_resp=60, R3_x_resp=60, clock=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
+EC_19  --> EC_25 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 25 , H : 13 , step : 0 >" as EC_25 #Orange
+EC_25: 1: par sync [the alarm is disarmed]
+EC_25: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_25: 3: 		[ true ] / the alarm is disarmed
+EC_25: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_25: 5: 			[ clock==0 ] / turn off the tone
+EC_25: 6: 			call( Proc_R1 )
+EC_25: 7: 	++
+EC_25: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_25: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_25: 10: 			[ clock==0 ] / turn off the tone
+EC_25: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_25: 12: 				[ true ] / the alarm is disarmed
+EC_25: 13: 				call( Proc_R1 )
+EC_25: 14: &&
+EC_25: 15: 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_25: 16: 		[ clock==0 ] / alert the emergency center
+EC_25: 17: 		alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_25: 18: 			[ true ] / the alarm is disarmed
+EC_25: 19: 			NIL
+EC_25: 20: 		++
+EC_25: 21: 			[ R7_x_resp==60 ] / deadline at 60
+EC_25: 22: 			alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_25: 23: 				[ clock==0 ] / alert the emergency center
+EC_25: 24: 				call( PostProc_R9 )
+
+EC_25 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
+EC_25  --> EC_26 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact:COVERAGE [clock==0] / alert the emergency center
+
+state "EC< id : 26 , H : 14 , step : 10 >" as EC_26 #Yellow
+EC_26: 1: par sync [the alarm is disarmed]
+EC_26: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_26: 3: 		[ true ] / the alarm is disarmed
+EC_26: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_26: 5: 			[ clock==0 ] / turn off the tone
+EC_26: 6: 			call( Proc_R1 )
+EC_26: 7: 	++
+EC_26: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_26: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_26: 10: 			[ clock==0 ] / turn off the tone
+EC_26: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_26: 12: 				[ true ] / the alarm is disarmed
+EC_26: 13: 				call( Proc_R1 )
+EC_26: 14: &&
+EC_26: 15: 	alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_26: 16: 		[ true ] / the alarm is disarmed
+EC_26: 17: 		NIL
+EC_26: 18: 	++
+EC_26: 19: 		[ R7_x_resp==60 ] / deadline at 60
+EC_26: 20: 		alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_26: 21: 			[ clock==0 ] / alert the emergency center
+EC_26: 22: 			call( PostProc_R9 )
+
+EC_26 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
+EC_26  --> EC_33 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [True] / META:start time period within 0 to 60
+
+state "EC< id : 33 , H : 15 , step : 0 >" as EC_33 #Orange
+EC_33: 1: par sync [the alarm is disarmed]
+EC_33: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_33: 3: 		[ true ] / the alarm is disarmed
+EC_33: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_33: 5: 			[ clock==0 ] / turn off the tone
+EC_33: 6: 			call( Proc_R1 )
+EC_33: 7: 	++
+EC_33: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_33: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_33: 10: 			[ clock==0 ] / turn off the tone
+EC_33: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_33: 12: 				[ true ] / the alarm is disarmed
+EC_33: 13: 				call( Proc_R1 )
+EC_33: 14: &&
+EC_33: 15: 	alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_33: 16: 		[ true ] / the alarm is disarmed
+EC_33: 17: 		NIL
+EC_33: 18: 	++
+EC_33: 19: 		[ R7_x_resp==60 ] / deadline at 60
+EC_33: 20: 		alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_33: 21: 			[ clock==0 ] / alert the emergency center
+EC_33: 22: 			call( PostProc_R9 )
+
+EC_33 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=60,\l   R7_x_resp-R3_x_resp<=-60, R3_x_resp-R7_x_resp<=60,\l   R7_x_resp=clock, R3_x_resp-clock<=60, clock-R3_x_resp<=-60,
+EC_33  --> EC_35 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [R7_x_resp==60] / deadline at 60
+
+state "EC< id : 35 , H : 16 , step : 13 >" as EC_35 #LightBlue
+EC_35: 1: par sync [the alarm is disarmed]
+EC_35: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_35: 3: 		[ true ] / the alarm is disarmed
+EC_35: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_35: 5: 			[ clock==0 ] / turn off the tone
+EC_35: 6: 			call( Proc_R1 )
+EC_35: 7: 	++
+EC_35: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_35: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_35: 10: 			[ clock==0 ] / turn off the tone
+EC_35: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_35: 12: 				[ true ] / the alarm is disarmed
+EC_35: 13: 				call( Proc_R1 )
+EC_35: 14: &&
+EC_35: 15: 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_35: 16: 		[ clock==0 ] / alert the emergency center
+EC_35: 17: 		call( PostProc_R9 )
+
+EC_35 : DBM: R7_x_resp=60, R3_x_resp=120, clock=60, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp=clock, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
+EC_35  --> EC_44 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 44 , H : 17 , step : 0 >" as EC_44 #Orange
+EC_44: 1: par sync [the alarm is disarmed]
+EC_44: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_44: 3: 		[ true ] / the alarm is disarmed
+EC_44: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_44: 5: 			[ clock==0 ] / turn off the tone
+EC_44: 6: 			call( Proc_R1 )
+EC_44: 7: 	++
+EC_44: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_44: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_44: 10: 			[ clock==0 ] / turn off the tone
+EC_44: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_44: 12: 				[ true ] / the alarm is disarmed
+EC_44: 13: 				call( Proc_R1 )
+EC_44: 14: &&
+EC_44: 15: 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_44: 16: 		[ clock==0 ] / alert the emergency center
+EC_44: 17: 		call( PostProc_R9 )
+
+EC_44 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
+EC_44  --> EC_45 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [clock==0] / alert the emergency center
+
+state "EC< id : 45 , H : 18 , step : 15 >" as EC_45 #LightBlue
+EC_45: 1: par sync [the alarm is disarmed]
+EC_45: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_45: 3: 		[ true ] / the alarm is disarmed
+EC_45: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_45: 5: 			[ clock==0 ] / turn off the tone
+EC_45: 6: 			call( Proc_R1 )
+EC_45: 7: 	++
+EC_45: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_45: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_45: 10: 			[ clock==0 ] / turn off the tone
+EC_45: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_45: 12: 				[ true ] / the alarm is disarmed
+EC_45: 13: 				call( Proc_R1 )
+EC_45: 14: &&
+EC_45: 15: 	call( PostProc_R9 )
+
+EC_45 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
+EC_45  --> EC_51 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R9
+
+state "EC< id : 51 , H : 19 , step : 0 >" as EC_51 #Pink
+EC_51: 1: par sync [the alarm is disarmed]
+EC_51: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_51: 3: 		[ true ] / the alarm is disarmed
+EC_51: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_51: 5: 			[ clock==0 ] / turn off the tone
+EC_51: 6: 			call( Proc_R1 )
+EC_51: 7: 	++
+EC_51: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_51: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_51: 10: 			[ clock==0 ] / turn off the tone
+EC_51: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_51: 12: 				[ true ] / the alarm is disarmed
+EC_51: 13: 				call( Proc_R1 )
+EC_51: 14: &&
+EC_51: 15: 	alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_51: 16: 		[ true ] / the alarm is disarmed
+EC_51: 17: 		NIL
+EC_51: 18: 	++
+EC_51: 19: 		[ R7_x_resp==60 ] / deadline at 60
+EC_51: 20: 		alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_51: 21: 			[ clock==0 ] / alert the emergency center
+EC_51: 22: 			call( PostProc_R9 )
+
+EC_51 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
+EC_51  --> EC_53 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [True] / META:start time period within 0 to 60
+
+state "EC< id : 53 , H : 20 , step : 0 >" as EC_53 #Orange
+EC_53: 1: par sync [the alarm is disarmed]
+EC_53: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_53: 3: 		[ true ] / the alarm is disarmed
+EC_53: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_53: 5: 			[ clock==0 ] / turn off the tone
+EC_53: 6: 			call( Proc_R1 )
+EC_53: 7: 	++
+EC_53: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_53: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_53: 10: 			[ clock==0 ] / turn off the tone
+EC_53: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_53: 12: 				[ true ] / the alarm is disarmed
+EC_53: 13: 				call( Proc_R1 )
+EC_53: 14: &&
+EC_53: 15: 	alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_53: 16: 		[ true ] / the alarm is disarmed
+EC_53: 17: 		NIL
+EC_53: 18: 	++
+EC_53: 19: 		[ R7_x_resp==60 ] / deadline at 60
+EC_53: 20: 		alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_53: 21: 			[ clock==0 ] / alert the emergency center
+EC_53: 22: 			call( PostProc_R9 )
+
+EC_53 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=60,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp=clock, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
+EC_53  --> EC_55 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [R7_x_resp==60] / deadline at 60
+
+state "EC< id : 55 , H : 21 , step : 18 >" as EC_55 #LightBlue
+EC_55: 1: par sync [the alarm is disarmed]
+EC_55: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_55: 3: 		[ true ] / the alarm is disarmed
+EC_55: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_55: 5: 			[ clock==0 ] / turn off the tone
+EC_55: 6: 			call( Proc_R1 )
+EC_55: 7: 	++
+EC_55: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_55: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_55: 10: 			[ clock==0 ] / turn off the tone
+EC_55: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_55: 12: 				[ true ] / the alarm is disarmed
+EC_55: 13: 				call( Proc_R1 )
+EC_55: 14: &&
+EC_55: 15: 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_55: 16: 		[ clock==0 ] / alert the emergency center
+EC_55: 17: 		call( PostProc_R9 )
+
+EC_55 : DBM: R7_x_resp=60, R3_x_resp=180, clock=60, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp=clock, R3_x_resp-clock<=120,\l   clock-R3_x_resp<=-120,
+EC_55  --> EC_64 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 64 , H : 22 , step : 0 >" as EC_64 #Orange
+EC_64: 1: par sync [the alarm is disarmed]
+EC_64: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_64: 3: 		[ true ] / the alarm is disarmed
+EC_64: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_64: 5: 			[ clock==0 ] / turn off the tone
+EC_64: 6: 			call( Proc_R1 )
+EC_64: 7: 	++
+EC_64: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_64: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_64: 10: 			[ clock==0 ] / turn off the tone
+EC_64: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_64: 12: 				[ true ] / the alarm is disarmed
+EC_64: 13: 				call( Proc_R1 )
+EC_64: 14: &&
+EC_64: 15: 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_64: 16: 		[ clock==0 ] / alert the emergency center
+EC_64: 17: 		call( PostProc_R9 )
+
+EC_64 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
+EC_64  --> EC_65 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [clock==0] / alert the emergency center
+
+state "EC< id : 65 , H : 23 , step : 21 >" as EC_65 #LightBlue
+EC_65: 1: par sync [the alarm is disarmed]
+EC_65: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_65: 3: 		[ true ] / the alarm is disarmed
+EC_65: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_65: 5: 			[ clock==0 ] / turn off the tone
+EC_65: 6: 			call( Proc_R1 )
+EC_65: 7: 	++
+EC_65: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_65: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_65: 10: 			[ clock==0 ] / turn off the tone
+EC_65: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_65: 12: 				[ true ] / the alarm is disarmed
+EC_65: 13: 				call( Proc_R1 )
+EC_65: 14: &&
+EC_65: 15: 	call( PostProc_R9 )
+
+EC_65 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
+EC_65  --> EC_74 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R9
+
+state "EC< id : 74 , H : 24 , step : 0 >" as EC_74 #Pink
+EC_74: 1: par sync [the alarm is disarmed]
+EC_74: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_74: 3: 		[ true ] / the alarm is disarmed
+EC_74: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_74: 5: 			[ clock==0 ] / turn off the tone
+EC_74: 6: 			call( Proc_R1 )
+EC_74: 7: 	++
+EC_74: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_74: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_74: 10: 			[ clock==0 ] / turn off the tone
+EC_74: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_74: 12: 				[ true ] / the alarm is disarmed
+EC_74: 13: 				call( Proc_R1 )
+EC_74: 14: &&
+EC_74: 15: 	alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_74: 16: 		[ true ] / the alarm is disarmed
+EC_74: 17: 		NIL
+EC_74: 18: 	++
+EC_74: 19: 		[ R7_x_resp==60 ] / deadline at 60
+EC_74: 20: 		alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_74: 21: 			[ clock==0 ] / alert the emergency center
+EC_74: 22: 			call( PostProc_R9 )
+
+EC_74 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
+EC_74  --> EC_76 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [True] / META:start time period within 0 to 60
+
+state "EC< id : 76 , H : 25 , step : 0 >" as EC_76 #Orange
+EC_76: 1: par sync [the alarm is disarmed]
+EC_76: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_76: 3: 		[ true ] / the alarm is disarmed
+EC_76: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_76: 5: 			[ clock==0 ] / turn off the tone
+EC_76: 6: 			call( Proc_R1 )
+EC_76: 7: 	++
+EC_76: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_76: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_76: 10: 			[ clock==0 ] / turn off the tone
+EC_76: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_76: 12: 				[ true ] / the alarm is disarmed
+EC_76: 13: 				call( Proc_R1 )
+EC_76: 14: &&
+EC_76: 15: 	alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_76: 16: 		[ true ] / the alarm is disarmed
+EC_76: 17: 		NIL
+EC_76: 18: 	++
+EC_76: 19: 		[ R7_x_resp==60 ] / deadline at 60
+EC_76: 20: 		alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_76: 21: 			[ clock==0 ] / alert the emergency center
+EC_76: 22: 			call( PostProc_R9 )
+
+EC_76 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
+EC_76  --> EC_78 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [R7_x_resp==60] / deadline at 60
+
+state "EC< id : 78 , H : 26 , step : 25 >" as EC_78 #LightBlue
+EC_78: 1: par sync [the alarm is disarmed]
+EC_78: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_78: 3: 		[ true ] / the alarm is disarmed
+EC_78: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_78: 5: 			[ clock==0 ] / turn off the tone
+EC_78: 6: 			call( Proc_R1 )
+EC_78: 7: 	++
+EC_78: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_78: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_78: 10: 			[ clock==0 ] / turn off the tone
+EC_78: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_78: 12: 				[ true ] / the alarm is disarmed
+EC_78: 13: 				call( Proc_R1 )
+EC_78: 14: &&
+EC_78: 15: 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_78: 16: 		[ clock==0 ] / alert the emergency center
+EC_78: 17: 		call( PostProc_R9 )
+
+EC_78 : DBM: R7_x_resp=60, R3_x_resp=240, clock=60, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp=clock, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-180,
+EC_78  --> EC_90 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [True] / META:TIME_ELAPSE
+
+state "EC< id : 90 , H : 27 , step : 0 >" as EC_90 #Orange
+EC_90: 1: par sync [the alarm is disarmed]
+EC_90: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_90: 3: 		[ true ] / the alarm is disarmed
+EC_90: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_90: 5: 			[ clock==0 ] / turn off the tone
+EC_90: 6: 			call( Proc_R1 )
+EC_90: 7: 	++
+EC_90: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_90: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_90: 10: 			[ clock==0 ] / turn off the tone
+EC_90: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_90: 12: 				[ true ] / the alarm is disarmed
+EC_90: 13: 				call( Proc_R1 )
+EC_90: 14: &&
+EC_90: 15: 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_90: 16: 		[ clock==0 ] / alert the emergency center
+EC_90: 17: 		call( PostProc_R9 )
+
+EC_90 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
+EC_90  --> EC_91 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [clock==0] / alert the emergency center
+
+state "EC< id : 91 , H : 28 , step : 29 >" as EC_91 #LightBlue
+EC_91: 1: par sync [the alarm is disarmed]
+EC_91: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_91: 3: 		[ true ] / the alarm is disarmed
+EC_91: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_91: 5: 			[ clock==0 ] / turn off the tone
+EC_91: 6: 			call( Proc_R1 )
+EC_91: 7: 	++
+EC_91: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_91: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_91: 10: 			[ clock==0 ] / turn off the tone
+EC_91: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_91: 12: 				[ true ] / the alarm is disarmed
+EC_91: 13: 				call( Proc_R1 )
+EC_91: 14: &&
+EC_91: 15: 	call( PostProc_R9 )
+
+EC_91 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
+EC_91  --> EC_105 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R9
+
+state "EC< id : 105 , H : 29 , step : 0 >" as EC_105 #Pink
+EC_105: 1: par sync [the alarm is disarmed]
+EC_105: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_105: 3: 		[ true ] / the alarm is disarmed
+EC_105: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_105: 5: 			[ clock==0 ] / turn off the tone
+EC_105: 6: 			call( Proc_R1 )
+EC_105: 7: 	++
+EC_105: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_105: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_105: 10: 			[ clock==0 ] / turn off the tone
+EC_105: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_105: 12: 				[ true ] / the alarm is disarmed
+EC_105: 13: 				call( Proc_R1 )
+EC_105: 14: &&
+EC_105: 15: 	alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_105: 16: 		[ true ] / the alarm is disarmed
+EC_105: 17: 		NIL
+EC_105: 18: 	++
+EC_105: 19: 		[ R7_x_resp==60 ] / deadline at 60
+EC_105: 20: 		alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_105: 21: 			[ clock==0 ] / alert the emergency center
+EC_105: 22: 			call( PostProc_R9 )
+
+EC_105 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
+EC_105  --> EC_107 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact [True] / META:start time period within 0 to 60
+
+state "EC< id : 107 , H : 30 , step : 0 >" as EC_107 #Orange
+EC_107: 1: par sync [the alarm is disarmed]
+EC_107: 2: 	alt invariant( [] ~> R3_x_resp<=300 )
+EC_107: 3: 		[ true ] / the alarm is disarmed
+EC_107: 4: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_107: 5: 			[ clock==0 ] / turn off the tone
+EC_107: 6: 			call( Proc_R1 )
+EC_107: 7: 	++
+EC_107: 8: 		[ R3_x_resp==300 ] / deadline at 300
+EC_107: 9: 		alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_107: 10: 			[ clock==0 ] / turn off the tone
+EC_107: 11: 			alt invariant( [] ~> R3_x_resp<=300 )
+EC_107: 12: 				[ true ] / the alarm is disarmed
+EC_107: 13: 				call( Proc_R1 )
+EC_107: 14: &&
+EC_107: 15: 	alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )
+EC_107: 16: 		[ true ] / the alarm is disarmed
+EC_107: 17: 		NIL
+EC_107: 18: 	++
+EC_107: 19: 		[ R7_x_resp==60 ] / deadline at 60
+EC_107: 20: 		alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_107: 21: 			[ clock==0 ] / alert the emergency center
+EC_107: 22: 			call( PostProc_R9 )
+
+EC_107 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
+EC_107  --> EC_110 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60]\lact:COVERAGE [R3_x_resp==300] / deadline at 300
+
+state "EC< id : 110 , H : 31 , step : 0 >" as EC_110 #Yellow
+EC_110: 1: par sync [the alarm is disarmed]
+EC_110: 2: 	alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
+EC_110: 3: 		[ clock==0 ] / turn off the tone
+EC_110: 4: 		alt invariant( [] ~> R3_x_resp<=300 )
+EC_110: 5: 			[ true ] / the alarm is disarmed
+EC_110: 6: 			call( Proc_R1 )
+EC_110: 7: &&
+EC_110: 8: 	alt invariant( [] ~> R7_x_resp<=60 )
+EC_110: 9: 		[ true ] / the alarm is disarmed
+EC_110: 10: 		NIL
+EC_110: 11: 	++
+EC_110: 12: 		[ R7_x_resp==60 ] / deadline at 60
+EC_110: 13: 		alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
+EC_110: 14: 			[ clock==0 ] / alert the emergency center
+EC_110: 15: 			call( PostProc_R9 )
+
+EC_110 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
+@enduml

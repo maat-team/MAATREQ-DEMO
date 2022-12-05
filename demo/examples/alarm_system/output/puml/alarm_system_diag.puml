@@ -1,0 +1,243 @@
+@startuml
+
+!include process_algebra_macros.iuml
+
+
+
+$defineProcessDesc("main", "call Proc_R0")
+$callProcess("Proc_R0")
+detach
+detach
+
+$defineProcessDesc("Proc_R0", "R0 : the system shall init")
+$invariant("true")
+switch( ALT )
+case ( )
+	$guard_label("true", "init")
+	$callProcess("PostProc_R0")
+	detach
+endswitch
+detach
+
+$defineProcessDesc("PostProc_R0", "Proc_R1")
+$callProcess("Proc_R1")
+detach
+detach
+
+$defineProcessDesc("Proc_R1", "R1 : when the set button is pressed\l upon init,\lthe system shall activate the alarm within 60 to 60")
+$invariant("true")
+switch( ALT )
+case ( )
+	$guard_label("true", "the set button is pressed")
+	$reset_invariant("[clock]", "clock<=60")
+	switch( ALT )
+	case ( )
+		$guard_label("clock==60", "activate the alarm")
+		$callProcess("PostProc_R1")
+		detach
+	endswitch
+endswitch
+detach
+
+$defineProcessDesc("PostProc_R1", "Proc_R2")
+$callProcess("Proc_R2")
+detach
+detach
+
+$defineProcessDesc("Proc_R2", "R2 : when motion is detected\l upon activate the alarm,\lthe system shall emit a tone within 0 to 0")
+$invariant("true")
+switch( ALT )
+case ( )
+	$guard_label("true", "motion is detected")
+	$reset_invariant("[clock]", "clock<=0")
+	switch( ALT )
+	case ( )
+		$guard_label("clock==0", "emit a tone")
+		$callProcess("PostProc_R2")
+		detach
+	endswitch
+endswitch
+detach
+
+$defineProcessDesc("PostProc_R2", "Proc_R3 && Proc_R7")
+$processID("par sync", "[the alarm is disarmed]")
+'fork
+split
+	$reset_label_invariant("[R3_x_resp]", "R3_x_resp<=300", "start time period within 0 to 300")
+	switch( ALT )
+	case ( )
+		$guard_label("true", "enter in <TimedState: start time period , timing: within 0 to 300/>")
+		$callProcess("PostProc_R3")
+		detach
+	case ( )
+		$guard_label("R3_x_resp==300", "deadline at 300")
+		$reset_invariant("[clock]", "[R3_x_resp<=300, clock<=0]")
+		switch( ALT )
+		case ( )
+			$guard_label("clock==0", "turn off the tone")
+			$callProcess("PostProc_R5")
+			detach
+		endswitch
+	endswitch
+'fork again
+split again
+	$reset_label_invariant("[R7_x_resp]", "R7_x_resp<=60", "start time period within 0 to 60")
+	switch( ALT )
+	case ( )
+		$guard_label("true", "enter in <TimedState: start time period , timing: within 0 to 60/>")
+		$callProcess("PostProc_R7")
+		detach
+	case ( )
+		$guard_label("R7_x_resp==60", "deadline at 60")
+		$reset_invariant("[clock]", "[R7_x_resp<=60, clock<=0]")
+		switch( ALT )
+		case ( )
+			$guard_label("clock==0", "alert the emergency center")
+			$callProcess("PostProc_R9")
+			detach
+		endswitch
+	endswitch
+'end merge
+'endfork
+end split
+detach
+
+$defineProcessDesc("Proc_R3", "R3 : upon emit a tone,\lthe system shall enter in <TimedState: start time period , timing: within 0 to 300/>")
+$reset_label_invariant("[R3_x_resp]", "R3_x_resp<=300", "start time period within 0 to 300")
+switch( ALT )
+case ( )
+	$guard_label("true", "enter in <TimedState: start time period , timing: within 0 to 300/>")
+	$callProcess("PostProc_R3")
+	detach
+case ( )
+	$guard_label("R3_x_resp==300", "deadline at 300")
+	$reset_invariant("[clock]", "[R3_x_resp<=300, clock<=0]")
+	switch( ALT )
+	case ( )
+		$guard_label("clock==0", "turn off the tone")
+		$callProcess("PostProc_R5")
+		detach
+	endswitch
+endswitch
+detach
+
+$defineProcessDesc("PostProc_R3", "Proc_R4 ++ Proc_R5")
+$callProcess("Proc_R4")
+detach
+detach
+
+$defineProcessDesc("Proc_R4", "R4 : while in <TimedState: inside time period , timing: within 0 to 300 [ scope ]( R3 )/>\l when the alarm is disarmed,\lthe system shall turn off the tone within 0 to 0 [ goto ]( R1 )")
+$invariant("R3_x_resp<=300")
+switch( ALT )
+case ( )
+	$guard_label("true", "the alarm is disarmed")
+	$reset_invariant("[clock]", "[R3_x_resp<=300, clock<=0]")
+	switch( ALT )
+	case ( )
+		$guard_label("clock==0", "turn off the tone")
+		$callProcess("PostProc_R4")
+		detach
+	endswitch
+endswitch
+detach
+
+$defineProcessDesc("PostProc_R4", "Proc_R1")
+$callProcess("Proc_R1")
+detach
+detach
+
+$defineProcessDesc("Proc_R5", "R5 : while in <TimedState: inside time period , timing: within 0 to 300 [ scope ]( R3 )/>\l deadline at 300 [ scope ]( R3 ),\lthe system shall turn off the tone within 0 to 0")
+$invariant("R3_x_resp<=300")
+switch( ALT )
+case ( )
+	$guard_label("R3_x_resp==300", "deadline at 300")
+	$reset_invariant("[clock]", "[R3_x_resp<=300, clock<=0]")
+	switch( ALT )
+	case ( )
+		$guard_label("clock==0", "turn off the tone")
+		$callProcess("PostProc_R5")
+		detach
+	endswitch
+endswitch
+detach
+
+$defineProcessDesc("PostProc_R5", "Proc_R6")
+$callProcess("Proc_R6")
+detach
+detach
+
+$defineProcessDesc("Proc_R6", "R6 : while in <TimedState: inside time period , timing: within 0 to 300 [ scope ]( R3 )/>\l when the alarm is disarmed\l upon turn off the tone [ ref ]( R5 ),\lthe system shall donothing [ goto ]( R1 )")
+$invariant("R3_x_resp<=300")
+switch( ALT )
+case ( )
+	$guard_label("true", "the alarm is disarmed")
+	$callProcess("PostProc_R6")
+	detach
+endswitch
+detach
+
+$defineProcessDesc("PostProc_R6", "Proc_R1")
+$callProcess("Proc_R1")
+detach
+detach
+
+$defineProcessDesc("Proc_R7", "R7 : upon emit a tone,\lthe system shall enter in <TimedState: start time period , timing: within 0 to 60/>")
+$reset_label_invariant("[R7_x_resp]", "R7_x_resp<=60", "start time period within 0 to 60")
+switch( ALT )
+case ( )
+	$guard_label("true", "enter in <TimedState: start time period , timing: within 0 to 60/>")
+	$callProcess("PostProc_R7")
+	detach
+case ( )
+	$guard_label("R7_x_resp==60", "deadline at 60")
+	$reset_invariant("[clock]", "[R7_x_resp<=60, clock<=0]")
+	switch( ALT )
+	case ( )
+		$guard_label("clock==0", "alert the emergency center")
+		$callProcess("PostProc_R9")
+		detach
+	endswitch
+endswitch
+detach
+
+$defineProcessDesc("PostProc_R7", "Proc_R8 ++ Proc_R9")
+$callProcess("Proc_R8")
+detach
+detach
+
+$defineProcessDesc("Proc_R8", "R8 : while in <TimedState: inside time period , timing: within 0 to 60 [ scope ]( R7 )/>\l when the alarm is disarmed,\lthe system shall donothing")
+$invariant("R7_x_resp<=60")
+switch( ALT )
+case ( )
+	$guard_label("true", "the alarm is disarmed")
+	$callProcess("PostProc_R8")
+	detach
+endswitch
+detach
+
+$defineProcess("PostProc_R8")
+$nilProcess
+detach
+detach
+
+$defineProcessDesc("Proc_R9", "R9 : while in <TimedState: inside time period , timing: within 0 to 60 [ scope ]( R7 )/>\l deadline at 60 [ scope ]( R7 ),\lthe system shall alert the emergency center within 0 to 0 [ goto ]( R7 )")
+$invariant("R7_x_resp<=60")
+switch( ALT )
+case ( )
+	$guard_label("R7_x_resp==60", "deadline at 60")
+	$reset_invariant("[clock]", "[R7_x_resp<=60, clock<=0]")
+	switch( ALT )
+	case ( )
+		$guard_label("clock==0", "alert the emergency center")
+		$callProcess("PostProc_R9")
+		detach
+	endswitch
+endswitch
+detach
+
+$defineProcessDesc("PostProc_R9", "Proc_R7")
+$callProcess("Proc_R7")
+detach
+detach
+
+@enduml

@@ -1,0 +1,11 @@
+# Commands:
+
+maatParse alarm_system_without_R6.req
+
+maatTransform alarm_system_without_R6.req
+
+maatRun alarm_system_without_R6.req coverage 32
+
+maatRun alarm_system_without_R6.req explore  50
+
+maatRun alarm_system_without_R6.req explore  300

@@ -1,0 +1,9 @@
+# Commands:
+
+maatParse alarm_system.req
+
+maatTransform alarm_system.req
+
+maatRun alarm_system.req coverage 32
+
+maatRun alarm_system.req explore  300
