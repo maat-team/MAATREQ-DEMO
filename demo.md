@@ -10,8 +10,9 @@ The objective of the demo is to present the capabilities of the MAAT REQ Proof O
 2. [Requirement design](#req-design)
 3. [Transformation into Process Algbera](#transfo)
 4. [Analysis](#analysis)
+<!--
 5. [Other example](#other-example)
-
+-->
 
 
 
@@ -143,6 +144,8 @@ N.B. By convention, the elements in square brackets [**goto**], [**resume**], [*
 [Outline](#outline)
 
 
+<!--
+
 ## Other example <a name="other-example"></a>
 
 
@@ -195,4 +198,4 @@ or
 or we may precise which part of NZRS-R2 to toggle the goto
 
 **the** NAZA Supervisor **shall** **remain in time period** 60s [**goto**] [**realization of**] (NZS-R2)
-
+-->
