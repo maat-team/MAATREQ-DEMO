@@ -132,10 +132,8 @@ $$
           
 :robot: **DEMO** 
 ```sh
-maat_req.exe -transform alarm_system.req
+> maatTransform C:/demo/ex_alarm_system_v01.req
 ```
-
-N.B. By convention, the elements in square brackets [**goto**], [**resume**], [**scope**], and [**ref**] do not have their associated transformation elements but allow to infer information for repetition (or recursion), scoping, and reference.
 
 [Outline](#outline)
 
