@@ -1,4 +1,4 @@
-# Demo of MAAT REQ Proof Of Concept to Support Timed Requirements Design Using Algebraic Process Models
+# MAAT REQ Proof Of Concept to Support Timed Requirements Design Using Algebraic Process Models
 
 
 ## WHY
