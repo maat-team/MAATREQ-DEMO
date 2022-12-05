@@ -72,7 +72,7 @@ The requirements engineer can either approve or revise the requirements (5) and 
 
 <!-- Grammar -->
 
-# Grammar
+### Grammar
 
 
 ```EBNF
@@ -114,7 +114,7 @@ immediately after d = within d to d
 immediately = within 0 to 0
 
 
-# causality - triggers
+### causality - triggers
 
 <p align="center">
           <img width="888" height="500" src="demo/powerpoint/demo_maat_transfo_all_pattern.png">
@@ -140,7 +140,7 @@ immediately = within 0 to 0
 
 ## Transform into Clocked Process Algebra <a name="transfo"></a>
 
-# Target Clocked Process Algbera
+### Target Clocked Process Algbera
 
 Clocked  Processes are defined by the following syntax :
 
@@ -164,6 +164,31 @@ $$
 ```sh
 > maatTransform C:/demo/ex_alarm_system_v01.req
 ```
+
+### dependency transformation matrix
+
+| Req ID |R0|R1|R2|R3|R4|R5|R6|R7|R8|R9|
+| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
+| R0 | = |&#8611; before | | | | | | | | |
+| R1 |&#8627; upon | = |&#8611; before | |&#8626; goto | |&#8626; goto | | | |
+| R2 | |&#8627; upon | = |&#8611; before | | | |&#8611; before | | |
+| R3 | | |&#8627; upon | = |&#8826; scope |&#8826; scope<br/>&#8614; **deadline** |&#8826; scope | | | |
+| R4 | |&#8624; goto | |&#8911; scope | = | |&#8611; before | | | |
+| R5 | | | |&#8911; scope<br/>&#8615; **deadline** | | = |&#8611; before<br/>&#8626; **ref** | | | |
+| R6 | |&#8624; goto | |&#8911; scope |&#8627; upon |&#8627; upon<br/>&#8624; **ref** | = | | | |
+| R7 | | |&#8627; upon | | | | | = |&#8826; scope |&#8826; scope<br/>&#8614; **deadline**<br/>&#8626; goto |
+| R8 | | | | | | | |&#8911; scope | = | |
+| R9 | | | | | | | |&#8911; scope<br/>&#8615; **deadline**<br/>&#8624; goto | | = |
+
+### dependency diagram
+
+
+<p align="center">
+          <img width="1110" height="625" src="demo/puml/dependency_diagram.png">
+</p>
+
+
+
 
 [Outline](#outline)
 
