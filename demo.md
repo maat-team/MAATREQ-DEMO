@@ -3,7 +3,7 @@ On Using Algebraic Process Models to Support Time-Sensitive Requirements Design
 
 The objective of the demo is to present the capabilities of the MAAT REQ tool: functional requirement design, transformation into Process Algebra (PA) and analysis, illustrated on a practical example of an Alarm System (and mutants). We can test whether certain requirements can be covered at some point in the PA execution with traceability feedback. Moreover, we can detect various requirement inconsistencies that the tool can highlight as synchronization lacks, deadlocks, or timelocks in the PA execution.
 
-Link demo material zip [a link](https://drive.google.com/file/d/1Ux_wrr3lh6K41wtF4wLvRhvQmA1VVEaw/view?usp=share_link)
+[download here demo material zip](https://drive.google.com/file/d/1Ux_wrr3lh6K41wtF4wLvRhvQmA1VVEaw/view?usp=share_link)
 
 # Outline <a name="outline"></a>
 
