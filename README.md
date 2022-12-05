@@ -4,3 +4,5 @@ The objective of the demo is to present the capabilities of the MAAT REQ Proof O
 
 [download here demo material zip](https://drive.google.com/file/d/1Ux_wrr3lh6K41wtF4wLvRhvQmA1VVEaw/view?usp=share_link)
 
+[read more here](./demo.md)
+
