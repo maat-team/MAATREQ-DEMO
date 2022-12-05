@@ -198,6 +198,8 @@ $$
           <img width="1110" height="625" src="demo/puml/process_model2.png">
 </p>
 
+[Outline](#outline)
+
 <p align="center">
           <img width="1110" height="625" src="demo/puml/process_model3.png">
 </p>
@@ -217,6 +219,12 @@ $$
 [Outline](#outline)
 
 ## Analyse Clocked Process Algebra and Requirements Quality Review <a name="analysis"></a>
+
+### semantic graphs
+
+<p align="center">
+          <img width="1110" height="625" src="demo/puml/behaviors_exploration_25.PNG">
+</p>
 
 [Outline](#outline)
 
