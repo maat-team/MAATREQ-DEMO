@@ -6,7 +6,7 @@ The objective of the demo is to present the capabilities of the MAAT REQ Proof O
 
 # Outline <a name="outline"></a>
 
-1. [MAAT REQ workflow](#workflow)
+1. [MAAT REQ approach](#workflow)
 2. [Requirement design](#req-design)
 3. [Transformation into Process Algbera](#transfo)
 4. [Analysis](#analysis)
@@ -16,11 +16,23 @@ The objective of the demo is to present the capabilities of the MAAT REQ Proof O
 
 
 
-## MAAT REQ workflow <a name="workflow"></a>
+## MAAT REQ approach <a name="workflow"></a>
 
 <p align="center">
           <img width="888" height="500" src="demo/powerpoint/demo_maat_workflow.png">
 </p>
+
+
+MAAT REQ proposes an iterative refinement approach: 
+
+From a collection of timed functional requirements in natural language (1),
+the requirements engineer rephrases the requirements using the grammar (2) : clarification of preconditions including triggers and causality, system responses, timeframes and deadlines.
+
+Structured requirements are then automatically aggregated and a clocked process model is generated (3).
+
+Formal analyses are performed on the clocked process model and a requirements consistency report is produced (4).
+
+The requirements engineer can either approve or revise the requirements (5) and in latter case reiterate the analysis (2).
 
 [Outline](#outline)
 
