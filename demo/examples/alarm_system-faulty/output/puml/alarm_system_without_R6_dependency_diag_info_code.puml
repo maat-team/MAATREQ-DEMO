@@ -21,7 +21,7 @@ split
 	switch( ALT )
 	case ( )
 
-		$runProcessInfoDesc("Proc_R4", " info: ** [scope]( R3 ) [goto]( R1 )**", "1 : alt invariant( [] ~> R3_x_resp<=300 )\l2 : 	[ true ] / the alarm is disarmed\l3 : 	alt invariant( [clock] ~> [clock<=0, R3_x_resp<=300] )\l4 : 		[ clock==0 ] / turn off the tone\l5 : 		call( PostProc_R4 )")
+		$runProcessInfoDesc("Proc_R4", " info: ** [scope]( R3 ) [goto]( R1 )**", "1 : alt invariant( [] ~> R3_x_resp<=300 )\l2 : 	[ true ] / the alarm is disarmed\l3 : 	alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )\l4 : 		[ clock==0 ] / turn off the tone\l5 : 		call( PostProc_R4 )")
 		$callProcess("Proc_R1")
 		detach
 	case ( **deadline** )
@@ -33,7 +33,7 @@ split
 'fork again
 split again
 
-	$runProcessDesc("Proc_R7", "1 : alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )\l2 : 	[ true ] / enter in <TimedState: start time period , timing: within 0 to 60/>\l3 : 	call( PostProc_R7 )\l4 : ++\l5 : 	[ R7_x_resp==60 ] / deadline at 60\l6 : 	alt invariant( [clock] ~> [clock<=0, R7_x_resp<=60] )\l7 : 		[ clock==0 ] / alert the emergency center\l8 : 		call( PostProc_R9 )")
+	$runProcessDesc("Proc_R7", "1 : alt invariant( [R7_x_resp] ~> R7_x_resp<=60 / start time period within 0 to 60 )\l2 : 	[ true ] / enter in <TimedState: start time period , timing: within 0 to 60/>\l3 : 	call( PostProc_R7 )\l4 : ++\l5 : 	[ R7_x_resp==60 ] / deadline at 60\l6 : 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )\l7 : 		[ clock==0 ] / alert the emergency center\l8 : 		call( PostProc_R9 )")
 	switch( ALT )
 	case ( )
 
@@ -42,7 +42,7 @@ split again
 		detach
 	case ( **deadline** )
 
-		$runProcessInfoDesc("Proc_R9", " info: ** [scope]( R7, R7 ) [goto]( R7 )**", "1 : alt invariant( [] ~> R7_x_resp<=60 )\l2 : 	[ R7_x_resp==60 ] / deadline at 60\l3 : 	alt invariant( [clock] ~> [clock<=0, R7_x_resp<=60] )\l4 : 		[ clock==0 ] / alert the emergency center\l5 : 		call( PostProc_R9 )")
+		$runProcessInfoDesc("Proc_R9", " info: ** [scope]( R7, R7 ) [goto]( R7 )**", "1 : alt invariant( [] ~> R7_x_resp<=60 )\l2 : 	[ R7_x_resp==60 ] / deadline at 60\l3 : 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )\l4 : 		[ clock==0 ] / alert the emergency center\l5 : 		call( PostProc_R9 )")
 		$callProcess("Proc_R7")
 		detach
 	endswitch

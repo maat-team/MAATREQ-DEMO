@@ -58,7 +58,7 @@ state Processes #Cyan {
 	PostProc_R2: 13 | 		call( PostProc_R7 )
 	PostProc_R2: 14 | 	++
 	PostProc_R2: 15 | 		[ R7_x_resp==60 ] / deadline at 60
-	PostProc_R2: 16 | 		alt invariant( [clock] ~> [clock<=0, R7_x_resp<=60] )
+	PostProc_R2: 16 | 		alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
 	PostProc_R2: 17 | 			[ clock==0 ] / alert the emergency center
 	PostProc_R2: 18 | 			call( PostProc_R9 )
 
@@ -84,7 +84,7 @@ state Processes #Cyan {
 	state "Process : **Proc_R4**" as Proc_R4 #Beige
 	Proc_R4: 1 | alt invariant( [] ~> R3_x_resp<=300 )
 	Proc_R4: 2 | 	[ true ] / the alarm is disarmed
-	Proc_R4: 3 | 	alt invariant( [clock] ~> [clock<=0, R3_x_resp<=300] )
+	Proc_R4: 3 | 	alt invariant( [clock] ~> [R3_x_resp<=300, clock<=0] )
 	Proc_R4: 4 | 		[ clock==0 ] / turn off the tone
 	Proc_R4: 5 | 		call( PostProc_R4 )
 
@@ -115,7 +115,7 @@ state Processes #Cyan {
 	Proc_R7: 3 | 	call( PostProc_R7 )
 	Proc_R7: 4 | ++
 	Proc_R7: 5 | 	[ R7_x_resp==60 ] / deadline at 60
-	Proc_R7: 6 | 	alt invariant( [clock] ~> [clock<=0, R7_x_resp<=60] )
+	Proc_R7: 6 | 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
 	Proc_R7: 7 | 		[ clock==0 ] / alert the emergency center
 	Proc_R7: 8 | 		call( PostProc_R9 )
 
@@ -141,7 +141,7 @@ state Processes #Cyan {
 	state "Process : **Proc_R9**" as Proc_R9 #Beige
 	Proc_R9: 1 | alt invariant( [] ~> R7_x_resp<=60 )
 	Proc_R9: 2 | 	[ R7_x_resp==60 ] / deadline at 60
-	Proc_R9: 3 | 	alt invariant( [clock] ~> [clock<=0, R7_x_resp<=60] )
+	Proc_R9: 3 | 	alt invariant( [clock] ~> [R7_x_resp<=60, clock<=0] )
 	Proc_R9: 4 | 		[ clock==0 ] / alert the emergency center
 	Proc_R9: 5 | 		call( PostProc_R9 )
 
@@ -248,11 +248,11 @@ EC_34  --> EC_35 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 35 , H : 23 , step : 0 >" as EC_35 #Pink
 EC_35 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_35  --> EC_37 : inv [clock] => [clock<=0, R3_x_resp<=300, True]\lact [True] / META:TIME_ELAPSE
+EC_35  --> EC_37 : inv [clock] => [R3_x_resp<=300, clock<=0, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 37 , H : 24 , step : 0 >" as EC_37 #Orange
 EC_37 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
-EC_37  --> EC_38 : inv [clock] => [clock<=0, R3_x_resp<=300, True]\lact [clock==0] / turn off the tone
+EC_37  --> EC_38 : inv [clock] => [R3_x_resp<=300, clock<=0, True]\lact [clock==0] / turn off the tone
 
 state "EC< id : 38 , H : 25 , step : 10 >" as EC_38 #LightBlue
 EC_38 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
@@ -280,11 +280,11 @@ EC_28  --> EC_30 : inv [] => [R3_x_resp<=300, R7_x_resp<=60]\lact [R7_x_resp==60
 
 state "EC< id : 30 , H : 19 , step : 12 >" as EC_30 #LightBlue
 EC_30 : DBM: R7_x_resp=60, R3_x_resp=60, clock=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_30  --> EC_47 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60]\lact [True] / META:TIME_ELAPSE
+EC_30  --> EC_47 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 47 , H : 20 , step : 0 >" as EC_47 #Orange
 EC_47 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_47  --> EC_48 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60]\lact [clock==0] / alert the emergency center
+EC_47  --> EC_48 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 48 , H : 21 , step : 13 >" as EC_48 #LightBlue
 EC_48 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
@@ -316,11 +316,11 @@ EC_57  --> EC_58 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 58 , H : 28 , step : 0 >" as EC_58 #Pink
 EC_58 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=60,\l   R7_x_resp-R3_x_resp<=-60, R3_x_resp-R7_x_resp<=60,\l   R7_x_resp=clock, R3_x_resp-clock<=60, clock-R3_x_resp<=-60,
-EC_58  --> EC_60 : inv [clock] => [clock<=0, R3_x_resp<=300, True]\lact [True] / META:TIME_ELAPSE
+EC_58  --> EC_60 : inv [clock] => [R3_x_resp<=300, clock<=0, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 60 , H : 29 , step : 0 >" as EC_60 #Orange
 EC_60 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=0, R3_x_resp-clock<=120, clock-R3_x_resp<=-60,
-EC_60  --> EC_61 : inv [clock] => [clock<=0, R3_x_resp<=300, True]\lact [clock==0] / turn off the tone
+EC_60  --> EC_61 : inv [clock] => [R3_x_resp<=300, clock<=0, True]\lact [clock==0] / turn off the tone
 
 state "EC< id : 61 , H : 30 , step : 16 >" as EC_61 #LightBlue
 EC_61 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=0, R3_x_resp-clock<=120, clock-R3_x_resp<=-60,
@@ -404,11 +404,11 @@ EC_91  --> EC_92 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 92 , H : 50 , step : 0 >" as EC_92 #Pink
 EC_92 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_92  --> EC_94 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True]\lact [True] / META:TIME_ELAPSE
+EC_92  --> EC_94 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 94 , H : 51 , step : 0 >" as EC_94 #Orange
 EC_94 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
-EC_94  --> EC_95 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True]\lact [clock==0] / turn off the tone
+EC_94  --> EC_95 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True]\lact [clock==0] / turn off the tone
 
 state "EC< id : 95 , H : 52 , step : 24 >" as EC_95 #LightBlue
 EC_95 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
@@ -436,11 +436,11 @@ EC_85  --> EC_87 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, True]\lact [R7_x_re
 
 state "EC< id : 87 , H : 46 , step : 26 >" as EC_87 #LightBlue
 EC_87 : DBM: R7_x_resp=60, R3_x_resp=60, clock=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_87  --> EC_104 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True]\lact [True] / META:TIME_ELAPSE
+EC_87  --> EC_104 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 104 , H : 47 , step : 0 >" as EC_104 #Orange
 EC_104 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_104  --> EC_105 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True]\lact [clock==0] / alert the emergency center
+EC_104  --> EC_105 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 105 , H : 48 , step : 27 >" as EC_105 #LightBlue
 EC_105 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
@@ -472,7 +472,7 @@ EC_114  --> EC_115 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 115 , H : 55 , step : 0 >" as EC_115 #Pink
 EC_115 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=60,\l   R7_x_resp-R3_x_resp<=-60, R3_x_resp-R7_x_resp<=60,\l   R7_x_resp=clock, R3_x_resp-clock<=60, clock-R3_x_resp<=-60,
-EC_115  --> EC_117 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True]\lact [True] / META:TIME_ELAPSE
+EC_115  --> EC_117 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 117 , H : 56 , step : 0 >" as EC_117 #Orange
 EC_117 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=0, R3_x_resp-clock<=120, clock-R3_x_resp<=-60,
@@ -484,11 +484,11 @@ EC_108  --> EC_110 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True]\la
 
 state "EC< id : 110 , H : 51 , step : 30 >" as EC_110 #LightBlue
 EC_110 : DBM: R7_x_resp=60, R3_x_resp=120, clock=60, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp=clock, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_110  --> EC_120 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True]\lact [True] / META:TIME_ELAPSE
+EC_110  --> EC_120 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 120 , H : 52 , step : 0 >" as EC_120 #Orange
 EC_120 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_120  --> EC_121 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True]\lact [clock==0] / alert the emergency center
+EC_120  --> EC_121 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 121 , H : 53 , step : 31 >" as EC_121 #LightBlue
 EC_121 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
@@ -520,11 +520,11 @@ EC_130  --> EC_131 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 131 , H : 60 , step : 0 >" as EC_131 #Pink
 EC_131 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=60,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp=clock, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_131  --> EC_133 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True]\lact [True] / META:TIME_ELAPSE
+EC_131  --> EC_133 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 133 , H : 61 , step : 0 >" as EC_133 #Orange
 EC_133 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=0,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-120,
-EC_133  --> EC_134 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True]\lact [clock==0] / turn off the tone
+EC_133  --> EC_134 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True]\lact [clock==0] / turn off the tone
 
 state "EC< id : 134 , H : 62 , step : 34 >" as EC_134 #LightBlue
 EC_134 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=0,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-120,
@@ -608,11 +608,11 @@ EC_164  --> EC_165 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 165 , H : 82 , step : 0 >" as EC_165 #Pink
 EC_165 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_165  --> EC_167 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_165  --> EC_167 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 167 , H : 83 , step : 0 >" as EC_167 #Orange
 EC_167 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
-EC_167  --> EC_168 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True]\lact [clock==0] / turn off the tone
+EC_167  --> EC_168 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True]\lact [clock==0] / turn off the tone
 
 state "EC< id : 168 , H : 84 , step : 42 >" as EC_168 #LightBlue
 EC_168 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
@@ -640,11 +640,11 @@ EC_158  --> EC_160 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, True, True]\lact 
 
 state "EC< id : 160 , H : 78 , step : 44 >" as EC_160 #LightBlue
 EC_160 : DBM: R7_x_resp=60, R3_x_resp=60, clock=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_160  --> EC_177 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True]\lact [True] / META:TIME_ELAPSE
+EC_160  --> EC_177 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 177 , H : 79 , step : 0 >" as EC_177 #Orange
 EC_177 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_177  --> EC_178 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True]\lact [clock==0] / alert the emergency center
+EC_177  --> EC_178 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 178 , H : 80 , step : 45 >" as EC_178 #LightBlue
 EC_178 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
@@ -676,7 +676,7 @@ EC_187  --> EC_188 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 188 , H : 87 , step : 0 >" as EC_188 #Pink
 EC_188 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=60,\l   R7_x_resp-R3_x_resp<=-60, R3_x_resp-R7_x_resp<=60,\l   R7_x_resp=clock, R3_x_resp-clock<=60, clock-R3_x_resp<=-60,
-EC_188  --> EC_190 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_188  --> EC_190 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 190 , H : 88 , step : 0 >" as EC_190 #Orange
 EC_190 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=0, R3_x_resp-clock<=120, clock-R3_x_resp<=-60,
@@ -688,11 +688,11 @@ EC_181  --> EC_183 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 183 , H : 83 , step : 48 >" as EC_183 #LightBlue
 EC_183 : DBM: R7_x_resp=60, R3_x_resp=120, clock=60, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp=clock, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_183  --> EC_193 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True]\lact [True] / META:TIME_ELAPSE
+EC_183  --> EC_193 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 193 , H : 84 , step : 0 >" as EC_193 #Orange
 EC_193 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_193  --> EC_194 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True]\lact [clock==0] / alert the emergency center
+EC_193  --> EC_194 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 194 , H : 85 , step : 49 >" as EC_194 #LightBlue
 EC_194 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
@@ -724,7 +724,7 @@ EC_203  --> EC_204 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 204 , H : 92 , step : 0 >" as EC_204 #Pink
 EC_204 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=60,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp=clock, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_204  --> EC_206 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_204  --> EC_206 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 206 , H : 93 , step : 0 >" as EC_206 #Orange
 EC_206 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=0,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-120,
@@ -736,11 +736,11 @@ EC_197  --> EC_199 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 199 , H : 88 , step : 52 >" as EC_199 #LightBlue
 EC_199 : DBM: R7_x_resp=60, R3_x_resp=180, clock=60, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp=clock, R3_x_resp-clock<=120,\l   clock-R3_x_resp<=-120,
-EC_199  --> EC_209 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True]\lact [True] / META:TIME_ELAPSE
+EC_199  --> EC_209 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 209 , H : 89 , step : 0 >" as EC_209 #Orange
 EC_209 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_209  --> EC_210 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True]\lact [clock==0] / alert the emergency center
+EC_209  --> EC_210 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 210 , H : 90 , step : 53 >" as EC_210 #LightBlue
 EC_210 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
@@ -772,11 +772,11 @@ EC_219  --> EC_220 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 220 , H : 97 , step : 0 >" as EC_220 #Pink
 EC_220 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_220  --> EC_222 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_220  --> EC_222 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 222 , H : 98 , step : 0 >" as EC_222 #Orange
 EC_222 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=0,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-180,
-EC_222  --> EC_223 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True]\lact [clock==0] / turn off the tone
+EC_222  --> EC_223 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True]\lact [clock==0] / turn off the tone
 
 state "EC< id : 223 , H : 99 , step : 56 >" as EC_223 #LightBlue
 EC_223 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=0,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-180,
@@ -860,11 +860,11 @@ EC_253  --> EC_254 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 254 , H : 119 , step : 0 >" as EC_254 #Pink
 EC_254 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_254  --> EC_256 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_254  --> EC_256 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 256 , H : 120 , step : 0 >" as EC_256 #Orange
 EC_256 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
-EC_256  --> EC_257 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True]\lact [clock==0] / turn off the tone
+EC_256  --> EC_257 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True]\lact [clock==0] / turn off the tone
 
 state "EC< id : 257 , H : 121 , step : 64 >" as EC_257 #LightBlue
 EC_257 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
@@ -892,11 +892,11 @@ EC_247  --> EC_249 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, True, True, True]
 
 state "EC< id : 249 , H : 115 , step : 66 >" as EC_249 #LightBlue
 EC_249 : DBM: R7_x_resp=60, R3_x_resp=60, clock=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_249  --> EC_266 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_249  --> EC_266 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 266 , H : 116 , step : 0 >" as EC_266 #Orange
 EC_266 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_266  --> EC_267 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True]\lact [clock==0] / alert the emergency center
+EC_266  --> EC_267 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 267 , H : 117 , step : 67 >" as EC_267 #LightBlue
 EC_267 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
@@ -928,7 +928,7 @@ EC_276  --> EC_277 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 277 , H : 124 , step : 0 >" as EC_277 #Pink
 EC_277 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=60,\l   R7_x_resp-R3_x_resp<=-60, R3_x_resp-R7_x_resp<=60,\l   R7_x_resp=clock, R3_x_resp-clock<=60, clock-R3_x_resp<=-60,
-EC_277  --> EC_279 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_277  --> EC_279 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 279 , H : 125 , step : 0 >" as EC_279 #Orange
 EC_279 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=0, R3_x_resp-clock<=120, clock-R3_x_resp<=-60,
@@ -940,11 +940,11 @@ EC_270  --> EC_272 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 272 , H : 120 , step : 70 >" as EC_272 #LightBlue
 EC_272 : DBM: R7_x_resp=60, R3_x_resp=120, clock=60, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp=clock, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_272  --> EC_282 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_272  --> EC_282 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 282 , H : 121 , step : 0 >" as EC_282 #Orange
 EC_282 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_282  --> EC_283 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True]\lact [clock==0] / alert the emergency center
+EC_282  --> EC_283 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 283 , H : 122 , step : 71 >" as EC_283 #LightBlue
 EC_283 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
@@ -976,7 +976,7 @@ EC_292  --> EC_293 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 293 , H : 129 , step : 0 >" as EC_293 #Pink
 EC_293 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=60,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp=clock, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_293  --> EC_295 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_293  --> EC_295 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 295 , H : 130 , step : 0 >" as EC_295 #Orange
 EC_295 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=0,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-120,
@@ -988,11 +988,11 @@ EC_286  --> EC_288 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 288 , H : 125 , step : 74 >" as EC_288 #LightBlue
 EC_288 : DBM: R7_x_resp=60, R3_x_resp=180, clock=60, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp=clock, R3_x_resp-clock<=120,\l   clock-R3_x_resp<=-120,
-EC_288  --> EC_298 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_288  --> EC_298 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 298 , H : 126 , step : 0 >" as EC_298 #Orange
 EC_298 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_298  --> EC_299 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True]\lact [clock==0] / alert the emergency center
+EC_298  --> EC_299 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 299 , H : 127 , step : 75 >" as EC_299 #LightBlue
 EC_299 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
@@ -1024,7 +1024,7 @@ EC_308  --> EC_309 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 309 , H : 134 , step : 0 >" as EC_309 #Pink
 EC_309 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_309  --> EC_311 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_309  --> EC_311 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 311 , H : 135 , step : 0 >" as EC_311 #Orange
 EC_311 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=0,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-180,
@@ -1036,11 +1036,11 @@ EC_302  --> EC_304 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 304 , H : 130 , step : 78 >" as EC_304 #LightBlue
 EC_304 : DBM: R7_x_resp=60, R3_x_resp=240, clock=60, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp=clock, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-180,
-EC_304  --> EC_314 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_304  --> EC_314 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 314 , H : 131 , step : 0 >" as EC_314 #Orange
 EC_314 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_314  --> EC_315 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True]\lact [clock==0] / alert the emergency center
+EC_314  --> EC_315 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 315 , H : 132 , step : 79 >" as EC_315 #LightBlue
 EC_315 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
@@ -1072,11 +1072,11 @@ EC_324  --> EC_325 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 325 , H : 139 , step : 0 >" as EC_325 #Pink
 EC_325 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_325  --> EC_327 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_325  --> EC_327 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 327 , H : 140 , step : 0 >" as EC_327 #Orange
 EC_327 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
-EC_327  --> EC_328 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True]\lact [clock==0] / turn off the tone
+EC_327  --> EC_328 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True]\lact [clock==0] / turn off the tone
 
 state "EC< id : 328 , H : 141 , step : 82 >" as EC_328 #LightBlue
 EC_328 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
@@ -1160,11 +1160,11 @@ EC_358  --> EC_359 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 359 , H : 161 , step : 0 >" as EC_359 #Pink
 EC_359 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_359  --> EC_361 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_359  --> EC_361 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 361 , H : 162 , step : 0 >" as EC_361 #Orange
 EC_361 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
-EC_361  --> EC_362 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True]\lact [clock==0] / turn off the tone
+EC_361  --> EC_362 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True]\lact [clock==0] / turn off the tone
 
 state "EC< id : 362 , H : 163 , step : 90 >" as EC_362 #LightBlue
 EC_362 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
@@ -1192,11 +1192,11 @@ EC_352  --> EC_354 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, True, True, True,
 
 state "EC< id : 354 , H : 157 , step : 92 >" as EC_354 #LightBlue
 EC_354 : DBM: R7_x_resp=60, R3_x_resp=60, clock=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_354  --> EC_371 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_354  --> EC_371 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 371 , H : 158 , step : 0 >" as EC_371 #Orange
 EC_371 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_371  --> EC_372 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_371  --> EC_372 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 372 , H : 159 , step : 93 >" as EC_372 #LightBlue
 EC_372 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
@@ -1228,7 +1228,7 @@ EC_381  --> EC_382 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 382 , H : 166 , step : 0 >" as EC_382 #Pink
 EC_382 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=60,\l   R7_x_resp-R3_x_resp<=-60, R3_x_resp-R7_x_resp<=60,\l   R7_x_resp=clock, R3_x_resp-clock<=60, clock-R3_x_resp<=-60,
-EC_382  --> EC_384 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_382  --> EC_384 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 384 , H : 167 , step : 0 >" as EC_384 #Orange
 EC_384 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=0, R3_x_resp-clock<=120, clock-R3_x_resp<=-60,
@@ -1240,11 +1240,11 @@ EC_375  --> EC_377 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 377 , H : 162 , step : 96 >" as EC_377 #LightBlue
 EC_377 : DBM: R7_x_resp=60, R3_x_resp=120, clock=60, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp=clock, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_377  --> EC_387 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_377  --> EC_387 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 387 , H : 163 , step : 0 >" as EC_387 #Orange
 EC_387 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_387  --> EC_388 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_387  --> EC_388 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 388 , H : 164 , step : 97 >" as EC_388 #LightBlue
 EC_388 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
@@ -1276,7 +1276,7 @@ EC_397  --> EC_398 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 398 , H : 171 , step : 0 >" as EC_398 #Pink
 EC_398 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=60,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp=clock, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_398  --> EC_400 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_398  --> EC_400 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 400 , H : 172 , step : 0 >" as EC_400 #Orange
 EC_400 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=0,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-120,
@@ -1288,11 +1288,11 @@ EC_391  --> EC_393 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 393 , H : 167 , step : 100 >" as EC_393 #LightBlue
 EC_393 : DBM: R7_x_resp=60, R3_x_resp=180, clock=60, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp=clock, R3_x_resp-clock<=120,\l   clock-R3_x_resp<=-120,
-EC_393  --> EC_403 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_393  --> EC_403 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 403 , H : 168 , step : 0 >" as EC_403 #Orange
 EC_403 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_403  --> EC_404 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_403  --> EC_404 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 404 , H : 169 , step : 101 >" as EC_404 #LightBlue
 EC_404 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
@@ -1324,7 +1324,7 @@ EC_413  --> EC_414 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 414 , H : 176 , step : 0 >" as EC_414 #Pink
 EC_414 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_414  --> EC_416 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_414  --> EC_416 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 416 , H : 177 , step : 0 >" as EC_416 #Orange
 EC_416 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=0,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-180,
@@ -1336,11 +1336,11 @@ EC_407  --> EC_409 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 409 , H : 172 , step : 104 >" as EC_409 #LightBlue
 EC_409 : DBM: R7_x_resp=60, R3_x_resp=240, clock=60, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp=clock, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-180,
-EC_409  --> EC_419 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_409  --> EC_419 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 419 , H : 173 , step : 0 >" as EC_419 #Orange
 EC_419 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_419  --> EC_420 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_419  --> EC_420 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 420 , H : 174 , step : 105 >" as EC_420 #LightBlue
 EC_420 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
@@ -1372,7 +1372,7 @@ EC_429  --> EC_430 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 430 , H : 181 , step : 0 >" as EC_430 #Pink
 EC_430 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_430  --> EC_432 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_430  --> EC_432 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 432 , H : 182 , step : 0 >" as EC_432 #Orange
 EC_432 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
@@ -1384,11 +1384,11 @@ EC_423  --> EC_425 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 425 , H : 177 , step : 108 >" as EC_425 #LightBlue
 EC_425 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
-EC_425  --> EC_435 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_425  --> EC_435 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 435 , H : 178 , step : 0 >" as EC_435 #Orange
 EC_435 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_435  --> EC_436 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_435  --> EC_436 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 436 , H : 179 , step : 109 >" as EC_436 #LightBlue
 EC_436 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -1420,11 +1420,11 @@ EC_445  --> EC_446 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 446 , H : 186 , step : 0 >" as EC_446 #Pink
 EC_446 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_446  --> EC_448 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_446  --> EC_448 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 448 , H : 187 , step : 0 >" as EC_448 #Orange
 EC_448 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_448  --> EC_449 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True]\lact [clock==0] / turn off the tone
+EC_448  --> EC_449 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True]\lact [clock==0] / turn off the tone
 
 state "EC< id : 449 , H : 188 , step : 112 >" as EC_449 #LightBlue
 EC_449 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -1508,11 +1508,11 @@ EC_479  --> EC_480 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 480 , H : 208 , step : 0 >" as EC_480 #Pink
 EC_480 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_480  --> EC_482 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_480  --> EC_482 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 482 , H : 209 , step : 0 >" as EC_482 #Orange
 EC_482 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
-EC_482  --> EC_483 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [clock==0] / turn off the tone
+EC_482  --> EC_483 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [clock==0] / turn off the tone
 
 state "EC< id : 483 , H : 210 , step : 120 >" as EC_483 #LightBlue
 EC_483 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
@@ -1540,11 +1540,11 @@ EC_473  --> EC_475 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, True, True, True,
 
 state "EC< id : 475 , H : 204 , step : 122 >" as EC_475 #LightBlue
 EC_475 : DBM: R7_x_resp=60, R3_x_resp=60, clock=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_475  --> EC_492 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_475  --> EC_492 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 492 , H : 205 , step : 0 >" as EC_492 #Orange
 EC_492 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_492  --> EC_493 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_492  --> EC_493 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 493 , H : 206 , step : 123 >" as EC_493 #LightBlue
 EC_493 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
@@ -1576,7 +1576,7 @@ EC_502  --> EC_503 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 503 , H : 213 , step : 0 >" as EC_503 #Pink
 EC_503 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=60,\l   R7_x_resp-R3_x_resp<=-60, R3_x_resp-R7_x_resp<=60,\l   R7_x_resp=clock, R3_x_resp-clock<=60, clock-R3_x_resp<=-60,
-EC_503  --> EC_505 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_503  --> EC_505 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 505 , H : 214 , step : 0 >" as EC_505 #Orange
 EC_505 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=0, R3_x_resp-clock<=120, clock-R3_x_resp<=-60,
@@ -1588,11 +1588,11 @@ EC_496  --> EC_498 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 498 , H : 209 , step : 126 >" as EC_498 #LightBlue
 EC_498 : DBM: R7_x_resp=60, R3_x_resp=120, clock=60, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp=clock, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_498  --> EC_508 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_498  --> EC_508 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 508 , H : 210 , step : 0 >" as EC_508 #Orange
 EC_508 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_508  --> EC_509 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_508  --> EC_509 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 509 , H : 211 , step : 127 >" as EC_509 #LightBlue
 EC_509 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
@@ -1624,7 +1624,7 @@ EC_518  --> EC_519 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 519 , H : 218 , step : 0 >" as EC_519 #Pink
 EC_519 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=60,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp=clock, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_519  --> EC_521 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_519  --> EC_521 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 521 , H : 219 , step : 0 >" as EC_521 #Orange
 EC_521 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=0,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-120,
@@ -1636,11 +1636,11 @@ EC_512  --> EC_514 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 514 , H : 214 , step : 130 >" as EC_514 #LightBlue
 EC_514 : DBM: R7_x_resp=60, R3_x_resp=180, clock=60, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp=clock, R3_x_resp-clock<=120,\l   clock-R3_x_resp<=-120,
-EC_514  --> EC_524 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_514  --> EC_524 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 524 , H : 215 , step : 0 >" as EC_524 #Orange
 EC_524 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_524  --> EC_525 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_524  --> EC_525 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 525 , H : 216 , step : 131 >" as EC_525 #LightBlue
 EC_525 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
@@ -1672,7 +1672,7 @@ EC_534  --> EC_535 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 535 , H : 223 , step : 0 >" as EC_535 #Pink
 EC_535 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_535  --> EC_537 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_535  --> EC_537 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 537 , H : 224 , step : 0 >" as EC_537 #Orange
 EC_537 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=0,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-180,
@@ -1684,11 +1684,11 @@ EC_528  --> EC_530 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 530 , H : 219 , step : 134 >" as EC_530 #LightBlue
 EC_530 : DBM: R7_x_resp=60, R3_x_resp=240, clock=60, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp=clock, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-180,
-EC_530  --> EC_540 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_530  --> EC_540 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 540 , H : 220 , step : 0 >" as EC_540 #Orange
 EC_540 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_540  --> EC_541 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_540  --> EC_541 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 541 , H : 221 , step : 135 >" as EC_541 #LightBlue
 EC_541 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
@@ -1720,7 +1720,7 @@ EC_550  --> EC_551 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 551 , H : 228 , step : 0 >" as EC_551 #Pink
 EC_551 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_551  --> EC_553 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_551  --> EC_553 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 553 , H : 229 , step : 0 >" as EC_553 #Orange
 EC_553 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
@@ -1732,11 +1732,11 @@ EC_544  --> EC_546 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 546 , H : 224 , step : 138 >" as EC_546 #LightBlue
 EC_546 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
-EC_546  --> EC_556 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_546  --> EC_556 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 556 , H : 225 , step : 0 >" as EC_556 #Orange
 EC_556 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_556  --> EC_557 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_556  --> EC_557 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 557 , H : 226 , step : 139 >" as EC_557 #LightBlue
 EC_557 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -1768,7 +1768,7 @@ EC_566  --> EC_567 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 567 , H : 233 , step : 0 >" as EC_567 #Pink
 EC_567 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_567  --> EC_569 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_567  --> EC_569 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 569 , H : 234 , step : 0 >" as EC_569 #Orange
 EC_569 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -1808,11 +1808,11 @@ EC_579  --> EC_580 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 580 , H : 208 , step : 0 >" as EC_580 #Pink
 EC_580 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_580  --> EC_582 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_580  --> EC_582 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 582 , H : 209 , step : 0 >" as EC_582 #Orange
 EC_582 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
-EC_582  --> EC_583 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [clock==0] / turn off the tone
+EC_582  --> EC_583 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [clock==0] / turn off the tone
 
 state "EC< id : 583 , H : 210 , step : 145 >" as EC_583 #LightBlue
 EC_583 : DBM: R7_x_resp<=60, R3_x_resp<=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=0,
@@ -1840,11 +1840,11 @@ EC_466  --> EC_469 : inv [R3_x_resp, R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=6
 
 state "EC< id : 469 , H : 201 , step : 147 >" as EC_469 #LightBlue
 EC_469 : DBM: R7_x_resp=60, R3_x_resp=60, clock=60, R7_x_resp=R3_x_resp,\l   R7_x_resp=clock, R3_x_resp=clock,
-EC_469  --> EC_592 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_469  --> EC_592 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 592 , H : 202 , step : 0 >" as EC_592 #Orange
 EC_592 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_592  --> EC_593 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [true] / enter in <TimedState: start time period , timing: within 0 to 300/>
+EC_592  --> EC_593 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [true] / enter in <TimedState: start time period , timing: within 0 to 300/>
 
 state "EC< id : 593 , H : 203 , step : 148 >" as EC_593 #LightBlue
 EC_593 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
@@ -1852,11 +1852,11 @@ EC_593  --> EC_596 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R3, Pr
 
 state "EC< id : 596 , H : 204 , step : 0 >" as EC_596 #Pink
 EC_596 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_596  --> EC_598 : inv [] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_596  --> EC_598 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 598 , H : 205 , step : 0 >" as EC_598 #Orange
 EC_598 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_598  --> EC_599 : inv [] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_598  --> EC_599 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 599 , H : 206 , step : 149 >" as EC_599 #LightBlue
 EC_599 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
@@ -1888,7 +1888,7 @@ EC_608  --> EC_609 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 609 , H : 213 , step : 0 >" as EC_609 #Pink
 EC_609 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=60,\l   R7_x_resp-R3_x_resp<=-60, R3_x_resp-R7_x_resp<=60,\l   R7_x_resp=clock, R3_x_resp-clock<=60, clock-R3_x_resp<=-60,
-EC_609  --> EC_611 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_609  --> EC_611 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 611 , H : 214 , step : 0 >" as EC_611 #Orange
 EC_611 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=0, R3_x_resp-clock<=120, clock-R3_x_resp<=-60,
@@ -1900,11 +1900,11 @@ EC_602  --> EC_604 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 604 , H : 209 , step : 152 >" as EC_604 #LightBlue
 EC_604 : DBM: R7_x_resp=60, R3_x_resp=120, clock=60, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp=clock, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_604  --> EC_614 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_604  --> EC_614 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 614 , H : 210 , step : 0 >" as EC_614 #Orange
 EC_614 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_614  --> EC_615 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_614  --> EC_615 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 615 , H : 211 , step : 153 >" as EC_615 #LightBlue
 EC_615 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
@@ -1936,7 +1936,7 @@ EC_624  --> EC_625 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 625 , H : 218 , step : 0 >" as EC_625 #Pink
 EC_625 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=60,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp=clock, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_625  --> EC_627 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_625  --> EC_627 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 627 , H : 219 , step : 0 >" as EC_627 #Orange
 EC_627 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=0,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-120,
@@ -1948,11 +1948,11 @@ EC_618  --> EC_620 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 620 , H : 214 , step : 156 >" as EC_620 #LightBlue
 EC_620 : DBM: R7_x_resp=60, R3_x_resp=180, clock=60, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp=clock, R3_x_resp-clock<=120,\l   clock-R3_x_resp<=-120,
-EC_620  --> EC_630 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_620  --> EC_630 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 630 , H : 215 , step : 0 >" as EC_630 #Orange
 EC_630 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_630  --> EC_631 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_630  --> EC_631 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 631 , H : 216 , step : 157 >" as EC_631 #LightBlue
 EC_631 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
@@ -1984,7 +1984,7 @@ EC_640  --> EC_641 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 641 , H : 223 , step : 0 >" as EC_641 #Pink
 EC_641 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_641  --> EC_643 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_641  --> EC_643 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 643 , H : 224 , step : 0 >" as EC_643 #Orange
 EC_643 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=0,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-180,
@@ -1996,11 +1996,11 @@ EC_634  --> EC_636 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 636 , H : 219 , step : 160 >" as EC_636 #LightBlue
 EC_636 : DBM: R7_x_resp=60, R3_x_resp=240, clock=60, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp=clock, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-180,
-EC_636  --> EC_646 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_636  --> EC_646 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 646 , H : 220 , step : 0 >" as EC_646 #Orange
 EC_646 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_646  --> EC_647 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_646  --> EC_647 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 647 , H : 221 , step : 161 >" as EC_647 #LightBlue
 EC_647 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
@@ -2032,7 +2032,7 @@ EC_656  --> EC_657 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 657 , H : 228 , step : 0 >" as EC_657 #Pink
 EC_657 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_657  --> EC_659 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_657  --> EC_659 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 659 , H : 229 , step : 0 >" as EC_659 #Orange
 EC_659 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
@@ -2044,11 +2044,11 @@ EC_650  --> EC_652 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 652 , H : 224 , step : 164 >" as EC_652 #LightBlue
 EC_652 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
-EC_652  --> EC_662 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_652  --> EC_662 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 662 , H : 225 , step : 0 >" as EC_662 #Orange
 EC_662 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_662  --> EC_663 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_662  --> EC_663 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 663 , H : 226 , step : 165 >" as EC_663 #LightBlue
 EC_663 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -2080,7 +2080,7 @@ EC_672  --> EC_673 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 673 , H : 233 , step : 0 >" as EC_673 #Pink
 EC_673 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_673  --> EC_675 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_673  --> EC_675 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 675 , H : 234 , step : 0 >" as EC_675 #Orange
 EC_675 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -2088,7 +2088,7 @@ EC_675  --> EC_676 : \lact [True] / META:REDUNDANCE:EC< id : 448 , H : 187 >
 
 state "EC< id : 676 , H : 235 , step : 0 >" as EC_676 #Green
 EC_676 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_592  --> EC_594 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_592  --> EC_594 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 594 , H : 203 , step : 168 >" as EC_594 #LightBlue
 EC_594 : DBM: R7_x_resp=60, R3_x_resp=60, clock<=0, R7_x_resp=R3_x_resp,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=-60, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
@@ -2132,7 +2132,7 @@ EC_692  --> EC_693 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 693 , H : 213 , step : 0 >" as EC_693 #Pink
 EC_693 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=60,\l   R7_x_resp-R3_x_resp<=-60, R3_x_resp-R7_x_resp<=60,\l   R7_x_resp=clock, R3_x_resp-clock<=60, clock-R3_x_resp<=-60,
-EC_693  --> EC_695 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_693  --> EC_695 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 695 , H : 214 , step : 0 >" as EC_695 #Orange
 EC_695 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=0, R3_x_resp-clock<=120, clock-R3_x_resp<=-60,
@@ -2144,11 +2144,11 @@ EC_686  --> EC_688 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, True, True, True,
 
 state "EC< id : 688 , H : 209 , step : 172 >" as EC_688 #LightBlue
 EC_688 : DBM: R7_x_resp=60, R3_x_resp=120, clock=60, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp=clock, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_688  --> EC_698 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_688  --> EC_698 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 698 , H : 210 , step : 0 >" as EC_698 #Orange
 EC_698 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_698  --> EC_699 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_698  --> EC_699 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 699 , H : 211 , step : 173 >" as EC_699 #LightBlue
 EC_699 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
@@ -2180,7 +2180,7 @@ EC_708  --> EC_709 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 709 , H : 218 , step : 0 >" as EC_709 #Pink
 EC_709 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=60,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp=clock, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_709  --> EC_711 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_709  --> EC_711 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 711 , H : 219 , step : 0 >" as EC_711 #Orange
 EC_711 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=0,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-120,
@@ -2192,11 +2192,11 @@ EC_702  --> EC_704 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 704 , H : 214 , step : 176 >" as EC_704 #LightBlue
 EC_704 : DBM: R7_x_resp=60, R3_x_resp=180, clock=60, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp=clock, R3_x_resp-clock<=120,\l   clock-R3_x_resp<=-120,
-EC_704  --> EC_714 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_704  --> EC_714 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 714 , H : 215 , step : 0 >" as EC_714 #Orange
 EC_714 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_714  --> EC_715 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_714  --> EC_715 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 715 , H : 216 , step : 177 >" as EC_715 #LightBlue
 EC_715 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
@@ -2228,7 +2228,7 @@ EC_724  --> EC_725 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 725 , H : 223 , step : 0 >" as EC_725 #Pink
 EC_725 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_725  --> EC_727 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_725  --> EC_727 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 727 , H : 224 , step : 0 >" as EC_727 #Orange
 EC_727 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=0,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-180,
@@ -2240,11 +2240,11 @@ EC_718  --> EC_720 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 720 , H : 219 , step : 180 >" as EC_720 #LightBlue
 EC_720 : DBM: R7_x_resp=60, R3_x_resp=240, clock=60, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp=clock, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-180,
-EC_720  --> EC_730 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_720  --> EC_730 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 730 , H : 220 , step : 0 >" as EC_730 #Orange
 EC_730 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_730  --> EC_731 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_730  --> EC_731 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 731 , H : 221 , step : 181 >" as EC_731 #LightBlue
 EC_731 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
@@ -2276,7 +2276,7 @@ EC_740  --> EC_741 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 741 , H : 228 , step : 0 >" as EC_741 #Pink
 EC_741 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_741  --> EC_743 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_741  --> EC_743 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 743 , H : 229 , step : 0 >" as EC_743 #Orange
 EC_743 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
@@ -2288,11 +2288,11 @@ EC_734  --> EC_736 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 736 , H : 224 , step : 184 >" as EC_736 #LightBlue
 EC_736 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
-EC_736  --> EC_746 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_736  --> EC_746 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 746 , H : 225 , step : 0 >" as EC_746 #Orange
 EC_746 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_746  --> EC_747 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_746  --> EC_747 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 747 , H : 226 , step : 185 >" as EC_747 #LightBlue
 EC_747 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -2324,7 +2324,7 @@ EC_756  --> EC_757 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 757 , H : 233 , step : 0 >" as EC_757 #Pink
 EC_757 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_757  --> EC_759 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_757  --> EC_759 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 759 , H : 234 , step : 0 >" as EC_759 #Orange
 EC_759 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -2364,7 +2364,7 @@ EC_769  --> EC_770 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 770 , H : 213 , step : 0 >" as EC_770 #Pink
 EC_770 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=60,\l   R7_x_resp-R3_x_resp<=-60, R3_x_resp-R7_x_resp<=60,\l   R7_x_resp=clock, R3_x_resp-clock<=60, clock-R3_x_resp<=-60,
-EC_770  --> EC_772 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_770  --> EC_772 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 772 , H : 214 , step : 0 >" as EC_772 #Orange
 EC_772 : DBM: R7_x_resp<=60, 60<=R3_x_resp<=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=0, R3_x_resp-clock<=120, clock-R3_x_resp<=-60,
@@ -2376,11 +2376,11 @@ EC_679  --> EC_682 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 682 , H : 206 , step : 191 >" as EC_682 #LightBlue
 EC_682 : DBM: R7_x_resp=60, R3_x_resp=120, clock=60, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp=clock, R3_x_resp-clock<=60,\l   clock-R3_x_resp<=-60,
-EC_682  --> EC_775 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_682  --> EC_775 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 775 , H : 207 , step : 0 >" as EC_775 #Orange
 EC_775 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_775  --> EC_776 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [true] / enter in <TimedState: start time period , timing: within 0 to 300/>
+EC_775  --> EC_776 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [true] / enter in <TimedState: start time period , timing: within 0 to 300/>
 
 state "EC< id : 776 , H : 208 , step : 192 >" as EC_776 #LightBlue
 EC_776 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
@@ -2388,11 +2388,11 @@ EC_776  --> EC_779 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R3, Pr
 
 state "EC< id : 779 , H : 209 , step : 0 >" as EC_779 #Pink
 EC_779 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_779  --> EC_781 : inv [] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_779  --> EC_781 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 781 , H : 210 , step : 0 >" as EC_781 #Orange
 EC_781 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_781  --> EC_782 : inv [] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_781  --> EC_782 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 782 , H : 211 , step : 193 >" as EC_782 #LightBlue
 EC_782 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
@@ -2424,7 +2424,7 @@ EC_791  --> EC_792 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 792 , H : 218 , step : 0 >" as EC_792 #Pink
 EC_792 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=60,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp=clock, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_792  --> EC_794 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_792  --> EC_794 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 794 , H : 219 , step : 0 >" as EC_794 #Orange
 EC_794 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=0,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-120,
@@ -2436,11 +2436,11 @@ EC_785  --> EC_787 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 787 , H : 214 , step : 196 >" as EC_787 #LightBlue
 EC_787 : DBM: R7_x_resp=60, R3_x_resp=180, clock=60, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp=clock, R3_x_resp-clock<=120,\l   clock-R3_x_resp<=-120,
-EC_787  --> EC_797 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_787  --> EC_797 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 797 , H : 215 , step : 0 >" as EC_797 #Orange
 EC_797 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_797  --> EC_798 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_797  --> EC_798 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 798 , H : 216 , step : 197 >" as EC_798 #LightBlue
 EC_798 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
@@ -2472,7 +2472,7 @@ EC_807  --> EC_808 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 808 , H : 223 , step : 0 >" as EC_808 #Pink
 EC_808 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_808  --> EC_810 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_808  --> EC_810 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 810 , H : 224 , step : 0 >" as EC_810 #Orange
 EC_810 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=0,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-180,
@@ -2484,11 +2484,11 @@ EC_801  --> EC_803 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 803 , H : 219 , step : 200 >" as EC_803 #LightBlue
 EC_803 : DBM: R7_x_resp=60, R3_x_resp=240, clock=60, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp=clock, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-180,
-EC_803  --> EC_813 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_803  --> EC_813 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 813 , H : 220 , step : 0 >" as EC_813 #Orange
 EC_813 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_813  --> EC_814 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_813  --> EC_814 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 814 , H : 221 , step : 201 >" as EC_814 #LightBlue
 EC_814 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
@@ -2520,7 +2520,7 @@ EC_823  --> EC_824 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 824 , H : 228 , step : 0 >" as EC_824 #Pink
 EC_824 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_824  --> EC_826 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_824  --> EC_826 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 826 , H : 229 , step : 0 >" as EC_826 #Orange
 EC_826 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
@@ -2532,11 +2532,11 @@ EC_817  --> EC_819 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 819 , H : 224 , step : 204 >" as EC_819 #LightBlue
 EC_819 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
-EC_819  --> EC_829 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_819  --> EC_829 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 829 , H : 225 , step : 0 >" as EC_829 #Orange
 EC_829 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_829  --> EC_830 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_829  --> EC_830 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 830 , H : 226 , step : 205 >" as EC_830 #LightBlue
 EC_830 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -2568,7 +2568,7 @@ EC_839  --> EC_840 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 840 , H : 233 , step : 0 >" as EC_840 #Pink
 EC_840 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_840  --> EC_842 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_840  --> EC_842 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 842 , H : 234 , step : 0 >" as EC_842 #Orange
 EC_842 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -2576,7 +2576,7 @@ EC_842  --> EC_843 : \lact [True] / META:REDUNDANCE:EC< id : 448 , H : 187 >
 
 state "EC< id : 843 , H : 235 , step : 0 >" as EC_843 #Green
 EC_843 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_775  --> EC_777 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_775  --> EC_777 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 777 , H : 208 , step : 208 >" as EC_777 #LightBlue
 EC_777 : DBM: R7_x_resp=60, R3_x_resp=120, clock<=0, R7_x_resp-R3_x_resp<=-60,\l   R3_x_resp-R7_x_resp<=60, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
@@ -2620,7 +2620,7 @@ EC_859  --> EC_860 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 860 , H : 218 , step : 0 >" as EC_860 #Pink
 EC_860 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=60,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp=clock, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_860  --> EC_862 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_860  --> EC_862 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 862 , H : 219 , step : 0 >" as EC_862 #Orange
 EC_862 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=0,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-120,
@@ -2632,11 +2632,11 @@ EC_853  --> EC_855 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, True, True, True,
 
 state "EC< id : 855 , H : 214 , step : 212 >" as EC_855 #LightBlue
 EC_855 : DBM: R7_x_resp=60, R3_x_resp=180, clock=60, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp=clock, R3_x_resp-clock<=120,\l   clock-R3_x_resp<=-120,
-EC_855  --> EC_865 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_855  --> EC_865 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 865 , H : 215 , step : 0 >" as EC_865 #Orange
 EC_865 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_865  --> EC_866 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_865  --> EC_866 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 866 , H : 216 , step : 213 >" as EC_866 #LightBlue
 EC_866 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
@@ -2668,7 +2668,7 @@ EC_875  --> EC_876 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 876 , H : 223 , step : 0 >" as EC_876 #Pink
 EC_876 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_876  --> EC_878 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_876  --> EC_878 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 878 , H : 224 , step : 0 >" as EC_878 #Orange
 EC_878 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=0,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-180,
@@ -2680,11 +2680,11 @@ EC_869  --> EC_871 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 871 , H : 219 , step : 216 >" as EC_871 #LightBlue
 EC_871 : DBM: R7_x_resp=60, R3_x_resp=240, clock=60, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp=clock, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-180,
-EC_871  --> EC_881 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_871  --> EC_881 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 881 , H : 220 , step : 0 >" as EC_881 #Orange
 EC_881 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_881  --> EC_882 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_881  --> EC_882 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 882 , H : 221 , step : 217 >" as EC_882 #LightBlue
 EC_882 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
@@ -2716,7 +2716,7 @@ EC_891  --> EC_892 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 892 , H : 228 , step : 0 >" as EC_892 #Pink
 EC_892 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_892  --> EC_894 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_892  --> EC_894 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 894 , H : 229 , step : 0 >" as EC_894 #Orange
 EC_894 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
@@ -2728,11 +2728,11 @@ EC_885  --> EC_887 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 887 , H : 224 , step : 220 >" as EC_887 #LightBlue
 EC_887 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
-EC_887  --> EC_897 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_887  --> EC_897 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 897 , H : 225 , step : 0 >" as EC_897 #Orange
 EC_897 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_897  --> EC_898 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_897  --> EC_898 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 898 , H : 226 , step : 221 >" as EC_898 #LightBlue
 EC_898 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -2764,7 +2764,7 @@ EC_907  --> EC_908 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 908 , H : 233 , step : 0 >" as EC_908 #Pink
 EC_908 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_908  --> EC_910 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_908  --> EC_910 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 910 , H : 234 , step : 0 >" as EC_910 #Orange
 EC_910 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -2804,7 +2804,7 @@ EC_920  --> EC_921 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 921 , H : 218 , step : 0 >" as EC_921 #Pink
 EC_921 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=60,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp=clock, R3_x_resp-clock<=120, clock-R3_x_resp<=-120,
-EC_921  --> EC_923 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_921  --> EC_923 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 923 , H : 219 , step : 0 >" as EC_923 #Orange
 EC_923 : DBM: R7_x_resp<=60, 120<=R3_x_resp<=180, clock<=0,\l   R7_x_resp-R3_x_resp<=-120, R3_x_resp-R7_x_resp<=120,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-120,
@@ -2816,11 +2816,11 @@ EC_846  --> EC_849 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 849 , H : 211 , step : 227 >" as EC_849 #LightBlue
 EC_849 : DBM: R7_x_resp=60, R3_x_resp=180, clock=60, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp=clock, R3_x_resp-clock<=120,\l   clock-R3_x_resp<=-120,
-EC_849  --> EC_926 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_849  --> EC_926 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 926 , H : 212 , step : 0 >" as EC_926 #Orange
 EC_926 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_926  --> EC_927 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [true] / enter in <TimedState: start time period , timing: within 0 to 300/>
+EC_926  --> EC_927 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [true] / enter in <TimedState: start time period , timing: within 0 to 300/>
 
 state "EC< id : 927 , H : 213 , step : 228 >" as EC_927 #LightBlue
 EC_927 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
@@ -2828,11 +2828,11 @@ EC_927  --> EC_930 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R3, Pr
 
 state "EC< id : 930 , H : 214 , step : 0 >" as EC_930 #Pink
 EC_930 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_930  --> EC_932 : inv [] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_930  --> EC_932 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 932 , H : 215 , step : 0 >" as EC_932 #Orange
 EC_932 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_932  --> EC_933 : inv [] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_932  --> EC_933 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 933 , H : 216 , step : 229 >" as EC_933 #LightBlue
 EC_933 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
@@ -2864,7 +2864,7 @@ EC_942  --> EC_943 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 943 , H : 223 , step : 0 >" as EC_943 #Pink
 EC_943 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_943  --> EC_945 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_943  --> EC_945 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 945 , H : 224 , step : 0 >" as EC_945 #Orange
 EC_945 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=0,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-180,
@@ -2876,11 +2876,11 @@ EC_936  --> EC_938 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 938 , H : 219 , step : 232 >" as EC_938 #LightBlue
 EC_938 : DBM: R7_x_resp=60, R3_x_resp=240, clock=60, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp=clock, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-180,
-EC_938  --> EC_948 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_938  --> EC_948 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 948 , H : 220 , step : 0 >" as EC_948 #Orange
 EC_948 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_948  --> EC_949 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_948  --> EC_949 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 949 , H : 221 , step : 233 >" as EC_949 #LightBlue
 EC_949 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
@@ -2912,7 +2912,7 @@ EC_958  --> EC_959 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 959 , H : 228 , step : 0 >" as EC_959 #Pink
 EC_959 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_959  --> EC_961 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_959  --> EC_961 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 961 , H : 229 , step : 0 >" as EC_961 #Orange
 EC_961 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
@@ -2924,11 +2924,11 @@ EC_952  --> EC_954 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 954 , H : 224 , step : 236 >" as EC_954 #LightBlue
 EC_954 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
-EC_954  --> EC_964 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_954  --> EC_964 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 964 , H : 225 , step : 0 >" as EC_964 #Orange
 EC_964 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_964  --> EC_965 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_964  --> EC_965 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 965 , H : 226 , step : 237 >" as EC_965 #LightBlue
 EC_965 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -2960,7 +2960,7 @@ EC_974  --> EC_975 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 975 , H : 233 , step : 0 >" as EC_975 #Pink
 EC_975 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_975  --> EC_977 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_975  --> EC_977 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 977 , H : 234 , step : 0 >" as EC_977 #Orange
 EC_977 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -2968,7 +2968,7 @@ EC_977  --> EC_978 : \lact [True] / META:REDUNDANCE:EC< id : 448 , H : 187 >
 
 state "EC< id : 978 , H : 235 , step : 0 >" as EC_978 #Green
 EC_978 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_926  --> EC_928 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_926  --> EC_928 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 928 , H : 213 , step : 240 >" as EC_928 #LightBlue
 EC_928 : DBM: R7_x_resp=60, R3_x_resp=180, clock<=0, R7_x_resp-R3_x_resp<=-120,\l   R3_x_resp-R7_x_resp<=120, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
@@ -3012,7 +3012,7 @@ EC_994  --> EC_995 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 995 , H : 223 , step : 0 >" as EC_995 #Pink
 EC_995 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_995  --> EC_997 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_995  --> EC_997 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 997 , H : 224 , step : 0 >" as EC_997 #Orange
 EC_997 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=0,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-180,
@@ -3024,11 +3024,11 @@ EC_988  --> EC_990 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, True, True, True,
 
 state "EC< id : 990 , H : 219 , step : 244 >" as EC_990 #LightBlue
 EC_990 : DBM: R7_x_resp=60, R3_x_resp=240, clock=60, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp=clock, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-180,
-EC_990  --> EC_1000 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_990  --> EC_1000 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1000 , H : 220 , step : 0 >" as EC_1000 #Orange
 EC_1000 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_1000  --> EC_1001 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_1000  --> EC_1001 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 1001 , H : 221 , step : 245 >" as EC_1001 #LightBlue
 EC_1001 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
@@ -3060,7 +3060,7 @@ EC_1010  --> EC_1011 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 1011 , H : 228 , step : 0 >" as EC_1011 #Pink
 EC_1011 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_1011  --> EC_1013 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1011  --> EC_1013 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1013 , H : 229 , step : 0 >" as EC_1013 #Orange
 EC_1013 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
@@ -3072,11 +3072,11 @@ EC_1004  --> EC_1006 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, 
 
 state "EC< id : 1006 , H : 224 , step : 248 >" as EC_1006 #LightBlue
 EC_1006 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
-EC_1006  --> EC_1016 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1006  --> EC_1016 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1016 , H : 225 , step : 0 >" as EC_1016 #Orange
 EC_1016 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_1016  --> EC_1017 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_1016  --> EC_1017 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 1017 , H : 226 , step : 249 >" as EC_1017 #LightBlue
 EC_1017 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -3108,7 +3108,7 @@ EC_1026  --> EC_1027 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 1027 , H : 233 , step : 0 >" as EC_1027 #Pink
 EC_1027 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_1027  --> EC_1029 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1027  --> EC_1029 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1029 , H : 234 , step : 0 >" as EC_1029 #Orange
 EC_1029 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -3148,7 +3148,7 @@ EC_1039  --> EC_1040 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 1040 , H : 223 , step : 0 >" as EC_1040 #Pink
 EC_1040 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=60,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp=clock, R3_x_resp-clock<=180, clock-R3_x_resp<=-180,
-EC_1040  --> EC_1042 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1040  --> EC_1042 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1042 , H : 224 , step : 0 >" as EC_1042 #Orange
 EC_1042 : DBM: R7_x_resp<=60, 180<=R3_x_resp<=240, clock<=0,\l   R7_x_resp-R3_x_resp<=-180, R3_x_resp-R7_x_resp<=180,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-180,
@@ -3160,11 +3160,11 @@ EC_981  --> EC_984 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, Tr
 
 state "EC< id : 984 , H : 216 , step : 255 >" as EC_984 #LightBlue
 EC_984 : DBM: R7_x_resp=60, R3_x_resp=240, clock=60, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp=clock, R3_x_resp-clock<=180,\l   clock-R3_x_resp<=-180,
-EC_984  --> EC_1045 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_984  --> EC_1045 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1045 , H : 217 , step : 0 >" as EC_1045 #Orange
 EC_1045 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_1045  --> EC_1046 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [true] / enter in <TimedState: start time period , timing: within 0 to 300/>
+EC_1045  --> EC_1046 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [true] / enter in <TimedState: start time period , timing: within 0 to 300/>
 
 state "EC< id : 1046 , H : 218 , step : 256 >" as EC_1046 #LightBlue
 EC_1046 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
@@ -3172,11 +3172,11 @@ EC_1046  --> EC_1049 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R3, 
 
 state "EC< id : 1049 , H : 219 , step : 0 >" as EC_1049 #Pink
 EC_1049 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_1049  --> EC_1051 : inv [] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1049  --> EC_1051 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1051 , H : 220 , step : 0 >" as EC_1051 #Orange
 EC_1051 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_1051  --> EC_1052 : inv [] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_1051  --> EC_1052 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 1052 , H : 221 , step : 257 >" as EC_1052 #LightBlue
 EC_1052 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
@@ -3208,7 +3208,7 @@ EC_1061  --> EC_1062 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 1062 , H : 228 , step : 0 >" as EC_1062 #Pink
 EC_1062 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_1062  --> EC_1064 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1062  --> EC_1064 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1064 , H : 229 , step : 0 >" as EC_1064 #Orange
 EC_1064 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
@@ -3220,11 +3220,11 @@ EC_1055  --> EC_1057 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, 
 
 state "EC< id : 1057 , H : 224 , step : 260 >" as EC_1057 #LightBlue
 EC_1057 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
-EC_1057  --> EC_1067 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1057  --> EC_1067 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1067 , H : 225 , step : 0 >" as EC_1067 #Orange
 EC_1067 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_1067  --> EC_1068 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_1067  --> EC_1068 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 1068 , H : 226 , step : 261 >" as EC_1068 #LightBlue
 EC_1068 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -3256,7 +3256,7 @@ EC_1077  --> EC_1078 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 1078 , H : 233 , step : 0 >" as EC_1078 #Pink
 EC_1078 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_1078  --> EC_1080 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1078  --> EC_1080 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1080 , H : 234 , step : 0 >" as EC_1080 #Orange
 EC_1080 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -3264,7 +3264,7 @@ EC_1080  --> EC_1081 : \lact [True] / META:REDUNDANCE:EC< id : 448 , H : 187 >
 
 state "EC< id : 1081 , H : 235 , step : 0 >" as EC_1081 #Green
 EC_1081 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_1045  --> EC_1047 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_1045  --> EC_1047 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 1047 , H : 218 , step : 264 >" as EC_1047 #LightBlue
 EC_1047 : DBM: R7_x_resp=60, R3_x_resp=240, clock<=0, R7_x_resp-R3_x_resp<=-180,\l   R3_x_resp-R7_x_resp<=180, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
@@ -3308,7 +3308,7 @@ EC_1097  --> EC_1098 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 1098 , H : 228 , step : 0 >" as EC_1098 #Pink
 EC_1098 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_1098  --> EC_1100 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1098  --> EC_1100 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1100 , H : 229 , step : 0 >" as EC_1100 #Orange
 EC_1100 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
@@ -3320,11 +3320,11 @@ EC_1091  --> EC_1093 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, True, True, Tru
 
 state "EC< id : 1093 , H : 224 , step : 268 >" as EC_1093 #LightBlue
 EC_1093 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
-EC_1093  --> EC_1103 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1093  --> EC_1103 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1103 , H : 225 , step : 0 >" as EC_1103 #Orange
 EC_1103 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_1103  --> EC_1104 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_1103  --> EC_1104 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 1104 , H : 226 , step : 269 >" as EC_1104 #LightBlue
 EC_1104 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -3356,7 +3356,7 @@ EC_1113  --> EC_1114 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 1114 , H : 233 , step : 0 >" as EC_1114 #Pink
 EC_1114 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_1114  --> EC_1116 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1114  --> EC_1116 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1116 , H : 234 , step : 0 >" as EC_1116 #Orange
 EC_1116 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -3396,7 +3396,7 @@ EC_1126  --> EC_1127 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 1127 , H : 228 , step : 0 >" as EC_1127 #Pink
 EC_1127 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=60,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp=clock, R3_x_resp-clock<=240, clock-R3_x_resp<=-240,
-EC_1127  --> EC_1129 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1127  --> EC_1129 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1129 , H : 229 , step : 0 >" as EC_1129 #Orange
 EC_1129 : DBM: R7_x_resp<=60, 240<=R3_x_resp<=300, clock<=0,\l   R7_x_resp-R3_x_resp<=-240, R3_x_resp-R7_x_resp<=240,\l   R7_x_resp-clock<=60, clock-R7_x_resp<=0, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-240,
@@ -3428,11 +3428,11 @@ EC_1084  --> EC_1087 : inv [R7_x_resp] => [R3_x_resp<=300, R7_x_resp<=60, True, 
 
 state "EC< id : 1087 , H : 221 , step : 277 >" as EC_1087 #LightBlue
 EC_1087 : DBM: R7_x_resp=60, R3_x_resp=300, clock=60, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp=clock, R3_x_resp-clock<=240,\l   clock-R3_x_resp<=-240,
-EC_1087  --> EC_1138 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1087  --> EC_1138 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1138 , H : 222 , step : 0 >" as EC_1138 #Orange
 EC_1138 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_1138  --> EC_1139 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [true] / enter in <TimedState: start time period , timing: within 0 to 300/>
+EC_1138  --> EC_1139 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [true] / enter in <TimedState: start time period , timing: within 0 to 300/>
 
 state "EC< id : 1139 , H : 223 , step : 278 >" as EC_1139 #LightBlue
 EC_1139 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -3440,11 +3440,11 @@ EC_1139  --> EC_1142 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R3, 
 
 state "EC< id : 1142 , H : 224 , step : 0 >" as EC_1142 #Pink
 EC_1142 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_1142  --> EC_1144 : inv [] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1142  --> EC_1144 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1144 , H : 225 , step : 0 >" as EC_1144 #Orange
 EC_1144 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
-EC_1144  --> EC_1145 : inv [] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_1144  --> EC_1145 : inv [] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 1145 , H : 226 , step : 279 >" as EC_1145 #LightBlue
 EC_1145 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -3476,7 +3476,7 @@ EC_1154  --> EC_1155 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 1155 , H : 233 , step : 0 >" as EC_1155 #Pink
 EC_1155 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_1155  --> EC_1157 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1155  --> EC_1157 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1157 , H : 234 , step : 0 >" as EC_1157 #Orange
 EC_1157 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -3484,7 +3484,7 @@ EC_1157  --> EC_1158 : \lact [True] / META:REDUNDANCE:EC< id : 448 , H : 187 >
 
 state "EC< id : 1158 , H : 235 , step : 0 >" as EC_1158 #Green
 EC_1158 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_1138  --> EC_1140 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_1138  --> EC_1140 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 1140 , H : 223 , step : 282 >" as EC_1140 #LightBlue
 EC_1140 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
@@ -3528,7 +3528,7 @@ EC_1174  --> EC_1175 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 1175 , H : 233 , step : 0 >" as EC_1175 #Pink
 EC_1175 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_1175  --> EC_1177 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1175  --> EC_1177 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1177 , H : 234 , step : 0 >" as EC_1177 #Orange
 EC_1177 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -3568,7 +3568,7 @@ EC_1187  --> EC_1188 : \lact [True] / META:UNFOLD_CALL_PROCESS:K = PostProc_R8
 
 state "EC< id : 1188 , H : 233 , step : 0 >" as EC_1188 #Pink
 EC_1188 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_1188  --> EC_1190 : inv [clock] => [clock<=0, R3_x_resp<=300, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1188  --> EC_1190 : inv [clock] => [R3_x_resp<=300, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1190 , H : 234 , step : 0 >" as EC_1190 #Orange
 EC_1190 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
@@ -3644,11 +3644,11 @@ EC_1205  --> EC_1207 : inv [] => [True, R7_x_resp<=60, True, True, True, True, T
 
 state "EC< id : 1207 , H : 231 , step : 295 >" as EC_1207 #LightBlue
 EC_1207 : DBM: R7_x_resp=60, R3_x_resp=360, clock=60, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_1207  --> EC_1216 : inv [clock] => [clock<=0, R7_x_resp<=60, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1207  --> EC_1216 : inv [clock] => [R7_x_resp<=60, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1216 , H : 232 , step : 0 >" as EC_1216 #Orange
 EC_1216 : DBM: R7_x_resp=60, R3_x_resp=360, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=360, clock-R3_x_resp<=-360,
-EC_1216  --> EC_1217 : inv [clock] => [clock<=0, R7_x_resp<=60, True, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_1216  --> EC_1217 : inv [clock] => [R7_x_resp<=60, clock<=0, True, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 1217 , H : 233 , step : 296 >" as EC_1217 #LightBlue
 EC_1217 : DBM: R7_x_resp=60, R3_x_resp=360, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=360, clock-R3_x_resp<=-360,
@@ -3688,11 +3688,11 @@ EC_1220  --> EC_1222 : inv [R7_x_resp] => [R7_x_resp<=60, True, True, True, True
 
 state "EC< id : 1222 , H : 236 , step : 299 >" as EC_1222 #LightBlue
 EC_1222 : DBM: R7_x_resp=60, R3_x_resp=420, clock=60, R7_x_resp-R3_x_resp<=-360,\l   R3_x_resp-R7_x_resp<=360, R7_x_resp=clock, R3_x_resp-clock<=360,\l   clock-R3_x_resp<=-360,
-EC_1222  --> EC_1231 : inv [clock] => [clock<=0, R7_x_resp<=60, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
+EC_1222  --> EC_1231 : inv [clock] => [R7_x_resp<=60, clock<=0, True, True, True, True, True, True]\lact [True] / META:TIME_ELAPSE
 
 state "EC< id : 1231 , H : 237 , step : 0 >" as EC_1231 #Orange
 EC_1231 : DBM: R7_x_resp=60, R3_x_resp=420, clock<=0, R7_x_resp-R3_x_resp<=-360,\l   R3_x_resp-R7_x_resp<=360, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=420, clock-R3_x_resp<=-420,
-EC_1231  --> EC_1232 : inv [clock] => [clock<=0, R7_x_resp<=60, True, True, True, True, True, True]\lact [clock==0] / alert the emergency center
+EC_1231  --> EC_1232 : inv [clock] => [R7_x_resp<=60, clock<=0, True, True, True, True, True, True]\lact [clock==0] / alert the emergency center
 
 state "EC< id : 1232 , H : 238 , step : 300 >" as EC_1232 #LightBlue
 EC_1232 : DBM: R7_x_resp=60, R3_x_resp=420, clock<=0, R7_x_resp-R3_x_resp<=-360,\l   R3_x_resp-R7_x_resp<=360, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=420, clock-R3_x_resp<=-420,
@@ -3716,7 +3716,7 @@ EC_1199  --> EC_1201 : inv [clock] => [clock<=0, R3_x_resp<=300, R7_x_resp<=60, 
 
 state "EC< id : 1201 , H : 228 , step : 0 >" as EC_1201 #LightBlue
 EC_1201 : DBM: R7_x_resp<=0, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-300,\l   R3_x_resp-R7_x_resp<=300, R7_x_resp=clock, R3_x_resp-clock<=300,\l   clock-R3_x_resp<=-300,
-EC_1138  --> EC_1141 : inv [clock] => [R3_x_resp<=300, clock<=0, R7_x_resp<=60, True, True, True, True, True]\lact [R3_x_resp==300] / deadline at 300
+EC_1138  --> EC_1141 : inv [clock] => [R3_x_resp<=300, R7_x_resp<=60, clock<=0, True, True, True, True, True]\lact [R3_x_resp==300] / deadline at 300
 
 state "EC< id : 1141 , H : 223 , step : 0 >" as EC_1141 #LightBlue
 EC_1141 : DBM: R7_x_resp=60, R3_x_resp=300, clock<=0, R7_x_resp-R3_x_resp<=-240,\l   R3_x_resp-R7_x_resp<=240, R7_x_resp-clock<=60,\l   clock-R7_x_resp<=-60, R3_x_resp-clock<=300, clock-R3_x_resp<=-300,
