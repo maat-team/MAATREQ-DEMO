@@ -28,6 +28,12 @@
 
 ## Requirement design 
 
+<style>
+	.reqDesign tr:nth-child(7) { background: grey; }
+</style>
+
+<div class="reqDesign">
+
 | Req ID | Statement |
 | :---: | :--- |
 |R0| **the** system **shall** **init**|
@@ -36,11 +42,12 @@
 |R3| **upon** tone emission, <br/>**the** system **shall** **start time period** 300s|
 |R4| **inside time period** 300s [ **scope** ] ( R3 ) **when** the alarm is disarmed, <br/>**the** system **shall** turn off the tone immediately [ **goto** ] ( R1 )|
 |R5| **inside time period** 300s [**scope**] ( R3 ) **at end time period** 300s [ **scope** ] ( R3 ), <br/>**the** system **shall** turn off the tone **immediately**|
-|R6| **inside time period** 300s [**scope**] ( R3 ) **when** the alarm is disarmed **upon** turning off the tone [ **ref** ] ( R5 ), <br/>**the** system shall **donothing** [ **goto** ] ( R1 )|
+|~~R6~~ | ~~**inside time period** 300s [**scope**] ( R3 ) **when** the alarm is disarmed **upon** turning off the tone [ **ref** ] ( R5 ), <br/>**the** system shall **donothing** [ **goto** ] ( R1 )~~ |
 |R7| **upon** tone emission, <br/>**the** system **shall** **start time period** 60s| 
 |R8| **inside time period** 60s [ **scope** ] ( R7 ) **when** the alarm is disarmed, <br/>**the** system **shall** **donothing**|  
 |R9| **inside time period** 60s [**scope**] ( R7 ) **at end time period** 60s [ **scope** ] ( R7 ), <br/>**the** system **shall** alert the emergency center [ **goto** ] ( R7 )|
 
+</div>
 
 [Outline](#outline)
 
@@ -114,26 +121,26 @@ N.B. By convention, the elements in square brackets [**goto**], [**resume**], [*
 
 #### Dependency Matrix 
 
-<head>
-	<style>
-		table,
-		thead,
-		th,
-		td {
-			padding: 10px;
-			border: 1px solid black;
-			border-collapse: collapse;
-		}
-		th {
-			border: 1px solid;
-			text-align: center;
-		}
-		td:nth-child(1) {
-			border: 1px solid;
-			font-weight:bold;
-		}
-	</style>
-</head>
+<style>
+	.depMatrix table,
+	thead,
+	th,
+	td {
+		padding: 10px;
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+	.depMatrix th {
+		border: 1px solid;
+		text-align: center;
+	}
+	.depMatrix td:nth-child(1) {
+		border: 1px solid;
+		font-weight:bold;
+	}
+</style>
+
+<div class="depMatrix">
 
 | Req ID |R0|R1|R2|R3|R4|R5|R7|R8|R9|
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
@@ -147,6 +154,7 @@ N.B. By convention, the elements in square brackets [**goto**], [**resume**], [*
 | R8 | | | | | | |&#8911; scope | = | |
 | R9 | | | | | | |&#8911; scope<br/>&#8615; **deadline**<br/>&#8624; goto | | = |
 
+</div>
 
 [Outline](#outline)
 
