@@ -37,7 +37,7 @@ Analysis based on clocked process algebra models
 ## MAAT REQ approach <a name="workflow"></a>
 
 <p align="center">
-          <img width="888" height="500" src="demo/powerpoint/demo_maat_workflow.png">
+          <img width="888" height="500" src="demo/powerpoint/demo_maat_workflow2.png">
 </p>
 
 
