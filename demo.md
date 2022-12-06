@@ -258,6 +258,66 @@ cd C:/demo/
 
 ## Analyse Clocked Process Algebra and Requirements Quality Review <a name="analysis"></a>
 
+
+:robot: **DEMO** 
+```sh
+> maatRun C:/demo/ex_alarm_system_v01.req coverage 32
+```
+### Action or Events to cover
+
+| Req ID | Event | Action
+| :---: | :--- | :--- |
+|R0| | init |
+|R1| the set button is pressed | activate the alarm |
+|R2| motion is detected | emit a tone |
+|R3|  | *[hidden PA action](start time period 300s)* |
+|R4| the alarm is disarmed | turn off the tone |
+|R5| at end time period 300s | turn off the tone |
+|R6| the alarm is disarmed | |
+|R7| | *[hidden PA action](start time period 60s)* | 
+|R8| the alarm is disarmed | |  
+|R9| at end time period 60s | alert the emergency center|
+
+There are 10 labels on the process algebra to cover.
+
+
+[Outline](#outline)
+
+
+### Evaluation Reporting
+
+As we can see in the following evaluation report, 
+all 10 labels are covered after 29 evalauation steps in BFS strategy.
+
+```sh
+*****************************************
+************ COVERAGE REPORT ************
+*****************************************
+Coverage : 10 / 10
+*****************************************
+************** EVAL REPORT **************
+*****************************************
+Strategy   : BFS
+Redundancy : SEMANTIC_SUBSET
+Step count : 29 / max: 32
+Height max : 31
+Redundancy count : 1
+Deadlock   count : 0
+Unsatisfiable Invariant count : 0
+Unsatisfiable Guard     count : 9
+```
+
+### Coverage Behaviors 
+
+<!--
+![The coverage behaviors](/demo/examples/alarm_system/output/alarm_system_paths.svg)
+-->
+
+<p align="center">
+          <img width="500" height="1000" src="/demo/examples/alarm_system/output/alarm_system_paths.svg">
+</p>
+
+
 :robot: **DEMO** 
 ```sh
 > maatRun C:/demo/ex_alarm_system_v01.req explore 25
