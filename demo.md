@@ -142,14 +142,14 @@ immediately = within 0 to 0
 
 ### Target Clocked Process Algbera
 
-Clocked  Processes are defined by the following syntax :
+Clocked Processes are defined by the following syntax :
 
 $$ 
 P \quad::=\quad \\{x:=0\\}\_{ x \in R } \\, \psi \\, \triangleright +\_{i\in I} (\phi_i,a_i).P_i \quad|\quad P\\, |\\!\\{A\\}\\!| \\,P  \quad|\quad free( P ) \quad|\quad K
 $$
 
 <div align="center">
-          
+                    
 | process syntax | description |
 | --- | --- |
 | $$(\phi_i,a_i).P_i$$ | prefix process performs action $a_i$ <br/> guarded by clock constraint $\phi_i$ <br/> and then behaves like process $P_i$|
@@ -159,6 +159,28 @@ $$
 | $$K$$ | $K$ calls a process definition of the form $K = P$<br/> where $K$ is a unique process identifier <br/> a specification consists of a main process <br/> and a collection of process definitions |
 
 </div>
+
+ Example processes of the Alarm System :
+
+$AlarmSystem =$   //timed with clock x  </br>
+ $\quad\\{\\}\top\triangleright ( \top, set\\\_button\\\_is\\\_pressed).$ </br>
+ $\quad\\{x:=0\\} x\leq 60 \triangleright (x=60,activate\\_alarm).$ </br> 
+ $\quad\\{\\}\top  \triangleright  (\top,motion\\_detected).$</br>	
+ $\quad\\{x:=0\\}x \leq 0  \triangleright  (\top,emit\\_tone).($</br>
+ $\quad\quad\\{x:=0\\}x \leq 300  \triangleright($</br>
+   $\quad\quad\quad(\top,alarm\\_is\\_disarmed).$ </br>
+   $\quad\quad\quad\\{x:=0\\}x \leq 0 \triangleright   (\top,tone\\_off).AlarmSystem$ </br>
+ $\quad\quad+$   //choice op.</br>
+   $\quad\quad\quad(x=300,tone\\_off).$ </br>
+   $\quad\quad\quad\\{\\}\top \triangleright   (\top,alarm\\_is\\_disarmed).AlarmSystem)$ </br>
+ $\quad\\|\\!\\{alarm\\_is\\_desarmed\\}\\!\\|$ //parallel op. </br>
+   $\quad\quad\quad HandleSecurity )$</br>
+
+$HandleSecurity$ =   //timed with clock y </br>
+ $\quad\\{y:=0\\}y \leq 60 \triangleright   ($ </br>
+  $\quad\quad(\top,alarm\\_is\\_disarmed).0$ // 0 as inactive proc. </br>
+ $\quad+$   //choice op.</br>
+  $\quad\quad(y=60,alert\\_emergency\\_center).HandleSecurity )$</br>
           
 :robot: **DEMO** 
 ```sh
