@@ -263,7 +263,7 @@ cd C:/demo/
 ```sh
 > maatRun C:/demo/ex_alarm_system_v01.req coverage 32
 ```
-### Action or Events to cover
+### action or events to cover
 
 | Req ID | Event | Action
 | :---: | :--- | :--- |
@@ -284,10 +284,9 @@ There are 10 labels on the process algebra to cover.
 [Outline](#outline)
 
 
-### Evaluation Reporting
+### evaluation reporting
 
-As we can see in the following evaluation report, 
-all 10 labels are covered after 29 evalauation steps in BFS strategy.
+All 10 labels are covered after 29 evalauation steps in BFS strategy.
 
 ```sh
 *****************************************
@@ -307,7 +306,7 @@ Unsatisfiable Invariant count : 0
 Unsatisfiable Guard     count : 9
 ```
 
-### Coverage Behaviors 
+### coverage behaviors
 
 <!--
 ![The coverage behaviors](/demo/examples/alarm_system/output/alarm_system_paths.svg)
@@ -331,6 +330,50 @@ Unsatisfiable Guard     count : 9
 
 [Outline](#outline)
 
+### consistency analysis
+
+<div class="reqDesign">
+
+| Req ID | Statement |
+| :---: | :--- |
+|R0| **the** system **shall** **init**|
+|R1| **when** the set button is pressed **upon** **init**, <br/>**the** system **shall** activate the alarm **immediately after** 60s|
+|R2| **when** motion is detected **upon** the alarm activation, <br/>**the** system **shall** emit a tone **immediately**|
+|R3| **upon** tone emission, <br/>**the** system **shall** **start time period** 300s|
+|R4| **inside time period** 300s [ **scope** ] ( R3 ) **when** the alarm is disarmed, <br/>**the** system **shall** turn off the tone immediately [ **goto** ] ( R1 )|
+|R5| **inside time period** 300s [**scope**] ( R3 ) **at end time period** 300s [ **scope** ] ( R3 ), <br/>**the** system **shall** turn off the tone **immediately**|
+|~~R6~~ | ~~**inside time period** 300s [**scope**] ( R3 ) **when** the alarm is disarmed **upon** turning off the tone [ **ref** ] ( R5 ), <br/>**the** system shall **donothing** [ **goto** ] ( R1 )~~ |
+|R7| **upon** tone emission, <br/>**the** system **shall** **start time period** 60s| 
+|R8| **inside time period** 60s [ **scope** ] ( R7 ) **when** the alarm is disarmed, <br/>**the** system **shall** **donothing**|  
+|R9| **inside time period** 60s [**scope**] ( R7 ) **at end time period** 60s [ **scope** ] ( R7 ), <br/>**the** system **shall** alert the emergency center [ **goto** ] ( R7 )|
+
+</div>
+
+:robot: **DEMO** 
+```sh
+> maatRun C:/demo/ex_alarm_system_v02_without_R6.req explore 300
+```
+
+```sh
+*****************************************
+************** EVAL REPORT **************
+*****************************************
+Strategy   : DFS
+Redundancy : SEMANTIC_SUBSET
+Step count : 300 / max: 300
+Height max : 241
+Redundancy count : 57
+Deadlock   count : 4
+None Sync Action : 4
+Unsatisfiable Invariant count : 0
+Unsatisfiable Guard     count : 31
+```
+
+### deadlock behaviors
+
+![The coverage behaviors](/demo/examples/alarm_system-faulty/output/alarm_system_without_R6_paths_deadlock.svg)
+
+[Outline](#outline)
 
 <!--
 
