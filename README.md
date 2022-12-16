@@ -6,3 +6,8 @@ The objective of the demo is to present the capabilities of the MAAT REQ Proof O
 
 [read more here](./demo.md)
 
+contributors : </br>
+boutheina.bannour@cea.fr </br>
+arnault.lapitre@cea.fr </br>
+patrick.tessier@cea.fr
+
